@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           color: Colors.transparent,
         ),
       ),
-      routerConfig: AppRouter().router,
+      routerConfig: AppRouter().router, //router
     );
   }
 }
