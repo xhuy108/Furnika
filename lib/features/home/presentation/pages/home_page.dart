@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furnika/core/common/widgets/custom_text_field.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -35,6 +36,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const CustomTextField(
+              hintText: 'new',
             ),
           ],
         ),
