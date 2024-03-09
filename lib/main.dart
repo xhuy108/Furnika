@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:furnika/config/routes/router.dart';
+import 'package:furnika/config/themes/theme.dart';
 import 'package:furnika/core/utils/injection_container.dart';
-
-import 'config/themes/app_color.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,15 +19,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColor.background,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          color: Colors.transparent,
-        ),
-      ),
+      theme: AppTheme.lightThemeMode,
       routerConfig: AppRouter().router, //router
     );
   }
 }
+
+// ThemeData(
+//         scaffoldBackgroundColor: AppPalette.background,
+//         visualDensity: VisualDensity.adaptivePlatformDensity,
+//         useMaterial3: true,
+//         appBarTheme: const AppBarTheme(
+//           color: Colors.transparent,
+//         ),
+//       )
