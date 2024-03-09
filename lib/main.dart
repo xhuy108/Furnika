@@ -6,6 +6,7 @@ import 'package:furnika/core/utils/injection_container.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await init();
 
   runApp(const MyApp());

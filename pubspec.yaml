@@ -46,6 +46,8 @@ dependencies:
   flutter_bloc: ^8.1.4
   badges: ^3.1.2
   gap: ^3.0.1
+  image_picker: ^1.0.7
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
