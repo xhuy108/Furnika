@@ -4,8 +4,9 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const cors = require("cors");
 
-const AppError = require("./utils/appError");
+const AppError = require("./src/utils/appError");
 // const globalErrorHandler = require("./controllers/errorController");
 
 // const userRouter = require("./routes/userRoute");
@@ -31,6 +32,8 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.use(mongoSanitize());
 
