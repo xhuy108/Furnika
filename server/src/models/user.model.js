@@ -41,8 +41,22 @@ const userSchema = mongoose.Schema(
     birthday: String,
     wishlist: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: "Product",
+        productId: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Product",
+        },
+        productName: {
+          type: String,
+          required: true,
+        },
+        productImage: {
+          type: String,
+          required: true,
+        },
+        productPrice: {
+          type: Number,
+          required: true,
+        },
       },
     ],
     avatar: {
@@ -68,8 +82,10 @@ const userSchema = mongoose.Schema(
       default: "customer",
     },
   },
-  { timestamps: true }
+  { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
+
+userSchema.index({ email: 1 });
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
