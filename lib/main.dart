@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightThemeMode,
       routerConfig: AppRouter().router, //router
+      
     );
   }
 }
