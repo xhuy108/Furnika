@@ -25,6 +25,7 @@ class CustomTextField extends StatelessWidget {
         obscureText: isObscureText,
         decoration: InputDecoration(
           hintText: hintText,
+          hintStyle: TextStyle(fontSize: 16),
         ));
   }
 }

@@ -15,8 +15,8 @@ class AppTheme {
     scaffoldBackgroundColor: AppPalette.background,
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 16,
+        horizontal: 18,
+        vertical: 12,
       ),
       fillColor: AppPalette.textFieldBackground,
       filled: true,
