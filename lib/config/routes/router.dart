@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnika/features/auth/presentation/pages/login_page.dart';
+import 'package:furnika/features/auth/presentation/pages/sigup_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:go_router/go_router.dart';
@@ -18,10 +19,10 @@ class AppRouter {
     //         : '/application'),
     routes: [
       GoRoute(
-        name: RouteNames.login,
+        name: RouteNames.signUp,
         path: '/',
         pageBuilder: (context, state) => const MaterialPage(
-          child: LoginPage(),
+          child: SignUpPage(),
         ),
       ),
       // GoRoute(
