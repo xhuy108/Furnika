@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:furnika/config/routes/router.dart';
 import 'package:furnika/config/themes/theme.dart';
@@ -18,20 +19,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightThemeMode,
-      routerConfig: AppRouter().router, //router
-      
+    return ScreenUtilInit(
+      designSize: const Size(360, 800),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => child!,
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightThemeMode,
+        routerConfig: AppRouter().router, //router
+      ),
     );
   }
 }
-
-// ThemeData(
-//         scaffoldBackgroundColor: AppPalette.background,
-//         visualDensity: VisualDensity.adaptivePlatformDensity,
-//         useMaterial3: true,
-//         appBarTheme: const AppBarTheme(
-//           color: Colors.transparent,
-//         ),
-//       )
