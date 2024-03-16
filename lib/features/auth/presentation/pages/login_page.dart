@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   'Forgot password?',
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.w400,
                       color: AppPalette.primary,
                       decoration: TextDecoration.underline),
@@ -127,17 +127,66 @@ class _LoginPageState extends State<LoginPage> {
               const Gap(
                 50,
               ),
-              IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset(MediaResource.googleIcon),
-                style: IconButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: BorderSide(
-                        color: AppPalette.textSecondary.withOpacity(0.25)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: SvgPicture.asset(MediaResource.googleIcon),
+                    style: IconButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: BorderSide(
+                            color: AppPalette.textSecondary.withOpacity(0.25)),
+                      ),
+                    ),
                   ),
-                ),
-              )
+                  const Gap(
+                    15,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: SvgPicture.asset(MediaResource.facebookIcon),
+                    style: IconButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: BorderSide(
+                            color: AppPalette.textSecondary.withOpacity(0.25)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Gap(
+                40,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don’t have an account?',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: AppPalette.textPrimary,
+                    ),
+                  ),
+                  const Gap(
+                    6,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: AppPalette.primary,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
