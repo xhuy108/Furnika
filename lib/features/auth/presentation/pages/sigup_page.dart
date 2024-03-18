@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resoures.dart';
 import 'package:furnika/core/common/widgets/custom_text_field.dart';
+import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
 import 'package:gap/gap.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -25,79 +27,58 @@ class _SignUpPageState extends State<SignUpPage> {
               Text(
                 'Create Account',
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 23.sp,
                   fontWeight: FontWeight.w400,
                   color: AppPalette.textPrimary,
                 ),
               ),
-              const SizedBox(
-                height: 12,
+              SizedBox(
+                height: 12.h,
               ),
               Text(
                 'Fill your information below or register \n with your social account',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: AppPalette.textSecondary,
                 ),
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: 40.h,
               ),
-              Text(
-                'Name',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: AppPalette.textPrimary,
-                ),
-              ),
-              const SizedBox(
-                height: 7,
+              AuthFieldLabel(label: 'Name'),
+              SizedBox(
+                height: 7.h,
               ),
               CustomTextField(
                 hintText: 'Name',
                 keyboardType: TextInputType.emailAddress,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
-              Text(
-                'Email',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: AppPalette.textPrimary,
-                ),
-              ),
-              const SizedBox(
-                height: 7,
+              AuthFieldLabel(label: 'Email'),
+              SizedBox(
+                height: 7.h,
               ),
               CustomTextField(
                 hintText: 'Email',
                 keyboardType: TextInputType.emailAddress,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
-              Text(
-                'Password',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: AppPalette.textPrimary,
-                ),
-              ),
-              const SizedBox(
-                height: 7,
+              AuthFieldLabel(label: 'Password'),
+               SizedBox(
+                height: 7.h,
               ),
               CustomTextField(
                 hintText: 'Password',
                 keyboardType: TextInputType.emailAddress,
               ),
-              const Gap(
-                    10,
+              Gap(
+                    10.h,
                   ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -105,20 +86,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'Agree with',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: AppPalette.textPrimary,
                     ),
                   ),
-                  const Gap(
-                    6,
+                   Gap(
+                    6.h,
                   ),
                   InkWell(
                     onTap: () {},
                     child: Text(
                       'Terms & Condition',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: AppPalette.primary,
                         decoration: TextDecoration.underline,
@@ -127,11 +108,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: 40.h,
               ),
               Container(
-                height: 50,
+                height: 50.h,
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {},
@@ -141,26 +122,26 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Text(
                     'Sign Up',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w600,
                       color: AppPalette.background,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 60,
+              SizedBox(
+                height: 60.h,
               ),
               Text(
                 'Or sign up with',
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: AppPalette.textSecondary,
                 ),
               ),
-              const Gap(
-                50,
+               Gap(
+                50.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -192,8 +173,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ],
               ),
-              const Gap(
-                40,
+              Gap(
+                40.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -201,20 +182,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'Already have an account?',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: AppPalette.textPrimary,
                     ),
                   ),
-                  const Gap(
-                    6,
+                   Gap(
+                    6.h,
                   ),
                   InkWell(
                     onTap: () {},
                     child: Text(
                       'Sign In',
                       style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                           color: AppPalette.primary,
                           ),
