@@ -3,6 +3,8 @@ import 'package:furnika/features/auth/presentation/pages/login_page.dart';
 import 'package:furnika/features/auth/presentation/pages/sigup_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
+import 'package:furnika/features/profile/complete_location.dart';
+import 'package:furnika/features/profile/complete_profile.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,10 +21,10 @@ class AppRouter {
     //         : '/application'),
     routes: [
       GoRoute(
-        name: RouteNames.signUp,
+        name: RouteNames.home,
         path: '/',
         pageBuilder: (context, state) => const MaterialPage(
-          child: SignUpPage(),
+          child: MyHomePage(title: 'no'),
         ),
       ),
       // GoRoute(
