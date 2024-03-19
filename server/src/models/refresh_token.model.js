@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
 
-const tokenSchema = new mongoose.Schema({
-  userId: {
+const refreshTokenSchema = new mongoose.Schema({
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "User",
   },
-  refreshToken: {
+  token: {
     type: String,
     required: true,
   },
-  accessToken: String,
   createdAt: {
     type: Date,
     default: Date.now,
@@ -18,6 +17,6 @@ const tokenSchema = new mongoose.Schema({
   },
 });
 
-const Token = mongoose.model("Token", tokenSchema);
+const RefreshToken = mongoose.model("RefreshToken", refreshTokenSchema);
 
-module.exports = Token;
+module.exports = RefreshToken;

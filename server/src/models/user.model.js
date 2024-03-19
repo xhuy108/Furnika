@@ -10,8 +10,9 @@ const userSchema = mongoose.Schema(
       trim: true,
       unique: [true, "Username already exists!"],
     },
-    phoneNumber: {
+    phone_number: {
       type: String,
+      unique: [true, "Phone number already exists!"],
     },
     email: {
       type: String,
@@ -21,10 +22,6 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, "Please provide a valid email!"],
     },
-    emailVerifiedAt: {
-      type: Date,
-      default: Date.now(),
-    },
     password: {
       type: String,
       required: [true, "Please provide a password!"],
@@ -32,13 +29,14 @@ const userSchema = mongoose.Schema(
       trim: true,
       select: false,
     },
-    passwordChangedAt: {
+    email_verified_token: String,
+    password_reset_token: String,
+    password_reset_expires: Date,
+    password_changed_at: {
       type: Date,
       default: Date.now(),
     },
-    passwordResetToken: String,
-    passwordResetExpires: Date,
-    birthday: String,
+    day_of_birth: String,
     wishlist: [
       {
         productId: {
@@ -66,14 +64,19 @@ const userSchema = mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ["MALE", "FEMALE"],
+      enum: ["male", "female"],
     },
-    activationOTP: {
+    activation_otp: {
       type: Number,
     },
-    isActive: {
+    verify: {
+      type: String,
+      enum: ["unverified", "verified", "banned"],
+      default: "unverified",
+    },
+    is_active: {
       type: Boolean,
-      default: false,
+      default: true,
       select: false,
     },
     role: {
