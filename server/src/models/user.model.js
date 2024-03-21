@@ -7,18 +7,22 @@ const userSchema = mongoose.Schema(
   {
     username: {
       type: String,
+      required: [true, "Please provide a username!"],
       trim: true,
       unique: [true, "Username already exists!"],
+      minLength: [3, "Username must be at least 3 characters!"],
+      maxLength: [100, "Username must be at most 100 characters!"],
     },
     phone_number: {
       type: String,
-      unique: [true, "Phone number already exists!"],
+      trim: true,
+      unique: false,
     },
     email: {
       type: String,
       required: [true, "Please provide an email!"],
       trim: true,
-      unique: true,
+      unique: [true, "Email already exists!"],
       lowercase: true,
       validate: [validator.isEmail, "Please provide a valid email!"],
     },

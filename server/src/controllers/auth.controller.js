@@ -6,21 +6,42 @@ const catchAsync = require("./../utils/catchAsync");
 const sendEmail = require("./../utils/email");
 const crypto = require("crypto");
 
-const signToken = (id) => {
-  return jwt.sign({ id: id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
+const TokenType = Object.freeze({
+  AccessToken: 0,
+  RefreshToken: 1,
+  EmailVerifiedToken: 2,
+  ForgotPasswordToken: 3,
+});
+
+const signAccessToken = (id) => {
+  return jwt.sign(
+    { id: id, token_type: TokenType.AccessToken },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN,
+    }
+  );
+};
+
+const signRefreshToken = (id) => {
+  return jwt.sign(
+    { id: id, token_type: TokenType.RefreshToken },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN,
+    }
+  );
 };
 
 const createSendToken = (user, statusCode, res) => {
-  const token = signToken(user._id);
+  const access_token = signAccessToken(user._id);
+  const refresh_token = signRefreshToken(user._id);
 
   res.status(statusCode).json({
     status: "success",
-    token,
-    data: {
-      data: user,
-    },
+    access_token,
+    refresh_token,
+    data: user,
   });
 };
 
