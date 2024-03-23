@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resoures.dart';
-import 'package:furnika/core/common/widgets/custom_text_field.dart';
+import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
 import 'package:gap/gap.dart';
 
@@ -77,14 +77,14 @@ class _CompletePro5PageState extends State<CompletePro5Page> {
                   Gap(40.h),
                   const AuthFieldLabel(label: 'Name'),
                   Gap(7.h),
-                  CustomTextField(
+                  AppTextField(
                     hintText: 'Name',
                     keyboardType: TextInputType.emailAddress,
                   ),
                   Gap(20.h),
                   const AuthFieldLabel(label: 'Phone Number'),
                   Gap(7.h),
-                  CustomTextField(
+                  AppTextField(
                     hintText: 'Phone Number',
                     keyboardType: TextInputType.visiblePassword,
                     isObscureText: true,
@@ -92,7 +92,7 @@ class _CompletePro5PageState extends State<CompletePro5Page> {
                   Gap(20.h),
                   const AuthFieldLabel(label: 'Gender'),
                   Gap(7.h),
-                  CustomTextField(
+                  AppTextField(
                     hintText: 'Gender',
                     keyboardType: TextInputType.visiblePassword,
                     isObscureText: true,

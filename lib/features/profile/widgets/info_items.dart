@@ -20,7 +20,7 @@ class InformationItem extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             width: 1.h,
-            color: AppPalette.containerStroke.withOpacity(0.25),
+            color: AppPalette.stroke.withOpacity(0.25),
           ),
         ),
       ),
