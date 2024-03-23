@@ -1,15 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:furnika/config/themes/app_palette.dart';
-import 'package:furnika/config/themes/media_resoures.dart';
+import 'package:furnika/config/themes/media_resources.dart';
+
+import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
+
 import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
 import 'package:furnika/features/auth/presentation/widgets/social_button.dart';
-import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -85,23 +86,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Gap(34.h),
-                    SizedBox(
-                      height: 46.h,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppPalette.primary,
-                        ),
-                        child: Text(
-                          'Sign In',
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppPalette.background,
-                          ),
-                        ),
-                      ),
+                    AppButton(
+                      height: 46.sp,
+                      title: 'Sign In',
+                      onTap: () {},
                     ),
                     Gap(60.h),
                     Text(
@@ -113,9 +101,18 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Gap(50.h),
-                    SocialButton(
-                      icon: SvgPicture.asset(MediaResource.googleIcon),
-                      onPressed: () {},
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SocialButton(
+                          icon: SvgPicture.asset(MediaResource.googleIcon),
+                          onPressed: () {},
+                        ),
+                        SocialButton(
+                          icon: SvgPicture.asset(MediaResource.facebookIcon),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
                   ],
                 ),

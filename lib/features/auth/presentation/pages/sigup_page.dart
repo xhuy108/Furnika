@@ -5,7 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
-import 'package:furnika/config/themes/media_resoures.dart';
+import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
 import 'package:furnika/features/auth/presentation/widgets/social_button.dart';
@@ -143,23 +144,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 40.h,
                     ),
-                    SizedBox(
-                      height: 50.h,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppPalette.primary,
-                        ),
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppPalette.background,
-                          ),
-                        ),
-                      ),
+                    AppButton(
+                      height: 46.h,
+                      title: 'Sign Up',
+                      onTap: () {},
                     ),
                     SizedBox(
                       height: 60.h,
