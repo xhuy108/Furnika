@@ -79,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     hintText: 'Search...',
                     keyboardType: TextInputType.emailAddress,
                   ),
+                  Gap(36.h),
                 ],
               ),
             ),

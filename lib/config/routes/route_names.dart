@@ -18,6 +18,8 @@ class RouteNames {
   static String orderHistory = 'orderHistory';
   static String review = 'review';
   static String completepro5 = 'completepro5';
-    static String completelocattion = 'completelocation';
+  static String completelocattion = 'completelocation';
+  static String yourprofile = 'yourprofile';
+
 
 }
