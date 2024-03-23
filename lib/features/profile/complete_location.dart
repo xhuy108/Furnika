@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
-import 'package:furnika/config/themes/media_resoures.dart';
+import 'package:furnika/config/themes/media_resources.dart';
 import 'package:gap/gap.dart';
 
 class CompleteLocationPage extends StatefulWidget {
-    const CompleteLocationPage({super.key});
+  const CompleteLocationPage({super.key});
   @override
   State<CompleteLocationPage> createState() => _CompleteLocationPageState();
-
 }
+
 class _CompleteLocationPageState extends State<CompleteLocationPage> {
   @override
   Widget build(BuildContext context) {
@@ -111,7 +111,6 @@ class _CompleteLocationPageState extends State<CompleteLocationPage> {
                     ),
                   ),
                   Gap(315.h),
-
                 ],
               ),
             ),
