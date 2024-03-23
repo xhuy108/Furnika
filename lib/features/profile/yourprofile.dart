@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
-import 'package:furnika/config/themes/media_resoures.dart';
+import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/features/profile/widgets/info_items.dart';
 import 'package:gap/gap.dart';
 
@@ -72,15 +72,24 @@ class _YourProfilePageState extends State<YourProfilePage> {
                   ),
                 ),
                 Gap(30.h),
-                InformationItem(content: 'Your Information', icon: MediaResource.userIcon),
-                InformationItem(content: 'Manage Address', icon: MediaResource.manageaddressIcon),
-                InformationItem(content: 'Payment Methods', icon: MediaResource.paymentmethodIcon),
-                InformationItem(content: 'My Orders', icon: MediaResource.myordersIcon),
-                InformationItem(content: 'My Coupons', icon: MediaResource.mycouponsIcon),
-                InformationItem(content: 'Settings', icon: MediaResource.settingsIcon),
-                InformationItem(content: 'Help Center', icon: MediaResource.helpcenterIcon),
-                InformationItem(content: 'Privacy Policy', icon: MediaResource.privacyIcon),
-
+                InformationItem(
+                    content: 'Your Information', icon: MediaResource.userIcon),
+                InformationItem(
+                    content: 'Manage Address',
+                    icon: MediaResource.manageaddressIcon),
+                InformationItem(
+                    content: 'Payment Methods',
+                    icon: MediaResource.paymentmethodIcon),
+                InformationItem(
+                    content: 'My Orders', icon: MediaResource.myordersIcon),
+                InformationItem(
+                    content: 'My Coupons', icon: MediaResource.mycouponsIcon),
+                InformationItem(
+                    content: 'Settings', icon: MediaResource.settingsIcon),
+                InformationItem(
+                    content: 'Help Center', icon: MediaResource.helpcenterIcon),
+                InformationItem(
+                    content: 'Privacy Policy', icon: MediaResource.privacyIcon),
               ]),
             ),
           ),
