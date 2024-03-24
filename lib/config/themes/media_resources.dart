@@ -26,4 +26,6 @@ class MediaResource {
 
   //IMAGE
   static const _baseImages = 'assets/images';
+
+  static const onBoardingBackground = '$_baseImages/onboarding.png';
 }

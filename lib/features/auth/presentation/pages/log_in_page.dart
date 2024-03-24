@@ -1,28 +1,30 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:furnika/config/routes/route_names.dart';
+import 'package:gap/gap.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
+
 import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
 import 'package:furnika/features/auth/presentation/widgets/social_button.dart';
-import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -31,138 +33,81 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 24,
-            ),
-            child: SingleChildScrollView(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 32.h,
+              ),
               child: Form(
                 key: _formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Create Account',
+                      'Sign In',
                       style: TextStyle(
                         fontSize: 23.sp,
                         fontWeight: FontWeight.w400,
                         color: AppPalette.textPrimary,
                       ),
                     ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
+                    Gap(12.h),
                     Text(
-                      'Fill your information below or register \n with your social account',
-                      textAlign: TextAlign.center,
+                      'Hi! Welcome back, you’ve been missed',
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: AppPalette.textSecondary,
                       ),
                     ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    const AuthFieldLabel(label: 'Name'),
-                    SizedBox(
-                      height: 7.h,
-                    ),
-                    AppTextField(
-                      hintText: 'Name',
-                      keyboardType: TextInputType.name,
-                      controller: _nameController,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    Gap(40.h),
                     const AuthFieldLabel(label: 'Email'),
-                    SizedBox(
-                      height: 7.h,
-                    ),
+                    Gap(7.h),
                     AppTextField(
+                      controller: _emailController,
                       hintText: 'Email',
                       keyboardType: TextInputType.emailAddress,
-                      controller: _emailController,
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    Gap(20.h),
                     const AuthFieldLabel(label: 'Password'),
-                    SizedBox(
-                      height: 7.h,
-                    ),
+                    Gap(7.h),
                     AppTextField(
+                      controller: _passwordController,
                       hintText: 'Password',
                       keyboardType: TextInputType.visiblePassword,
-                      controller: _passwordController,
-                      isObscureText: true,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    const AuthFieldLabel(label: 'Confirm Password'),
-                    SizedBox(
-                      height: 7.h,
-                    ),
-                    AppTextField(
-                      hintText: 'Confirm Password',
-                      keyboardType: TextInputType.visiblePassword,
-                      controller: _passwordController,
                       isObscureText: true,
                     ),
                     Gap(10.h),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Agree with ',
-                          style: GoogleFonts.lexend(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppPalette.textPrimary,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: 'Terms & Condition',
-                              style: GoogleFonts.lexend(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppPalette.primary,
-                                decoration: TextDecoration.underline,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  debugPrint('Terms & Condition');
-                                },
-                            ),
-                          ],
+                      child: InkWell(
+                        onTap: () {},
+                        child: Text(
+                          'Forgot password?',
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppPalette.primary,
+                              decoration: TextDecoration.underline),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
+                    Gap(34.h),
                     AppButton(
-                      height: 46.h,
-                      title: 'Sign Up',
+                      height: 46.sp,
+                      title: 'Log In',
                       onTap: () {},
                     ),
-                    SizedBox(
-                      height: 60.h,
-                    ),
+                    Gap(60.h),
                     Text(
-                      'Or sign up with',
+                      'Or sign in with',
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: AppPalette.textSecondary,
                       ),
                     ),
-                    Gap(
-                      50.h,
-                    ),
+                    Gap(50.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -176,12 +121,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ],
                     ),
-                    Gap(
-                      40.h,
-                    ),
+                    Gap(50.h),
                     RichText(
                       text: TextSpan(
-                        text: 'Already have an account? ',
+                        text: 'Don\'t have an account? ',
                         style: GoogleFonts.lexend(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
@@ -189,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         children: [
                           TextSpan(
-                            text: 'Sign In',
+                            text: 'Sign Up',
                             style: GoogleFonts.lexend(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -198,7 +141,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                debugPrint('Sign In');
+                                context.pushNamed(RouteNames.signUp);
                               },
                           ),
                         ],

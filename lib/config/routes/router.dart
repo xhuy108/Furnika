@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:furnika/features/auth/presentation/pages/login_page.dart';
-import 'package:furnika/features/auth/presentation/pages/sigup_page.dart';
+import 'package:furnika/features/auth/presentation/pages/log_in_page.dart';
+import 'package:furnika/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:furnika/features/profile/complete_location.dart';
@@ -23,34 +23,34 @@ class AppRouter {
     //         : '/application'),
     routes: [
       GoRoute(
-        name: RouteNames.settings,
+        name: RouteNames.onBoarding,
         path: '/',
         pageBuilder: (context, state) => const MaterialPage(
-          child: SignUpPage(),
+          child: OnboardingPage(),
         ),
       ),
-      // GoRoute(
-      //   name: RouteNames.onBoarding,
-      //   path: '/onBoarding',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: const MainOnboardScreen(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
-      // GoRoute(
-      //   name: RouteNames.login,
-      //   path: '/logIn',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: const LoginScreen(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.signUp,
+        path: '/signUp',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const SignUpPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.login,
+        path: '/logIn',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const LoginPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       // GoRoute(
       //   name: RouteNames.signUp,
       //   path: '/signUp',
