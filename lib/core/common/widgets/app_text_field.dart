@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+class AppTextField extends StatelessWidget {
+  const AppTextField({
     super.key,
     this.controller,
     this.keyboardType,

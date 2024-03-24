@@ -26,7 +26,7 @@ class AppRouter {
         name: RouteNames.settings,
         path: '/',
         pageBuilder: (context, state) => const MaterialPage(
-          child: SettingsPage(),
+          child: SignUpPage(),
         ),
       ),
       // GoRoute(
