@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
@@ -38,39 +39,72 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           Gap(6.h),
-                          Text(
-                            'Ba Tri, Ben Tre',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppPalette.textPrimary,
-                            ),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                MediaResource.locationIcon,
+                                width: 15.h,
+                                height: 15.w,
+                              ),
+                              Gap(6.w),
+                              Text(
+                                'Ba Tri, Ben Tre',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppPalette.textPrimary,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                       Spacer(),
-                      SizedBox(
-                        width: 100, // Set the width of the SizedBox
-                        height: 100, // Set the height of the SizedBox
-
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(MediaResource.bellIcon),
-                          style: IconButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          MediaResource.bellIcon,
+                          width: 20.w,
+                          height: 20.h,
+                        ),
+                        style: IconButton.styleFrom(
+                          backgroundColor:
+                              AppPalette.secondary.withOpacity(0.9),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.r),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  AppTextField(
-                    hintText: 'Search...',
-                    keyboardType: TextInputType.emailAddress,
+                  Gap(21.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppTextField(
+                          hintText: 'Search...',
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                      ),
+                      Gap(10.w),
+                      IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          MediaResource.filterIcon,
+                          width: 14.w,
+                          height: 14.h,
+                        ),
+                        style: IconButton.styleFrom(
+                          backgroundColor:
+                              AppPalette.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Gap(36.h),
-                  
                 ],
               ),
             ),

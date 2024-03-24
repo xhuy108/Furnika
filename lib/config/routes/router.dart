@@ -26,7 +26,7 @@ class AppRouter {
         name: RouteNames.onBoarding,
         path: '/',
         pageBuilder: (context, state) => const MaterialPage(
-          child: OnboardingPage(),
+          child: MyHomePage(),
         ),
       ),
       GoRoute(

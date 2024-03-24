@@ -24,7 +24,9 @@ class AppTextField extends StatelessWidget {
       keyboardType: keyboardType,
       validator: validator,
       obscureText: isObscureText,
+      
       decoration: InputDecoration(
+        
         contentPadding: EdgeInsets.symmetric(
           horizontal: 18.w,
           vertical: 12.h,
