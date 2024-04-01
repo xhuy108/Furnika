@@ -10,7 +10,6 @@ abstract interface class AuthRemoteDataSource {
     required String email,
     required String password,
     required String username,
-    required String phoneNumber,
   });
 
   // Future<void> logInWithGoogle();
@@ -52,7 +51,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String email,
     required String password,
     required String username,
-    required String phoneNumber,
   }) async {
     return const UserModel(
       id: '1',

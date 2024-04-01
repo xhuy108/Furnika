@@ -70,6 +70,14 @@ const userSchema = mongoose.Schema(
       type: String,
       enum: ["male", "female"],
     },
+    addresses: [
+      {
+        street: String,
+        district: String,
+        city: String,
+        country: String,
+      },
+    ],
     activation_otp: {
       type: Number,
     },

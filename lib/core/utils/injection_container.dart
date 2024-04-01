@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -232,6 +233,7 @@ Future<void> init() async {
   //! External
   final preferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => preferences);
+  sl.registerLazySingleton(() => Dio());
   // sl.registerLazySingleton(() => InternetConnectionChecker());
   // sl.registerLazySingleton(() => http.Client());
 }
