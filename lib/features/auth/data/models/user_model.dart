@@ -4,15 +4,18 @@ class UserModel extends User {
   const UserModel({
     required super.id,
     required super.userName,
-    required super.phoneNumber,
     required super.email,
+    super.phoneNumber,
+    super.avatar,
+    super.birthday,
+    super.gender,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'],
       userName: json['userName'],
-      phoneNumber: json['phoneNumber'],
+      phoneNumber: json['phoneNumber'] ?? '',
       email: json['email'],
     );
   }

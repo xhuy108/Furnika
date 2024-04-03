@@ -1,4 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:furnika/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
+import 'package:furnika/features/auth/domain/usecases/sign_up.dart';
+import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,27 +28,28 @@ Future<void> init() async {
   //   () => OnBoardingLocalDataSourceImpl(sl()),
   // );
 
-  // //! Features - Auth
-  // //Bloc
-  // sl.registerFactory(
-  //     () => AuthBloc(logInWithEmailAndPassword: sl(), signUp: sl()));
-  // // Use cases
-  // sl.registerLazySingleton(() => LogInWithEmailAndPassword(sl()));
-  // sl.registerLazySingleton(() => SignUp(sl()));
-  // // Repository
-  // sl.registerLazySingleton<AuthRepository>(
-  //   () => AuthRepositoryImpl(
-  //     remoteDataSource: sl(),
-  //     localDataSource: sl(),
-  //     networkInfo: sl(),
-  //   ),
-  // );
-  // // Data sources
-  // sl.registerLazySingleton<AuthRemoteDataSource>(
-  //   () => AuthRemoteDataSourceImpl(client: sl()),
-  // );
-  // sl.registerLazySingleton<AuthLocalDataSource>(
-  //     () => AuthLocalDataSourceImpl(sl()));
+  //! Features - Auth
+  // Data sources
+  sl.registerFactory<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(sl()),
+  );
+
+  // Repository
+  sl.registerFactory<AuthRepository>(
+    () => AuthRepositoryImpl(
+      remoteDataSource: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerFactory(() => SignUp(sl()));
+
+  //Bloc
+  sl.registerLazySingleton(
+    () => AuthBloc(
+      signUp: sl(),
+    ),
+  );
 
   // //! Features - Home
   // // Cubit

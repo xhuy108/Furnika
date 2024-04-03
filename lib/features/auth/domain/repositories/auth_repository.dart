@@ -9,25 +9,13 @@ abstract interface class AuthRepository {
     required String password,
   });
 
-  // ResultFuture<void> logInWithGoogle();
-
-  // ResultFuture<void> logInWithFacebook();
-
   ResultFuture<User> signUp({
     required String email,
     required String password,
     required String username,
-    required String phoneNumber,
   });
 
   // ResultFuture<void> forgotPassword(String email);
 
-  // ResultFuture<void> updateUser({
-  //   required UserInfo userInfo,
-  //   dynamic userData,
-  // });
-
   // ResultFuture<void> signOut();
-
-  // ResultFuture<String> getUser();
 }

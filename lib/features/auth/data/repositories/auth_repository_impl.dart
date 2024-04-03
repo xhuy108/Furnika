@@ -1,12 +1,17 @@
+import 'dart:html';
+
+import 'package:dartz/dartz.dart';
+import 'package:furnika/core/errors/exceptions.dart';
+import 'package:furnika/core/errors/failures.dart';
 import 'package:furnika/core/utils/typedefs.dart';
 import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:furnika/features/auth/domain/entitties/user.dart';
 import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  const AuthRepositoryImpl({required this.authRemoteDataSource});
+  const AuthRepositoryImpl({required this.remoteDataSource});
 
-  final AuthRemoteDataSource authRemoteDataSource;
+  final AuthRemoteDataSource remoteDataSource;
 
   @override
   ResultFuture<User> logInWithEmailAndPassword(
@@ -16,12 +21,21 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  ResultFuture<User> signUp(
-      {required String email,
-      required String password,
-      required String username,
-      required String phoneNumber}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  ResultFuture<User> signUp({
+    required String email,
+    required String password,
+    required String username,
+  }) async {
+    try {
+      final user = await remoteDataSource.signUp(
+        email: email,
+        password: password,
+        username: username,
+      );
+
+      return Right(user);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
   }
 }
