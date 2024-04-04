@@ -1,4 +1,4 @@
-import 'package:furnika/features/auth/domain/entitties/user.dart';
+import 'package:furnika/core/common/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({

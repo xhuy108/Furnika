@@ -5,7 +5,7 @@ import 'package:furnika/core/errors/exceptions.dart';
 import 'package:furnika/core/errors/failures.dart';
 import 'package:furnika/core/utils/typedefs.dart';
 import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:furnika/features/auth/domain/entitties/user.dart';
+import 'package:furnika/core/common/entities/user.dart';
 import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
