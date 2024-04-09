@@ -28,4 +28,22 @@ class UserModel extends User {
       'email': email,
     };
   }
+
+  UserModel copyWith({
+    String? id,
+    String? userName,
+    String? email,
+    String? phoneNumber,
+    String? avatar,
+    String? birthday,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      userName: userName ?? this.userName,
+      email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      avatar: avatar ?? this.avatar,
+      birthday: birthday ?? this.birthday,
+    );
+  }
 }

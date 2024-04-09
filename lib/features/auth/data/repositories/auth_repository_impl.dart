@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:dartz/dartz.dart';
 import 'package:furnika/core/errors/exceptions.dart';
 import 'package:furnika/core/errors/failures.dart';

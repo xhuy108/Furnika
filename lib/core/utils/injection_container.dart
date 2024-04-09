@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:furnika/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:furnika/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
@@ -48,6 +49,7 @@ Future<void> init() async {
   sl.registerLazySingleton(
     () => AuthBloc(
       signUp: sl(),
+      appUserCubit: sl(),
     ),
   );
 
@@ -234,7 +236,7 @@ Future<void> init() async {
   //     () => OrderRemoteDataSourceImpl(client: sl()));
 
   // //! Core
-  // sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton(() => AppUserCubit());
 
   //! External
   final preferences = await SharedPreferences.getInstance();

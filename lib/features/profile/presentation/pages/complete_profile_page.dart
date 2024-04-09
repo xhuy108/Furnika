@@ -4,19 +4,25 @@ import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
+import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
 import 'package:gap/gap.dart';
 
-class CompletePro5Page extends StatefulWidget {
-  const CompletePro5Page({super.key});
+class CompleteProfilePage extends StatefulWidget {
+  const CompleteProfilePage({super.key});
   @override
-  State<CompletePro5Page> createState() => _CompletePro5PageState();
+  State<CompleteProfilePage> createState() => _CompleteProfilePageState();
 }
 
-class _CompletePro5PageState extends State<CompletePro5Page> {
+class _CompleteProfilePageState extends State<CompleteProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: const CustomBackButton(),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -24,23 +30,6 @@ class _CompletePro5PageState extends State<CompletePro5Page> {
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(MediaResource.backIcon),
-                        style: IconButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(
-                                color:
-                                    AppPalette.textSecondary.withOpacity(0.25)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   Gap(34.h),
                   Text(
                     'Complete Your Profile',
