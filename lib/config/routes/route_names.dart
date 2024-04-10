@@ -19,8 +19,6 @@ class RouteNames {
   static String address = 'address';
   static String orderHistory = 'orderHistory';
   static String review = 'review';
-  static String completepro5 = 'completepro5';
-  static String completelocattion = 'completelocation';
   static String yourprofile = 'yourprofile';
   static String managepassword = 'managepassword';
 }
