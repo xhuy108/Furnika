@@ -1,3 +1,10 @@
+import 'package:dio/dio.dart';
+import 'package:furnika/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:furnika/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
+import 'package:furnika/features/auth/domain/usecases/sign_up.dart';
+import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,27 +29,29 @@ Future<void> init() async {
   //   () => OnBoardingLocalDataSourceImpl(sl()),
   // );
 
-  // //! Features - Auth
-  // //Bloc
-  // sl.registerFactory(
-  //     () => AuthBloc(logInWithEmailAndPassword: sl(), signUp: sl()));
-  // // Use cases
-  // sl.registerLazySingleton(() => LogInWithEmailAndPassword(sl()));
-  // sl.registerLazySingleton(() => SignUp(sl()));
-  // // Repository
-  // sl.registerLazySingleton<AuthRepository>(
-  //   () => AuthRepositoryImpl(
-  //     remoteDataSource: sl(),
-  //     localDataSource: sl(),
-  //     networkInfo: sl(),
-  //   ),
-  // );
-  // // Data sources
-  // sl.registerLazySingleton<AuthRemoteDataSource>(
-  //   () => AuthRemoteDataSourceImpl(client: sl()),
-  // );
-  // sl.registerLazySingleton<AuthLocalDataSource>(
-  //     () => AuthLocalDataSourceImpl(sl()));
+  //! Features - Auth
+  // Data sources
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(sl()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      remoteDataSource: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => SignUp(sl()));
+
+  //Bloc
+  sl.registerFactory(
+    () => AuthBloc(
+      signUp: sl(),
+      appUserCubit: sl(),
+    ),
+  );
 
   // //! Features - Home
   // // Cubit
@@ -227,11 +236,12 @@ Future<void> init() async {
   //     () => OrderRemoteDataSourceImpl(client: sl()));
 
   // //! Core
-  // sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton(() => AppUserCubit());
 
   //! External
   final preferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => preferences);
+  sl.registerLazySingleton(() => Dio());
   // sl.registerLazySingleton(() => InternetConnectionChecker());
   // sl.registerLazySingleton(() => http.Client());
 }

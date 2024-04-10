@@ -27,6 +27,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   bool isAgreed = false;
 
   @override
@@ -76,6 +77,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       hintText: 'Name',
                       keyboardType: TextInputType.name,
                       controller: _nameController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Name is required';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(
                       height: 20.h,
@@ -88,6 +95,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       hintText: 'Email',
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Email is required';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(
                       height: 20.h,
@@ -101,6 +114,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       keyboardType: TextInputType.visiblePassword,
                       controller: _passwordController,
                       isObscureText: true,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Password is required';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(
                       height: 20.h,
@@ -112,8 +131,17 @@ class _SignUpPageState extends State<SignUpPage> {
                     AppTextField(
                       hintText: 'Confirm Password',
                       keyboardType: TextInputType.visiblePassword,
-                      controller: _passwordController,
+                      controller: _confirmPasswordController,
                       isObscureText: true,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Confirm Password is required';
+                        }
+                        if (value != _passwordController.text) {
+                          return 'Password does not match';
+                        }
+                        return null;
+                      },
                     ),
                     Row(
                       children: [
