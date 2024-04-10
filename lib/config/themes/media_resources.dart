@@ -23,6 +23,7 @@ class MediaResource {
       '$_baseIcons/icons_notificationsetting.svg';
   static const deleteaccountIcon = '$_baseIcons/icons_deleteaccount.svg';
   static const passwordmanageIcon = '$_baseIcons/icons_passwordmanage.svg';
+  static const filterIcon = '$_baseIcons/icons_filter.svg';
 
   //IMAGE
   static const _baseImages = 'assets/images';

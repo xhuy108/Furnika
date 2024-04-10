@@ -22,4 +22,5 @@ class RouteNames {
   static String completepro5 = 'completepro5';
   static String completelocattion = 'completelocation';
   static String yourprofile = 'yourprofile';
+  static String managepassword = 'managepassword';
 }
