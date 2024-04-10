@@ -19,6 +19,12 @@ class _CompleteProfileLocationPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CustomBackButton(),
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -26,10 +32,6 @@ class _CompleteProfileLocationPageState
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
                 children: [
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: CustomBackButton(),
-                  ),
                   Gap(34.h),
                   Container(
                     width: 104.w,
@@ -74,7 +76,6 @@ class _CompleteProfileLocationPageState
                     foregroundColor: AppPalette.primary,
                     onTap: () {},
                   ),
-                  Gap(315.h),
                 ],
               ),
             ),
