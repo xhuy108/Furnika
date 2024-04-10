@@ -5,36 +5,30 @@ enum Gender { male, female }
 class User extends Equatable {
   final String id;
   final String userName;
-  final String phoneNumber;
   final String email;
-  final String? password;
+  final String? phoneNumber;
   final String? avatar;
-  final String? birthDate;
+  final String? birthday;
   final String? gender;
-  final String? token;
 
   const User({
     required this.id,
     required this.userName,
-    required this.phoneNumber,
     required this.email,
-    this.password,
+    this.phoneNumber,
     this.avatar = '',
-    this.birthDate,
+    this.birthday,
     this.gender,
-    this.token,
   });
 
   @override
   List<Object?> get props => [
         id,
         userName,
-        phoneNumber,
         email,
-        password,
+        phoneNumber,
         avatar,
-        birthDate,
+        birthday,
         gender,
-        token,
       ];
 }

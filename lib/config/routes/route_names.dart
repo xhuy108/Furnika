@@ -3,6 +3,8 @@ class RouteNames {
   static String onBoarding = 'onBoarding';
   static String login = 'login';
   static String signUp = 'signUp';
+  static String completeProfile = 'completeProfile';
+  static String completeProfileLocation = 'completeProfileLocation';
   static String forgotPassword = 'forgotPassword';
   static String application = 'application';
   static String home = 'home';
@@ -20,8 +22,5 @@ class RouteNames {
   static String completepro5 = 'completepro5';
   static String completelocattion = 'completelocation';
   static String yourprofile = 'yourprofile';
-    static String managepassword = 'managepassword';
-
-
-
+  static String managepassword = 'managepassword';
 }

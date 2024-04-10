@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
-import 'package:furnika/features/profile/widgets/info_items.dart';
+import 'package:furnika/features/profile/presentation/widgets/info_items.dart';
 import 'package:gap/gap.dart';
 
 class YourProfilePage extends StatefulWidget {

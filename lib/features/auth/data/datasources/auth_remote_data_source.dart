@@ -1,4 +1,6 @@
+import 'package:furnika/core/errors/exceptions.dart';
 import 'package:furnika/features/auth/data/models/user_model.dart';
+import 'package:dio/dio.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<UserModel> logInWithEmailAndPassword({
@@ -10,29 +12,13 @@ abstract interface class AuthRemoteDataSource {
     required String email,
     required String password,
     required String username,
-    required String phoneNumber,
   });
-
-  // Future<void> logInWithGoogle();
-
-  // Future<void> logInWithFacebook();
-
-  // Future<void> forgotPassword(String email);
-
-  // Future<void> updateUser({
-  //   required UserInfo userInfo,
-  //   dynamic userData,
-  // });
-
-  // Future<void> signOut();
-
-  // Future<String> getUser();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  const AuthRemoteDataSourceImpl();
+  const AuthRemoteDataSourceImpl(this.client);
 
-  // final http.Client client;
+  final Dio client;
 
   @override
   Future<UserModel> logInWithEmailAndPassword({
@@ -52,13 +38,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String email,
     required String password,
     required String username,
-    required String phoneNumber,
   }) async {
-    return const UserModel(
-      id: '1',
-      userName: 'username',
-      phoneNumber: '1234567890',
-      email: 'email',
-    );
+    try {
+      final response = await client.post(
+        '/users/signup',
+        data: {
+          'email': email,
+          'password': password,
+          'username': username,
+        },
+      );
+
+      return UserModel.fromJson(response.data);
+    } catch (e) {
+      throw ServerException(e.toString(), 500);
+    }
   }
 }

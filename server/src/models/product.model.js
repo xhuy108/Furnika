@@ -27,14 +27,31 @@ const productSchema = mongoose.Schema(
     },
     images: [String],
     colors: [String],
+    materials: [String],
+    dimensions: {
+      height: {
+        type: Number,
+      },
+      width: {
+        type: Number,
+      },
+      depth: {
+        type: Number,
+      },
+    },
+    weight: {
+      type: Number,
+    },
     quantity: {
       type: Number,
       required: true,
     },
-    extraProperties: {
-      type: Map,
-      default: null,
-    },
+    additionalProperties: [
+      {
+        key: String,
+        value: String,
+      },
+    ],
     ratingsAverage: {
       type: Number,
       default: 0,
