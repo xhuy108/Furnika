@@ -31,22 +31,22 @@ Future<void> init() async {
 
   //! Features - Auth
   // Data sources
-  sl.registerFactory<AuthRemoteDataSource>(
+  sl.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(sl()),
   );
 
   // Repository
-  sl.registerFactory<AuthRepository>(
+  sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       remoteDataSource: sl(),
     ),
   );
 
   // Use cases
-  sl.registerFactory(() => SignUp(sl()));
+  sl.registerLazySingleton(() => SignUp(sl()));
 
   //Bloc
-  sl.registerLazySingleton(
+  sl.registerFactory(
     () => AuthBloc(
       signUp: sl(),
       appUserCubit: sl(),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
@@ -15,21 +17,25 @@ class CompleteProfilePage extends StatefulWidget {
 }
 
 class _CompleteProfilePageState extends State<CompleteProfilePage> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const CustomBackButton(),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Form(
+              key: _formKey,
               child: Column(
                 children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: CustomBackButton(),
+                  ),
                   Gap(34.h),
                   Text(
                     'Complete Your Profile',
@@ -53,14 +59,14 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                   Container(
                     width: 104.w,
                     height: 104.h,
+                    padding: EdgeInsets.all(28.w),
                     decoration: BoxDecoration(
-                      color: AppPalette.textFieldBackground.withOpacity(0.9),
+                      color: const Color.fromRGBO(242, 242, 242, 1)
+                          .withOpacity(0.9),
                       shape: BoxShape.circle,
                     ),
                     child: SvgPicture.asset(
                       MediaResource.profileIcon,
-                      width: 48.w,
-                      height: 48.h,
                     ),
                   ),
                   Gap(40.h),
@@ -68,42 +74,29 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                   Gap(7.h),
                   AppTextField(
                     hintText: 'Name',
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.name,
+                    controller: _nameController,
                   ),
                   Gap(20.h),
                   const AuthFieldLabel(label: 'Phone Number'),
                   Gap(7.h),
                   AppTextField(
                     hintText: 'Phone Number',
-                    keyboardType: TextInputType.visiblePassword,
-                    isObscureText: true,
+                    keyboardType: TextInputType.phone,
+                    controller: _phoneNumberController,
                   ),
                   Gap(20.h),
                   const AuthFieldLabel(label: 'Gender'),
                   Gap(7.h),
                   AppTextField(
                     hintText: 'Gender',
-                    keyboardType: TextInputType.visiblePassword,
-                    isObscureText: true,
+                    keyboardType: TextInputType.name,
                   ),
                   Gap(40.h),
-                  Container(
+                  AppButton(
                     height: 50.h,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppPalette.primary,
-                      ),
-                      child: Text(
-                        'Complete Profile',
-                        style: TextStyle(
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppPalette.background,
-                        ),
-                      ),
-                    ),
+                    title: 'Complete Profile',
+                    onTap: () {},
                   ),
                 ],
               ),

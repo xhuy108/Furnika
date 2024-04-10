@@ -3,7 +3,7 @@ import 'package:furnika/features/auth/presentation/pages/log_in_page.dart';
 import 'package:furnika/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
-import 'package:furnika/features/profile/complete_location.dart';
+import 'package:furnika/features/profile/presentation/pages/complete_profile_location.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_page.dart';
 import 'package:furnika/features/profile/settings.dart';
 import 'package:furnika/features/profile/yourprofile.dart';
@@ -14,7 +14,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/completeProfileLocation',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -26,7 +26,7 @@ class AppRouter {
         name: RouteNames.onBoarding,
         path: '/',
         pageBuilder: (context, state) => const MaterialPage(
-          child: CompleteProfilePage(),
+          child: OnboardingPage(),
         ),
       ),
       GoRoute(
@@ -51,28 +51,28 @@ class AppRouter {
           },
         ),
       ),
-      // GoRoute(
-      //   name: RouteNames.signUp,
-      //   path: '/signUp',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: const SignUpScreen(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
-      // GoRoute(
-      //   name: RouteNames.home,
-      //   path: '/home',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: const HomeScreen(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.completeProfile,
+        path: '/completeProfile',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CompleteProfilePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.completeProfileLocation,
+        path: '/completeProfileLocation',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CompleteProfileLocationPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       // GoRoute(
       //   name: RouteNames.category,
       //   path: '/category',
