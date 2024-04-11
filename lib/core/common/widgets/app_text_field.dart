@@ -8,6 +8,7 @@ class AppTextField extends StatelessWidget {
     this.keyboardType,
     this.hintText,
     this.isObscureText = false,
+    this.prefixIcon,
     this.validator,
   });
 
@@ -15,6 +16,7 @@ class AppTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? hintText;
   final bool isObscureText;
+  final Widget? prefixIcon;
   final String? Function(String?)? validator;
 
   @override
@@ -24,9 +26,8 @@ class AppTextField extends StatelessWidget {
       keyboardType: keyboardType,
       validator: validator,
       obscureText: isObscureText,
-      
       decoration: InputDecoration(
-        
+        prefixIcon: prefixIcon,
         contentPadding: EdgeInsets.symmetric(
           horizontal: 18.w,
           vertical: 12.h,

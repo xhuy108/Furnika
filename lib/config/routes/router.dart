@@ -14,7 +14,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/completeProfileLocation',
+    initialLocation: '/home',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -26,7 +26,7 @@ class AppRouter {
         name: RouteNames.onBoarding,
         path: '/',
         pageBuilder: (context, state) => const MaterialPage(
-          child: MyHomePage(),
+          child: OnboardingPage(),
         ),
       ),
       GoRoute(
@@ -67,6 +67,17 @@ class AppRouter {
         path: '/completeProfileLocation',
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const CompleteProfileLocationPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.home,
+        path: '/home',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const HomePage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);

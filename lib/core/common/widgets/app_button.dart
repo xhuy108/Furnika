@@ -7,7 +7,7 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.title,
     this.height,
-    this.width = double.infinity,
+    this.width,
     this.backgroundColor,
     this.foregroundColor,
     this.onTap,
@@ -24,7 +24,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height ?? 50.h,
-      width: width,
+      width: width ?? double.infinity,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
