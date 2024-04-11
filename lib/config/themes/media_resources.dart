@@ -12,6 +12,8 @@ class MediaResource {
   static const bellIcon = '$_baseIcons/icons_bell.svg';
   static const userIcon = '$_baseIcons/icons_user.svg';
   static const nextIcon = '$_baseIcons/icons_next.svg';
+  static const searchIcon = '$_baseIcons/search_icon.svg';
+  static const categoryIcon = '$_baseIcons/sofa.svg';
   static const manageaddressIcon = '$_baseIcons/icons_manageaddress.svg';
   static const paymentmethodIcon = '$_baseIcons/icons_paymentmethod.svg';
   static const myordersIcon = '$_baseIcons/icons_myorders.svg';
@@ -29,4 +31,7 @@ class MediaResource {
   static const _baseImages = 'assets/images';
 
   static const onBoardingBackground = '$_baseImages/onboarding.png';
+  static const couponBannerBackground =
+      '$_baseImages/couponBannerBackground.png';
+  static const couponImage = '$_baseImages/couponImage.png';
 }
