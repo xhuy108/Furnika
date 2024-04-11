@@ -5,9 +5,9 @@ class RouteNames {
   static String signUp = 'signUp';
   static String completeProfile = 'completeProfile';
   static String completeProfileLocation = 'completeProfileLocation';
+  static String home = 'home';
   static String forgotPassword = 'forgotPassword';
   static String application = 'application';
-  static String home = 'home';
   static String category = 'category';
   static String productByCategory = 'productByCategory';
   static String productDetail = 'productDetail';
