@@ -14,6 +14,8 @@ class MediaResource {
   static const nextIcon = '$_baseIcons/icons_next.svg';
   static const searchIcon = '$_baseIcons/search_icon.svg';
   static const categoryIcon = '$_baseIcons/sofa.svg';
+  static const startIcon = '$_baseIcons/star_icon.svg';
+  static const likeIcon = '$_baseIcons/like_icon.svg';
   static const manageaddressIcon = '$_baseIcons/icons_manageaddress.svg';
   static const paymentmethodIcon = '$_baseIcons/icons_paymentmethod.svg';
   static const myordersIcon = '$_baseIcons/icons_myorders.svg';

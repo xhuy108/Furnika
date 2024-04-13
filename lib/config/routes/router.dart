@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:furnika/features/auth/presentation/pages/log_in_page.dart';
 import 'package:furnika/features/auth/presentation/pages/sign_up_page.dart';
+import 'package:furnika/features/categories/presentation/pages/category_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
+import 'package:furnika/features/products/presentation/pages/product_by_category_page.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_location.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_page.dart';
 import 'package:furnika/features/profile/settings.dart';
@@ -14,7 +16,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/home',
+    initialLocation: '/productByCategory',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -32,12 +34,8 @@ class AppRouter {
       GoRoute(
         name: RouteNames.signUp,
         path: '/signUp',
-        pageBuilder: (context, state) => CustomTransitionPage(
-          child: const SignUpPage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return buildTransition(
-                context, animation, secondaryAnimation, child);
-          },
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SignUpPage(),
         ),
       ),
       GoRoute(
@@ -84,31 +82,31 @@ class AppRouter {
           },
         ),
       ),
-      // GoRoute(
-      //   name: RouteNames.category,
-      //   path: '/category',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: const CategoriesScreen(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
-      // GoRoute(
-      //   name: RouteNames.productByCategory,
-      //   path: '/productByCategory/:category/:categoryId',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: DetailCategoryScreen(
-      //       category: state.pathParameters['category']!,
-      //       categoryId: state.pathParameters['categoryId']!,
-      //     ),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.category,
+        path: '/category',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CategoryPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.productByCategory,
+        path: '/productByCategory',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: ProductByCategoryPage(
+              // category: state.pathParameters['category']!,
+              // categoryId: state.pathParameters['categoryId']!,
+              ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       // GoRoute(
       //   name: RouteNames.productDetail,
       //   path: '/productDetail',
