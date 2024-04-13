@@ -31,7 +31,7 @@ class _CouponBannerState extends State<CouponBanner> {
               });
             },
           ),
-          itemCount: 10,
+          itemCount: 5,
           itemBuilder:
               (BuildContext context, int itemIndex, int pageViewIndex) =>
                   Container(
@@ -96,7 +96,7 @@ class _CouponBannerState extends State<CouponBanner> {
         Gap(10.h),
         AnimatedSmoothIndicator(
           activeIndex: _couponBannerActiveIndex,
-          count: 10,
+          count: 5,
           effect: WormEffect(
             activeDotColor: AppPalette.primary,
             dotHeight: 6.h,

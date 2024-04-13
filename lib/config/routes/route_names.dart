@@ -6,10 +6,10 @@ class RouteNames {
   static String completeProfile = 'completeProfile';
   static String completeProfileLocation = 'completeProfileLocation';
   static String home = 'home';
-  static String forgotPassword = 'forgotPassword';
-  static String application = 'application';
   static String category = 'category';
   static String productByCategory = 'productByCategory';
+  static String forgotPassword = 'forgotPassword';
+  static String application = 'application';
   static String productDetail = 'productDetail';
   static String cart = 'cart';
   static String checkout = 'checkout';
