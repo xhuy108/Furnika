@@ -3,15 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/features/profile/presentation/widgets/info_items.dart';
 import 'package:gap/gap.dart';
 
-class PasswordManagerPage extends StatefulWidget {
-  const PasswordManagerPage({super.key});
+class SettingPage extends StatefulWidget {
+  const SettingPage({super.key});
   @override
-  State<PasswordManagerPage> createState() => _PasswordManagerPageState();
+  State<SettingPage> createState() => _SettingPageState();
 }
 
-class _PasswordManagerPageState extends State<PasswordManagerPage> {
+class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +38,9 @@ class _PasswordManagerPageState extends State<PasswordManagerPage> {
                           ),
                         ),
                       ),
-                      Gap(44.w),
+                      Gap(84.w),
                       Text(
-                        'Password Manager',
+                        'Settings',
                         style: TextStyle(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
@@ -48,6 +49,17 @@ class _PasswordManagerPageState extends State<PasswordManagerPage> {
                       ),
                     ],
                   ),
+                  Gap(20.h),
+                  InformationItem(
+                      content: 'Notification Settings ',
+                      icon: MediaResource.notificationsettingIcon),
+                  InformationItem(
+                      content: 'Password Manager ',
+                      icon: MediaResource.passwordmanageIcon),
+                  InformationItem(
+                      content: 'Delete Account ',
+                      icon: MediaResource.deleteaccountIcon),
+                  Gap(549.h),
                 ],
               ),
             ),
