@@ -7,8 +7,9 @@ import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:furnika/features/products/presentation/pages/product_by_category_page.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_location.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_page.dart';
-import 'package:furnika/features/profile/settings.dart';
-import 'package:furnika/features/profile/yourprofile.dart';
+import 'package:furnika/features/profile/presentation/pages/password_management_page.dart';
+import 'package:furnika/features/profile/presentation/pages/setting_page.dart';
+import 'package:furnika/features/profile/presentation/pages/account_profile_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,7 +17,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/productByCategory',
+    initialLocation: '/passwordManagement',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -168,28 +169,39 @@ class AppRouter {
       //     },
       //   ),
       // ),
-      // GoRoute(
-      //   name: RouteNames.application,
-      //   path: '/application',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: const ApplicationScreen(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
-      // GoRoute(
-      //   name: RouteNames.settings,
-      //   path: '/settings',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: const SettingProfile(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.accountProfile,
+        path: '/accountProfile',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const AccountProfilePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.setting,
+        path: '/setting',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const SettingPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.passwordManagement,
+        path: '/passwordManagement',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const PasswordManagementPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
     ],
   );
 }

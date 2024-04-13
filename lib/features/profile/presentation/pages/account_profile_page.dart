@@ -6,13 +6,13 @@ import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/features/profile/presentation/widgets/info_items.dart';
 import 'package:gap/gap.dart';
 
-class YourProfilePage extends StatefulWidget {
-  const YourProfilePage({super.key});
+class AccountProfilePage extends StatefulWidget {
+  const AccountProfilePage({super.key});
   @override
-  State<YourProfilePage> createState() => _YourProfilePageState();
+  State<AccountProfilePage> createState() => _AccountProfilePageState();
 }
 
-class _YourProfilePageState extends State<YourProfilePage> {
+class _AccountProfilePageState extends State<AccountProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
