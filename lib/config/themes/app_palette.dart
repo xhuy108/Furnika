@@ -8,6 +8,7 @@ class AppPalette {
 
   static const textPrimary = Color(0xFF0C1415);
   static const textSecondary = Color(0xFF85999C);
+  static const lightText = Color(0xFFF6F6F6);
 
   static const textFieldBackground = Color(0xFFF2F2F2);
   static const textFieldStroke = Color(0xFF3C5A5D);
