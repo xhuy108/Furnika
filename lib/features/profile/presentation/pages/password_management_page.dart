@@ -3,16 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
-import 'package:furnika/features/profile/presentation/widgets/info_items.dart';
 import 'package:gap/gap.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+class PasswordManagementPage extends StatefulWidget {
+  const PasswordManagementPage({super.key});
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<PasswordManagementPage> createState() => _PasswordManagementPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _PasswordManagementPageState extends State<PasswordManagementPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +37,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                       ),
-                      Gap(84.w),
+                      Gap(44.w),
                       Text(
-                        'Settings',
+                        'Password Manager',
                         style: TextStyle(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
@@ -49,17 +48,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  Gap(20.h),
-                  InformationItem(
-                      content: 'Notification Settings ',
-                      icon: MediaResource.notificationsettingIcon),
-                  InformationItem(
-                      content: 'Password Manager ',
-                      icon: MediaResource.passwordmanageIcon),
-                  InformationItem(
-                      content: 'Delete Account ',
-                      icon: MediaResource.deleteaccountIcon),
-                  Gap(549.h),
                 ],
               ),
             ),

@@ -9,16 +9,16 @@ class RouteNames {
   static String category = 'category';
   static String productByCategory = 'productByCategory';
   static String forgotPassword = 'forgotPassword';
+  static String accountProfile = 'accountProfile';
+  static String setting = 'setting';
+  static String passwordManagement = 'passwordManagement';
   static String application = 'application';
   static String productDetail = 'productDetail';
   static String cart = 'cart';
   static String checkout = 'checkout';
   static String search = 'search';
   static String wishlist = 'wishlist';
-  static String settings = 'settings';
   static String address = 'address';
   static String orderHistory = 'orderHistory';
   static String review = 'review';
-  static String yourprofile = 'yourprofile';
-  static String managepassword = 'managepassword';
 }
