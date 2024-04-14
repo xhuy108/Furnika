@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/routes/router.dart';
 import 'package:furnika/config/themes/theme.dart';
 import 'package:furnika/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:furnika/core/common/cubits/navigation/navigation_cubit.dart';
 import 'package:furnika/core/utils/injection_container.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
 
@@ -15,6 +16,9 @@ Future<void> main() async {
 
   runApp(MultiBlocProvider(
     providers: [
+      BlocProvider(
+        create: (_) => sl<NavigationCubit>(),
+      ),
       BlocProvider(
         create: (_) => sl<AppUserCubit>(),
       ),

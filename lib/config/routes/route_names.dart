@@ -12,8 +12,8 @@ class RouteNames {
   static String accountProfile = 'accountProfile';
   static String setting = 'setting';
   static String passwordManagement = 'passwordManagement';
-  static String application = 'application';
   static String productDetail = 'productDetail';
+  static String navigationMenu = 'navigationMenu';
   static String cart = 'cart';
   static String checkout = 'checkout';
   static String search = 'search';
