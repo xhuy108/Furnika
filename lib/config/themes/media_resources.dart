@@ -16,6 +16,23 @@ class MediaResource {
   static const categoryIcon = '$_baseIcons/sofa.svg';
   static const startIcon = '$_baseIcons/star_icon.svg';
   static const likeIcon = '$_baseIcons/like_icon.svg';
+
+  // Navigation Menu
+  static const homeIcon = '$_baseIcons/home_icon.svg';
+  static const activeHomeIcon = '$_baseIcons/active_home_icon.svg';
+
+  static const cartIcon = '$_baseIcons/cart_icon.svg';
+  static const activeCartIcon = '$_baseIcons/active_cart_icon.svg';
+
+  static const wishlistIcon = '$_baseIcons/wishlist_icon.svg';
+  static const activeWishlistIcon = '$_baseIcons/active_wishlist_icon.svg';
+
+  static const chatIcon = '$_baseIcons/chat_icon.svg';
+  static const activeChatIcon = '$_baseIcons/active_chat_icon.svg';
+
+  static const accountIcon = '$_baseIcons/account_icon.svg';
+  static const activeAccountIcon = '$_baseIcons/active_account_icon.svg';
+
   static const manageaddressIcon = '$_baseIcons/icons_manageaddress.svg';
   static const paymentmethodIcon = '$_baseIcons/icons_paymentmethod.svg';
   static const myordersIcon = '$_baseIcons/icons_myorders.svg';

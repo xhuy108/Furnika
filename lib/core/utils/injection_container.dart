@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:furnika/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:furnika/core/common/cubits/navigation/navigation_cubit.dart';
 import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:furnika/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
@@ -237,6 +238,7 @@ Future<void> init() async {
 
   // //! Core
   sl.registerLazySingleton(() => AppUserCubit());
+  sl.registerLazySingleton(() => NavigationCubit());
 
   //! External
   final preferences = await SharedPreferences.getInstance();

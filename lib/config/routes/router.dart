@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:furnika/core/common/widgets/navigation_menu.dart';
 import 'package:furnika/features/auth/presentation/pages/log_in_page.dart';
 import 'package:furnika/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:furnika/features/categories/presentation/pages/category_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:furnika/features/products/presentation/pages/product_by_category_page.dart';
+import 'package:furnika/features/products/presentation/pages/product_detail_page.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_location.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_page.dart';
 import 'package:furnika/features/profile/presentation/pages/password_management_page.dart';
@@ -17,7 +19,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/passwordManagement',
+    initialLocation: '/navigationMenu',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -73,6 +75,17 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        name: RouteNames.navigationMenu,
+        path: '/navigationMenu',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const NavigationMenu(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
         name: RouteNames.home,
         path: '/home',
         pageBuilder: (context, state) => CustomTransitionPage(
@@ -108,19 +121,19 @@ class AppRouter {
           },
         ),
       ),
-      // GoRoute(
-      //   name: RouteNames.productDetail,
-      //   path: '/productDetail',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: ProductDetailScreen(
-      //       product: state.extra as Product,
-      //     ),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.productDetail,
+        path: '/productDetail',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: ProductDetailPage(
+              // product: state.extra as Product,
+              ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       // GoRoute(
       //   name: RouteNames.cart,
       //   path: '/cart',
