@@ -11,7 +11,7 @@ import 'package:furnika/core/common/widgets/category_item.dart';
 import 'package:furnika/features/home/presentation/widgets/category_small_button.dart';
 import 'package:furnika/features/home/presentation/widgets/coupon_banner.dart';
 import 'package:furnika/features/home/presentation/widgets/home_app_bar.dart';
-import 'package:furnika/features/home/presentation/widgets/product_card_item.dart';
+import 'package:furnika/core/common/widgets/product_card_item.dart';
 import 'package:furnika/features/home/presentation/widgets/tag_text.dart';
 import 'package:gap/gap.dart';
 

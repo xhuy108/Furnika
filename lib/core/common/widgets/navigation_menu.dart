@@ -5,13 +5,12 @@ import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/cubits/navigation/navigation_cubit.dart';
 import 'package:furnika/core/common/widgets/navigation_item.dart';
+import 'package:furnika/features/cart/presentation/pages/cart_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 
 List<Widget> pages = [
   HomePage(),
-  Container(
-    color: Colors.red,
-  ),
+  CartPage(),
   Container(
     color: Colors.green,
   ),
