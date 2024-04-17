@@ -8,7 +8,7 @@ import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/category_item.dart';
-import 'package:furnika/features/home/presentation/widgets/category_small_button.dart';
+import 'package:furnika/core/common/widgets/category_small_button.dart';
 import 'package:furnika/features/home/presentation/widgets/coupon_banner.dart';
 import 'package:furnika/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';

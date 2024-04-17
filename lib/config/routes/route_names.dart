@@ -9,15 +9,15 @@ class RouteNames {
   static String category = 'category';
   static String productByCategory = 'productByCategory';
   static String cart = 'cart';
-  static String forgotPassword = 'forgotPassword';
+  static String wishlist = 'wishlist';
   static String accountProfile = 'accountProfile';
+  static String forgotPassword = 'forgotPassword';
   static String setting = 'setting';
   static String passwordManagement = 'passwordManagement';
   static String productDetail = 'productDetail';
   static String navigationMenu = 'navigationMenu';
   static String checkout = 'checkout';
   static String search = 'search';
-  static String wishlist = 'wishlist';
   static String address = 'address';
   static String orderHistory = 'orderHistory';
   static String review = 'review';
