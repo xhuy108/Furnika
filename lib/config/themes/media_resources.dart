@@ -33,17 +33,18 @@ class MediaResource {
   static const accountIcon = '$_baseIcons/account_icon.svg';
   static const activeAccountIcon = '$_baseIcons/active_account_icon.svg';
 
-  static const manageaddressIcon = '$_baseIcons/icons_manageaddress.svg';
-  static const paymentmethodIcon = '$_baseIcons/icons_paymentmethod.svg';
-  static const myordersIcon = '$_baseIcons/icons_myorders.svg';
-  static const mycouponsIcon = '$_baseIcons/icons_mycoupons.svg';
+  //Profile icon
+  static const helpCenterIcon = '$_baseIcons/icons_helpcenter.svg';
+  static const myCouponsIcon = '$_baseIcons/icons_mycoupons.svg';
+  static const myOrdersIcon = '$_baseIcons/icons_myorders.svg';
+  static const paymentMethodIcon = '$_baseIcons/icons_paymentmethod.svg';
+  static const manageAddressIcon = '$_baseIcons/icons_manageaddress.svg';
   static const settingsIcon = '$_baseIcons/icons_settings.svg';
-  static const helpcenterIcon = '$_baseIcons/icons_helpcenter.svg';
   static const privacyIcon = '$_baseIcons/icons_privacy.svg';
-  static const notificationsettingIcon =
+  static const notificationSettingIcon =
       '$_baseIcons/icons_notificationsetting.svg';
-  static const deleteaccountIcon = '$_baseIcons/icons_deleteaccount.svg';
-  static const passwordmanageIcon = '$_baseIcons/icons_passwordmanage.svg';
+  static const deleteAccountIcon = '$_baseIcons/icons_deleteaccount.svg';
+  static const passwordManageIcon = '$_baseIcons/icons_passwordmanage.svg';
   static const filterIcon = '$_baseIcons/icons_filter.svg';
 
   //IMAGE

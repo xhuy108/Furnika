@@ -37,7 +37,7 @@ class NavigationItem extends StatelessWidget {
             style: TextStyle(
               color: isActive
                   ? AppPalette.primary
-                  : AppPalette.navigationTitle.withOpacity(0.5),
+                  : AppPalette.textThird.withOpacity(0.5),
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
             ),

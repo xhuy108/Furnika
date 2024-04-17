@@ -7,7 +7,7 @@ import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
-import 'package:furnika/features/home/presentation/widgets/product_card_item.dart';
+import 'package:furnika/core/common/widgets/product_card_item.dart';
 import 'package:gap/gap.dart';
 
 class ProductByCategoryPage extends StatefulWidget {
