@@ -15,6 +15,7 @@ class CustomBackButton extends StatelessWidget {
       },
       icon: SvgPicture.asset(MediaResource.backIcon),
       style: IconButton.styleFrom(
+        backgroundColor: AppPalette.background,
         shape: CircleBorder(
           side: BorderSide(
             color: AppPalette.textSecondary.withOpacity(0.25),
