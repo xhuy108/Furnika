@@ -31,10 +31,16 @@ Future<void> init() async {
   // );
 
   //! Features - Auth
-  // Data sources
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(sl()),
+  //Bloc
+  sl.registerFactory(
+    () => AuthBloc(
+      signUp: sl(),
+      appUserCubit: sl(),
+    ),
   );
+
+  // Use cases
+  sl.registerLazySingleton(() => SignUp(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(
@@ -43,15 +49,9 @@ Future<void> init() async {
     ),
   );
 
-  // Use cases
-  sl.registerLazySingleton(() => SignUp(sl()));
-
-  //Bloc
-  sl.registerFactory(
-    () => AuthBloc(
-      signUp: sl(),
-      appUserCubit: sl(),
-    ),
+  // Data sources
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(sl()),
   );
 
   // //! Features - Home
@@ -237,8 +237,8 @@ Future<void> init() async {
   //     () => OrderRemoteDataSourceImpl(client: sl()));
 
   // //! Core
-  sl.registerLazySingleton(() => AppUserCubit());
-  sl.registerLazySingleton(() => NavigationCubit());
+  sl.registerFactory(() => AppUserCubit());
+  sl.registerFactory(() => NavigationCubit());
 
   //! External
   final preferences = await SharedPreferences.getInstance();
