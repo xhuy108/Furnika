@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
-import 'package:furnika/features/profile/presentation/widgets/info_items.dart';
+import 'package:furnika/core/common/widgets/custom_app_bar.dart';
+import 'package:furnika/features/profile/presentation/widgets/infomation_item.dart';
 import 'package:gap/gap.dart';
 
 class AccountProfilePage extends StatefulWidget {
@@ -16,83 +17,74 @@ class _AccountProfilePageState extends State<AccountProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: SvgPicture.asset(MediaResource.backIcon),
-                      style: IconButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(
-                              color:
-                                  AppPalette.textSecondary.withOpacity(0.25)),
-                        ),
-                      ),
-                    ),
-                    Gap(72.w),
-                    Text(
-                      'Your Profile',
-                      style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppPalette.textPrimary,
-                      ),
-                    ),
-                  ],
-                ),
-                Gap(20.h),
-                Container(
-                  width: 104.w,
-                  height: 104.h,
-                  decoration: BoxDecoration(
-                    color: AppPalette.textFieldBackground.withOpacity(0.9),
-                    shape: BoxShape.circle,
-                  ),
-                  child: SvgPicture.asset(
-                    MediaResource.profileIcon,
-                    width: 48.w,
-                    height: 48.h,
-                  ),
-                ),
-                Gap(20.h),
-                Text(
-                  'Thanh Hien Tran',
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppPalette.textPrimary,
-                  ),
-                ),
-                Gap(30.h),
-                InformationItem(
-                    content: 'Your Information', icon: MediaResource.userIcon),
-                InformationItem(
-                    content: 'Manage Address',
-                    icon: MediaResource.manageaddressIcon),
-                InformationItem(
-                    content: 'Payment Methods',
-                    icon: MediaResource.paymentmethodIcon),
-                InformationItem(
-                    content: 'My Orders', icon: MediaResource.myordersIcon),
-                InformationItem(
-                    content: 'My Coupons', icon: MediaResource.mycouponsIcon),
-                InformationItem(
-                    content: 'Settings', icon: MediaResource.settingsIcon),
-                InformationItem(
-                    content: 'Help Center', icon: MediaResource.helpcenterIcon),
-                InformationItem(
-                    content: 'Privacy Policy', icon: MediaResource.privacyIcon),
-              ]),
+      appBar: customAppBar(title: 'Your Profile'),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Gap(20.h),
+            Container(
+              width: 104.w,
+              height: 104.h,
+              padding: EdgeInsets.all(28.h),
+              decoration: BoxDecoration(
+                color: AppPalette.textFieldBackground.withOpacity(0.9),
+                shape: BoxShape.circle,
+              ),
+              child: SvgPicture.asset(
+                MediaResource.profileIcon,
+              ),
             ),
-          ),
+            Gap(20.h),
+            Text(
+              'Thanh Hien Tran',
+              style: TextStyle(
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w400,
+                color: AppPalette.textPrimary,
+              ),
+            ),
+            Gap(30.h),
+            InformationItem(
+              title: 'Your Information',
+              icon: MediaResource.userIcon,
+              onTap: () {},
+            ),
+            InformationItem(
+              title: 'Manage Address',
+              icon: MediaResource.manageAddressIcon,
+              onTap: () {},
+            ),
+            InformationItem(
+              title: 'Payment Methods',
+              icon: MediaResource.paymentMethodIcon,
+              onTap: () {},
+            ),
+            InformationItem(
+              title: 'My Orders',
+              icon: MediaResource.myOrdersIcon,
+              onTap: () {},
+            ),
+            InformationItem(
+              title: 'My Coupons',
+              icon: MediaResource.myCouponsIcon,
+              onTap: () {},
+            ),
+            InformationItem(
+              title: 'Settings',
+              icon: MediaResource.settingsIcon,
+              onTap: () {},
+            ),
+            InformationItem(
+              title: 'Help Center',
+              icon: MediaResource.helpCenterIcon,
+              onTap: () {},
+            ),
+            InformationItem(
+              title: 'Privacy Policy',
+              icon: MediaResource.privacyIcon,
+              onTap: () {},
+            ),
+          ],
         ),
       ),
     );

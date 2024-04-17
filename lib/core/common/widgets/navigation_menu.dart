@@ -5,22 +5,19 @@ import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/cubits/navigation/navigation_cubit.dart';
 import 'package:furnika/core/common/widgets/navigation_item.dart';
+import 'package:furnika/features/cart/presentation/pages/cart_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
+import 'package:furnika/features/profile/presentation/pages/account_profile_page.dart';
+import 'package:furnika/features/wishlist/presentation/pages/wishlist_page.dart';
 
 List<Widget> pages = [
   HomePage(),
-  Container(
-    color: Colors.red,
-  ),
-  Container(
-    color: Colors.green,
-  ),
+  CartPage(),
+  WishListPage(),
   Container(
     color: Colors.blue,
   ),
-  Container(
-    color: Colors.yellow,
-  ),
+  AccountProfilePage(),
 ];
 
 class NavigationMenu extends StatelessWidget {
