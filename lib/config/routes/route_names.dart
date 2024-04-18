@@ -11,9 +11,9 @@ class RouteNames {
   static String cart = 'cart';
   static String wishlist = 'wishlist';
   static String accountProfile = 'accountProfile';
-  static String forgotPassword = 'forgotPassword';
   static String setting = 'setting';
   static String passwordManagement = 'passwordManagement';
+  static String forgotPassword = 'forgotPassword';
   static String productDetail = 'productDetail';
   static String navigationMenu = 'navigationMenu';
   static String checkout = 'checkout';

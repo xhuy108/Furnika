@@ -45,6 +45,8 @@ class MediaResource {
       '$_baseIcons/icons_notificationsetting.svg';
   static const deleteAccountIcon = '$_baseIcons/icons_deleteaccount.svg';
   static const passwordManageIcon = '$_baseIcons/icons_passwordmanage.svg';
+  static const hidePasswordIcon = '$_baseIcons/hide_password_icon.svg';
+
   static const filterIcon = '$_baseIcons/icons_filter.svg';
 
   //IMAGE

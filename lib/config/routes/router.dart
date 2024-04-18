@@ -21,7 +21,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/setting',
+    initialLocation: '/passwordManagement',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -167,6 +167,17 @@ class AppRouter {
       //     child: SearchScreen(
       //       text: state.pathParameters['text']!,
       //     ),
+      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //       return buildTransition(
+      //           context, animation, secondaryAnimation, child);
+      //     },
+      //   ),
+      // ),
+      // GoRoute(
+      //   name: RouteNames.wishlist,
+      //   path: '/wishlist',
+      //   pageBuilder: (context, state) => CustomTransitionPage(
+      //     child: const WishListPage(),
       //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       //       return buildTransition(
       //           context, animation, secondaryAnimation, child);
