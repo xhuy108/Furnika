@@ -677,6 +677,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  ticket_clippers:
+    dependency: "direct main"
+    description:
+      name: ticket_clippers
+      sha256: a80c76c9bb2ebe00038c97366b2371ceefdf4fb06086b85584ed55b9ddaa9510
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   typed_data:
     dependency: transitive
     description:

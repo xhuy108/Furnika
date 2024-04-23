@@ -45,7 +45,12 @@ class MediaResource {
       '$_baseIcons/icons_notificationsetting.svg';
   static const deleteAccountIcon = '$_baseIcons/icons_deleteaccount.svg';
   static const passwordManageIcon = '$_baseIcons/icons_passwordmanage.svg';
+  static const hidePasswordIcon = '$_baseIcons/hide_password_icon.svg';
+
   static const filterIcon = '$_baseIcons/icons_filter.svg';
+
+  static const couponIcon = '$_baseIcons/coupon_icon.svg';
+  static const editIcon = '$_baseIcons/edit_icon.svg';
 
   //IMAGE
   static const _baseImages = 'assets/images';
@@ -54,4 +59,6 @@ class MediaResource {
   static const couponBannerBackground =
       '$_baseImages/couponBannerBackground.png';
   static const couponImage = '$_baseImages/couponImage.png';
+  static const couponBackground = '$_baseImages/coupon_background.png';
+  static const couponBackground1 = '$_baseImages/cp_back.svg';
 }

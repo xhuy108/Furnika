@@ -11,7 +11,7 @@ import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 
-import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
+import 'package:furnika/core/common/widgets/text_field_label.dart';
 import 'package:furnika/features/auth/presentation/widgets/social_button.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Gap(40.h),
-                    const AuthFieldLabel(label: 'Email'),
+                    const TextFieldLabel(label: 'Email'),
                     Gap(7.h),
                     AppTextField(
                       controller: _emailController,
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     Gap(20.h),
-                    const AuthFieldLabel(label: 'Password'),
+                    const TextFieldLabel(label: 'Password'),
                     Gap(7.h),
                     AppTextField(
                       controller: _passwordController,

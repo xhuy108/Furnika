@@ -11,14 +11,16 @@ class RouteNames {
   static String cart = 'cart';
   static String wishlist = 'wishlist';
   static String accountProfile = 'accountProfile';
-  static String forgotPassword = 'forgotPassword';
   static String setting = 'setting';
   static String passwordManagement = 'passwordManagement';
+  static String forgotPassword = 'forgotPassword';
   static String productDetail = 'productDetail';
   static String navigationMenu = 'navigationMenu';
+  static String updateProfile = 'updateProfile';
   static String checkout = 'checkout';
   static String search = 'search';
   static String address = 'address';
   static String orderHistory = 'orderHistory';
   static String review = 'review';
+  static String coupon = 'coupon';
 }

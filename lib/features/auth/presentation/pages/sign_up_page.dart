@@ -9,7 +9,7 @@ import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
-import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
+import 'package:furnika/core/common/widgets/text_field_label.dart';
 import 'package:furnika/features/auth/presentation/widgets/social_button.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -69,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 40.h,
                     ),
-                    const AuthFieldLabel(label: 'Name'),
+                    const TextFieldLabel(label: 'Name'),
                     SizedBox(
                       height: 7.h,
                     ),
@@ -87,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    const AuthFieldLabel(label: 'Email'),
+                    const TextFieldLabel(label: 'Email'),
                     SizedBox(
                       height: 7.h,
                     ),
@@ -105,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    const AuthFieldLabel(label: 'Password'),
+                    const TextFieldLabel(label: 'Password'),
                     SizedBox(
                       height: 7.h,
                     ),
@@ -124,7 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    const AuthFieldLabel(label: 'Confirm Password'),
+                    const TextFieldLabel(label: 'Confirm Password'),
                     SizedBox(
                       height: 7.h,
                     ),
