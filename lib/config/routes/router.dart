@@ -4,6 +4,7 @@ import 'package:furnika/features/auth/presentation/pages/log_in_page.dart';
 import 'package:furnika/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:furnika/features/cart/presentation/pages/cart_page.dart';
 import 'package:furnika/features/categories/presentation/pages/category_page.dart';
+import 'package:furnika/features/coupon/presentation/pages/coupon_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:furnika/features/products/presentation/pages/product_by_category_page.dart';
@@ -13,6 +14,7 @@ import 'package:furnika/features/profile/presentation/pages/complete_profile_pag
 import 'package:furnika/features/profile/presentation/pages/password_management_page.dart';
 import 'package:furnika/features/profile/presentation/pages/setting_page.dart';
 import 'package:furnika/features/profile/presentation/pages/account_profile_page.dart';
+import 'package:furnika/features/profile/presentation/pages/update_profile_page.dart';
 import 'package:furnika/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +23,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/passwordManagement',
+    initialLocation: '/updateProfile',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -70,6 +72,17 @@ class AppRouter {
         path: '/completeProfileLocation',
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const CompleteProfileLocationPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.updateProfile,
+        path: '/updateProfile',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const UpdateProfilePage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);
@@ -173,17 +186,17 @@ class AppRouter {
       //     },
       //   ),
       // ),
-      // GoRoute(
-      //   name: RouteNames.wishlist,
-      //   path: '/wishlist',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: const WishListPage(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.coupon,
+        path: '/coupon',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CouponPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       GoRoute(
         name: RouteNames.wishlist,
         path: '/wishlist',

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 
-class AuthFieldLabel extends StatelessWidget {
-  const AuthFieldLabel({super.key, required this.label});
+class TextFieldLabel extends StatelessWidget {
+  const TextFieldLabel({super.key, required this.label});
 
   final String label;
 

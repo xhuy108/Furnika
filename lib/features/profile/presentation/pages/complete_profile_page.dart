@@ -7,7 +7,7 @@ import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
-import 'package:furnika/features/auth/presentation/widgets/auth_field_label.dart';
+import 'package:furnika/core/common/widgets/text_field_label.dart';
 import 'package:gap/gap.dart';
 
 class CompleteProfilePage extends StatefulWidget {
@@ -70,7 +70,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     ),
                   ),
                   Gap(40.h),
-                  const AuthFieldLabel(label: 'Name'),
+                  const TextFieldLabel(label: 'Name'),
                   Gap(7.h),
                   AppTextField(
                     hintText: 'Name',
@@ -78,7 +78,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     controller: _nameController,
                   ),
                   Gap(20.h),
-                  const AuthFieldLabel(label: 'Phone Number'),
+                  const TextFieldLabel(label: 'Phone Number'),
                   Gap(7.h),
                   AppTextField(
                     hintText: 'Phone Number',
@@ -86,7 +86,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     controller: _phoneNumberController,
                   ),
                   Gap(20.h),
-                  const AuthFieldLabel(label: 'Gender'),
+                  const TextFieldLabel(label: 'Gender'),
                   Gap(7.h),
                   AppTextField(
                     hintText: 'Gender',

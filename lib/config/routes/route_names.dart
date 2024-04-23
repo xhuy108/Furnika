@@ -16,9 +16,11 @@ class RouteNames {
   static String forgotPassword = 'forgotPassword';
   static String productDetail = 'productDetail';
   static String navigationMenu = 'navigationMenu';
+  static String updateProfile = 'updateProfile';
   static String checkout = 'checkout';
   static String search = 'search';
   static String address = 'address';
   static String orderHistory = 'orderHistory';
   static String review = 'review';
+  static String coupon = 'coupon';
 }
