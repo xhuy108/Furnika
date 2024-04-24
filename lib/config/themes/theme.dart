@@ -23,5 +23,22 @@ class AppTheme {
       errorBorder: _border(AppPalette.error),
     ),
     textTheme: GoogleFonts.lexendTextTheme(),
+    datePickerTheme: DatePickerThemeData(
+      todayBackgroundColor: const MaterialStatePropertyAll(AppPalette.primary),
+      dayBackgroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.selected)) {
+            return AppPalette.primary;
+          }
+          return Colors.transparent;
+        },
+      ),
+      cancelButtonStyle: const ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(AppPalette.primary),
+      ),
+      confirmButtonStyle: const ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(AppPalette.primary),
+      ),
+    ),
   );
 }

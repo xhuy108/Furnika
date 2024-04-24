@@ -7,6 +7,7 @@ import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/text_field_label.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
+import 'package:furnika/core/utils/formatter.dart';
 import 'package:furnika/features/profile/presentation/widgets/custom_label.dart';
 import 'package:gap/gap.dart';
 
@@ -21,6 +22,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
+
+  void _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    ).then((value) {
+      if (value != null) {
+        _dobController.text = dateFormatter.format(value);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,9 +115,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 const TextFieldLabel(label: 'DOB'),
                 Gap(7.h),
                 AppTextField(
-                  hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
+                  hintText: 'Date of Birth',
+                  keyboardType: TextInputType.datetime,
+                  controller: _dobController,
+                  readOnly: true,
+                  onTap: _showDatePicker,
                 ),
                 Gap(20.h),
                 const TextFieldLabel(label: 'Gender'),
