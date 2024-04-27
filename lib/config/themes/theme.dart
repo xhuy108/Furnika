@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +23,26 @@ class AppTheme {
     ),
     textTheme: GoogleFonts.lexendTextTheme(),
     datePickerTheme: DatePickerThemeData(
-      todayBackgroundColor: const MaterialStatePropertyAll(AppPalette.primary),
+      todayBackgroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.selected)) {
+            return AppPalette.primary;
+          }
+          return Colors.transparent;
+        },
+      ),
+      todayForegroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.selected)) {
+            return Colors.white;
+          }
+          return AppPalette.primary;
+        },
+      ),
+      todayBorder: const BorderSide(
+        color: AppPalette.primary,
+        width: 1,
+      ),
       dayBackgroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.selected)) {

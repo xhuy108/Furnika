@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/entities/user.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/text_field_label.dart';
@@ -23,6 +26,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
+  Gender? _selectedGender;
 
   void _showDatePicker() {
     showDatePicker(
@@ -124,10 +128,44 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 Gap(20.h),
                 const TextFieldLabel(label: 'Gender'),
                 Gap(7.h),
-                AppTextField(
-                  hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 18.w,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppPalette.textFieldBackground,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: DropdownButton(
+                    value: _selectedGender,
+                    hint: Text(
+                      'Gender',
+                      style: TextStyle(
+                        fontSize: 11.sp,
+                      ),
+                    ),
+                    underline: Container(),
+                    isExpanded: true,
+                    borderRadius: BorderRadius.circular(10),
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                    items: Gender.values
+                        .map(
+                          (gender) => DropdownMenuItem(
+                            value: gender,
+                            child: Text(gender.name.toUpperCase()),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        _selectedGender = value;
+                      });
+                    },
+                  ),
                 ),
                 Gap(50.h),
                 AppButton(
