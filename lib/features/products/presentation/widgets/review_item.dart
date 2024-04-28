@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
-import 'package:furnika/features/products/presentation/widgets/app_divider.dart';
+import 'package:furnika/core/common/widgets/app_divider.dart';
 import 'package:gap/gap.dart';
 
 import 'package:flutter/material.dart';

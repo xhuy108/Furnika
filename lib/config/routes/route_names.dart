@@ -20,7 +20,8 @@ class RouteNames {
   static String checkout = 'checkout';
   static String search = 'search';
   static String address = 'address';
-  static String orderHistory = 'orderHistory';
+  static String order = 'order';
+  static String orderDetail = 'orderDetail';
   static String review = 'review';
   static String coupon = 'coupon';
 }

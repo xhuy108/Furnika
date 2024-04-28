@@ -10,6 +10,8 @@ class AppButton extends StatelessWidget {
     this.width,
     this.backgroundColor,
     this.foregroundColor,
+    this.fontSize,
+    this.padding,
     this.onTap,
   });
 
@@ -18,6 +20,8 @@ class AppButton extends StatelessWidget {
   final double? width;
   final Color? backgroundColor;
   final Color? foregroundColor;
+  final double? fontSize;
+  final EdgeInsetsGeometry? padding;
   final void Function()? onTap;
 
   @override
@@ -29,11 +33,12 @@ class AppButton extends StatelessWidget {
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? AppPalette.primary,
+          padding: padding,
         ),
         child: Text(
           title,
           style: TextStyle(
-            fontSize: 15.sp,
+            fontSize: fontSize ?? 15.sp,
             fontWeight: FontWeight.w600,
             color: foregroundColor ?? AppPalette.background,
           ),

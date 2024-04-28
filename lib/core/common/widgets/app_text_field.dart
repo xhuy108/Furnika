@@ -11,6 +11,8 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.validator,
+    this.onTap,
+    this.readOnly = false,
   });
 
   final TextEditingController? controller;
@@ -20,11 +22,14 @@ class AppTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
+  final void Function()? onTap;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      readOnly: readOnly,
       keyboardType: keyboardType,
       validator: validator,
       obscureText: isObscureText,
@@ -40,6 +45,7 @@ class AppTextField extends StatelessWidget {
           fontSize: 11.sp,
         ),
       ),
+      onTap: onTap,
     );
   }
 }

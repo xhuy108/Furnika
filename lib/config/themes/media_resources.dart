@@ -52,6 +52,15 @@ class MediaResource {
   static const couponIcon = '$_baseIcons/coupon_icon.svg';
   static const editIcon = '$_baseIcons/edit_icon.svg';
 
+  //Order
+  static const orderPlacedIcon = '$_baseIcons/order_placed_icon.svg';
+  static const orderPackagedIcon = '$_baseIcons/order_packaged_icon.svg';
+  static const orderShippedIcon = '$_baseIcons/order_shipped_icon.svg';
+  static const orderDeliveryIcon = '$_baseIcons/order_delivery_icon.svg';
+
+  //Review
+  static const cameraIcon = '$_baseIcons/camera_icon.svg';
+
   //IMAGE
   static const _baseImages = 'assets/images';
 

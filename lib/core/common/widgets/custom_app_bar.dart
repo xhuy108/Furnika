@@ -5,6 +5,7 @@ import 'package:furnika/core/common/widgets/custom_back_button.dart';
 
 AppBar customAppBar({
   required String title,
+  PreferredSizeWidget? bottom,
 }) {
   return AppBar(
     leading: Padding(
@@ -23,5 +24,6 @@ AppBar customAppBar({
     ),
     surfaceTintColor: AppPalette.background,
     backgroundColor: AppPalette.background,
+    bottom: bottom,
   );
 }
