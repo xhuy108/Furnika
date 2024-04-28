@@ -7,6 +7,8 @@ import 'package:furnika/features/categories/presentation/pages/category_page.dar
 import 'package:furnika/features/coupon/presentation/pages/coupon_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
+import 'package:furnika/features/order/presentation/pages/order_detail_page.dart';
+import 'package:furnika/features/order/presentation/pages/order_page.dart';
 import 'package:furnika/features/products/presentation/pages/product_by_category_page.dart';
 import 'package:furnika/features/products/presentation/pages/product_detail_page.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_location.dart';
@@ -23,7 +25,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/updateProfile',
+    initialLocation: '/orderDetail',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -186,6 +188,28 @@ class AppRouter {
       //     },
       //   ),
       // ),
+      GoRoute(
+        name: RouteNames.order,
+        path: '/order',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const OrderPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.orderDetail,
+        path: '/orderDetail',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const OrderDetailPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       GoRoute(
         name: RouteNames.coupon,
         path: '/coupon',
