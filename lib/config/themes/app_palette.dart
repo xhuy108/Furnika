@@ -15,6 +15,7 @@ class AppPalette {
   static const textFieldStroke = Color(0xFF3C5A5D);
 
   static const stroke = Color(0xFF98A8AA);
+  static const shadow = Color(0xFFA5A5A5);
 
   static const error = Color(0xFFEE3F07);
   static const star = Color(0xFFFFBF00);

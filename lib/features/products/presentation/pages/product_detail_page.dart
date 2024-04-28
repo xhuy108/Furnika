@@ -10,7 +10,7 @@ import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_favorite_button.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
-import 'package:furnika/features/products/presentation/widgets/app_divider.dart';
+import 'package:furnika/core/common/widgets/app_divider.dart';
 import 'package:furnika/features/products/presentation/widgets/review_item.dart';
 import 'package:gap/gap.dart';
 
