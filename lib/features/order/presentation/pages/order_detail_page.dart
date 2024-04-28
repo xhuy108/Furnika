@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
+import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
 import 'package:furnika/features/order/presentation/widgets/detail_list_tile.dart';
 import 'package:furnika/features/order/presentation/widgets/horizontal_line.dart';
 import 'package:furnika/features/order/presentation/widgets/order_list.dart';
+import 'package:furnika/features/order/presentation/widgets/order_timeline_tile.dart';
 import 'package:gap/gap.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 class OrderDetailPage extends StatefulWidget {
   const OrderDetailPage({super.key});
@@ -113,6 +116,36 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     color: AppPalette.primary,
                   ),
                 ),
+              ),
+              //Star timeline
+              OrderTimelineTile(
+                isFirst: true,
+                isCompleted: true,
+                title: 'Order Placed',
+                value: '2 Jan 2024, 04:35 PM',
+                icon: MediaResource.orderPlacedIcon,
+              ),
+
+              //Middle timeline
+              OrderTimelineTile(
+                isCompleted: true,
+                title: 'In Progress',
+                value: '2 Jan 2024, 04:35 PM',
+                icon: MediaResource.orderPackagedIcon,
+              ),
+              OrderTimelineTile(
+                isCompleted: true,
+                title: 'Shipped',
+                value: '2 Jan 2024, 04:35 PM',
+                icon: MediaResource.orderShippedIcon,
+              ),
+
+              //End timeline
+              OrderTimelineTile(
+                isLast: true,
+                title: 'Delivery',
+                value: '2 Jan 2024, 04:35 PM',
+                icon: MediaResource.orderDeliveryIcon,
               ),
             ],
           ),

@@ -17,6 +17,7 @@ import 'package:furnika/features/profile/presentation/pages/password_management_
 import 'package:furnika/features/profile/presentation/pages/setting_page.dart';
 import 'package:furnika/features/profile/presentation/pages/account_profile_page.dart';
 import 'package:furnika/features/profile/presentation/pages/update_profile_page.dart';
+import 'package:furnika/features/review/presentation/pages/create_review_page.dart';
 import 'package:furnika/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,7 +26,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/orderDetail',
+    initialLocation: '/review',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -204,6 +205,17 @@ class AppRouter {
         path: '/orderDetail',
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const OrderDetailPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.review,
+        path: '/review',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CreateReviewPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);
