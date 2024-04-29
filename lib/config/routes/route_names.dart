@@ -17,9 +17,9 @@ class RouteNames {
   static String productDetail = 'productDetail';
   static String navigationMenu = 'navigationMenu';
   static String updateProfile = 'updateProfile';
-  static String checkout = 'checkout';
-  static String search = 'search';
-  static String address = 'address';
+  //static String checkout = 'checkout';
+  static String filter = 'filter';
+  //static String address = 'address';
   static String order = 'order';
   static String orderDetail = 'orderDetail';
   static String review = 'review';

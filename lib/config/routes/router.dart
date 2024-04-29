@@ -5,6 +5,7 @@ import 'package:furnika/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:furnika/features/cart/presentation/pages/cart_page.dart';
 import 'package:furnika/features/categories/presentation/pages/category_page.dart';
 import 'package:furnika/features/coupon/presentation/pages/coupon_page.dart';
+import 'package:furnika/features/filter/presentation/pages/filter_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
 import 'package:furnika/features/order/presentation/pages/order_detail_page.dart';
@@ -26,7 +27,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/productDetail',
+    initialLocation: '/filter',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -108,6 +109,17 @@ class AppRouter {
         path: '/home',
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const HomePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.filter,
+        path: '/filter',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const FilterPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);
