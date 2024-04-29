@@ -26,7 +26,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/review',
+    initialLocation: '/productDetail',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||

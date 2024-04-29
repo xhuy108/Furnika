@@ -20,6 +20,7 @@ class AdjustQuantityButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(4.r),
       child: Container(
         width: 20.w,
         height: 20.h,
