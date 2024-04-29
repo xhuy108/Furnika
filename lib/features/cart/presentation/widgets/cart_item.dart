@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
-import 'package:furnika/features/cart/presentation/widgets/adjust_quanity_button.dart';
+import 'package:furnika/core/common/widgets/adjust_quanity_button.dart';
 import 'package:furnika/core/common/widgets/app_divider.dart';
 import 'package:gap/gap.dart';
 

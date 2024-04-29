@@ -12,7 +12,7 @@ AppBar customAppBar({
       padding: EdgeInsets.only(left: 20.w),
       child: const CustomBackButton(),
     ),
-    leadingWidth: 62.w,
+    leadingWidth: 56.w,
     centerTitle: true,
     title: Text(
       title,
