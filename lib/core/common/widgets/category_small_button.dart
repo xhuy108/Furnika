@@ -25,7 +25,7 @@ class CategorySmallButton extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(
             horizontal: 14.w,
-            vertical: 8.h,
+            vertical: 7.h,
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(

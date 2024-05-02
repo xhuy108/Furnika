@@ -4,6 +4,7 @@ import 'package:furnika/features/auth/presentation/pages/log_in_page.dart';
 import 'package:furnika/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:furnika/features/cart/presentation/pages/cart_page.dart';
 import 'package:furnika/features/categories/presentation/pages/category_page.dart';
+import 'package:furnika/features/chat/presentation/pages/chat_page.dart';
 import 'package:furnika/features/coupon/presentation/pages/coupon_page.dart';
 import 'package:furnika/features/filter/presentation/pages/filter_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
@@ -27,7 +28,7 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/filter',
+    initialLocation: '/navigationMenu',
     // sl<SharedPreferences>().getBool(kFirstTimer) == null
     //     ? '/'
     //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
@@ -201,6 +202,17 @@ class AppRouter {
       //     },
       //   ),
       // ),
+      GoRoute(
+        name: RouteNames.chat,
+        path: '/chat',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const ChatPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       GoRoute(
         name: RouteNames.order,
         path: '/order',

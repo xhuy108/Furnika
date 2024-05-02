@@ -16,7 +16,10 @@ class _CouponPageState extends State<CouponPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'Coupons'),
+      appBar: customAppBar(
+        title: 'Coupons',
+        context: context,
+      ),
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {

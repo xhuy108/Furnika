@@ -20,7 +20,10 @@ class _WishListPageState extends State<WishListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'Wishlist'),
+      appBar: customAppBar(
+        title: 'Wishlist',
+        context: context,
+      ),
       body: Column(
         children: [
           Gap(20.h),

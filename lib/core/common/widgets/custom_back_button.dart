@@ -11,7 +11,9 @@ class CustomBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        ModalRoute.of(context)?.canPop;
+        Navigator.of(context).canPop()
+            ? Navigator.of(context).pop()
+            : Navigator.of(context).canPop;
       },
       icon: SvgPicture.asset(MediaResource.backIcon),
       style: IconButton.styleFrom(

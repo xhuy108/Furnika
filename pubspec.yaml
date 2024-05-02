@@ -57,6 +57,7 @@ dependencies:
   icons_plus: ^5.0.0
   ticket_clippers: ^0.0.5
   timeline_tile: ^2.0.0
+  syncfusion_flutter_sliders: ^25.1.42
 
 dev_dependencies:
   flutter_test:

@@ -26,7 +26,10 @@ class _PasswordManagementPageState extends State<PasswordManagementPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'Password Manager'),
+      appBar: customAppBar(
+        title: 'Password Manager',
+        context: context,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 20.w,
