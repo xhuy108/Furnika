@@ -24,4 +24,5 @@ class RouteNames {
   static String orderDetail = 'orderDetail';
   static String review = 'review';
   static String coupon = 'coupon';
+  static String chat = 'chat';
 }

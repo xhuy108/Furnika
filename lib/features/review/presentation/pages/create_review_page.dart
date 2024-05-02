@@ -25,7 +25,10 @@ class _CreateReviewPageState extends State<CreateReviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'Leave Review'),
+      appBar: customAppBar(
+        title: 'Leave Review',
+        context: context,
+      ),
       bottomNavigationBar: BottomActionBar(
         onCancel: () {},
         onSubmit: () {},

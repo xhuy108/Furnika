@@ -21,7 +21,10 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'My Cart'),
+      appBar: customAppBar(
+        title: 'My Cart',
+        context: context,
+      ),
       body: CartList(),
     );
   }

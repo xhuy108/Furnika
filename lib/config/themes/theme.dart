@@ -12,6 +12,7 @@ class AppTheme {
       );
 
   static final lightThemeMode = ThemeData.light().copyWith(
+    colorScheme: ColorScheme.fromSeed(seedColor: AppPalette.primary),
     scaffoldBackgroundColor: AppPalette.background,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     inputDecorationTheme: InputDecorationTheme(

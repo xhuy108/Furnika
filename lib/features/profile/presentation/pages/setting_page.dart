@@ -13,7 +13,10 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'Setting'),
+      appBar: customAppBar(
+        title: 'Setting',
+        context: context,
+      ),
       body: Column(
         children: [
           InformationItem(

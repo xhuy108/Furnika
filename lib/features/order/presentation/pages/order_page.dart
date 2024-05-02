@@ -21,6 +21,7 @@ class _OrderPageState extends State<OrderPage> {
       child: Scaffold(
         appBar: customAppBar(
           title: 'My Orders',
+          context: context,
           bottom: TabBar(
             indicatorColor: AppPalette.primary,
             labelColor: AppPalette.primary,
