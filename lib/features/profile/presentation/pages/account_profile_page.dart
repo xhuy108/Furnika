@@ -17,7 +17,10 @@ class _AccountProfilePageState extends State<AccountProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'Your Profile'),
+      appBar: customAppBar(
+        title: 'Your Profile',
+        context: context,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

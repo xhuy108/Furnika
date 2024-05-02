@@ -47,7 +47,7 @@ class InformationItem extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                fontSize: 15.sp,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.w400,
                 color: AppPalette.textPrimary,
               ),

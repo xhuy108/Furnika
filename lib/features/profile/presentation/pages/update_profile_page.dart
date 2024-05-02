@@ -44,7 +44,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'Your Information'),
+      appBar: customAppBar(
+        title: 'Your Information',
+        context: context,
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(

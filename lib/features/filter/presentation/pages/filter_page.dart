@@ -26,7 +26,10 @@ class _FilterPageState extends State<FilterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: 'Filter'),
+      appBar: customAppBar(
+        title: 'Filter',
+        context: context,
+      ),
       bottomNavigationBar: FilterActionBottomBar(
         onReset: () {},
         onApply: () {},
