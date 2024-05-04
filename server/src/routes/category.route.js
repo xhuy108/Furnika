@@ -11,6 +11,8 @@ router
   .post(
     authController.protect,
     authController.restrictTo("admin"),
+    categoryController.uploadCategoryIcon,
+    categoryController.uploadCloudinary,
     categoryController.createCategory
   );
 

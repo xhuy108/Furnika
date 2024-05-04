@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const Category = require("./category");
+const Category = require("./category.model");
 
 const productSchema = mongoose.Schema(
   {
