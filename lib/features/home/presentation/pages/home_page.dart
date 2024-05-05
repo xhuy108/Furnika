@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/routes/route_names.dart';
@@ -11,6 +12,7 @@ import 'package:furnika/core/common/widgets/app_filter_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/category_item.dart';
 import 'package:furnika/core/common/widgets/category_small_button.dart';
+import 'package:furnika/features/categories/presentation/bloc/category_bloc.dart';
 import 'package:furnika/features/home/presentation/widgets/coupon_banner.dart';
 import 'package:furnika/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
@@ -28,6 +30,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   int currentPopularCategoryIndex = 0;
+  final popularCategories = [];
 
   @override
   void initState() {
@@ -79,18 +82,46 @@ class _HomePageState extends State<HomePage> {
                     Gap(20.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          mainAxisSpacing: 20.h, // vertical spacing
-                          crossAxisSpacing: 20.w,
-                          childAspectRatio: 0.8,
-                        ),
-                        itemCount: 8,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return const CategoryItem();
+                      child: BlocConsumer<CategoryBloc, CategoryState>(
+                        listener: (context, state) {
+                          if (state is PopularCategoryLoaded) {
+                            popularCategories.addAll(state.categories);
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is CategoryInitial) {
+                            context
+                                .read<CategoryBloc>()
+                                .add(FetchPopularCategories());
+                          }
+                          if (state is PopularCategoryLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (state is PopularCategoryError) {
+                            return Center(
+                              child: Text(state.message),
+                            );
+                          }
+
+                          return GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4,
+                              mainAxisSpacing: 20.h, // vertical spacing
+                              crossAxisSpacing: 20.w,
+                              childAspectRatio: 0.8,
+                            ),
+                            itemCount: popularCategories.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return CategoryItem(
+                                category: popularCategories[index],
+                              );
+                            },
+                          );
                         },
                       ),
                     ),
