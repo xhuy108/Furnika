@@ -30,6 +30,11 @@ class _HomePageState extends State<HomePage> {
   int currentPopularCategoryIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
