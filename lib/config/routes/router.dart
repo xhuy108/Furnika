@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:furnika/core/common/widgets/navigation_menu.dart';
+import 'package:furnika/core/utils/check_is_first_time.dart';
+import 'package:furnika/core/utils/injection_container.dart';
+import 'package:furnika/core/utils/user_service.dart';
 import 'package:furnika/features/auth/presentation/pages/log_in_page.dart';
 import 'package:furnika/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:furnika/features/cart/presentation/pages/cart_page.dart';
@@ -28,13 +31,11 @@ import 'package:furnika/config/routes/route_names.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/navigationMenu',
-    // sl<SharedPreferences>().getBool(kFirstTimer) == null
-    //     ? '/'
-    //     : ((sl<SharedPreferences>().getString(kAuthToken) == null ||
-    //             sl<SharedPreferences>().getString(kAuthToken) == '')
-    //         ? '/logIn'
-    //         : '/application'),
+    initialLocation: checkIsFirstTime(sl<SharedPreferences>())
+        ? '/'
+        : checkIsLoggedIn()
+            ? '/navigationMenu'
+            : '/logIn',
     routes: [
       GoRoute(
         name: RouteNames.onBoarding,

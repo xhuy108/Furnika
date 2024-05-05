@@ -4,7 +4,7 @@ const AppError = require("./../utils/appError");
 const factory = require("./../utils/handlerFactory");
 const multer = require("multer");
 const sharp = require("sharp");
-// const cloudinary = require("../utils/cloudinary");
+const cloudinary = require("../utils/cloudinary");
 const path = require("path");
 
 const multerStorage = multer.memoryStorage();
@@ -34,26 +34,26 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   next();
 });
 
-// exports.uploadCloudinary = catchAsync(async (req, res, next) => {
-//   if (!req.file) return next();
+exports.uploadCloudinary = catchAsync(async (req, res, next) => {
+  if (!req.file) return next();
 
-//   const filePath = path.join(
-//     __dirname,
-//     `../public/img/users/${req.file.filename}`
-//   );
+  const filePath = path.join(
+    __dirname,
+    `../public/img/users/${req.file.filename}`
+  );
 
-//   try {
-//     const result = await cloudinary.uploader.upload(filePath, {
-//       folder: "users",
-//       use_filename: true,
-//     });
-//     req.file.filename = result.secure_url;
-//   } catch (e) {
-//     console.log(e);
-//   }
+  try {
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder: "users",
+      use_filename: true,
+    });
+    req.file.filename = result.secure_url;
+  } catch (e) {
+    console.log(e);
+  }
 
-//   next();
-// });
+  next();
+});
 
 const filterObject = (obj, ...allowedFields) => {
   const newObj = {};

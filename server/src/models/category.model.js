@@ -15,6 +15,11 @@ const categorySchema = new mongoose.Schema(
       type: String,
       required: [true, "A category must have an image!"],
     },
+    type: {
+      type: String,
+      required: [true, "A category must have a type!"],
+      enum: ["location", "function", "other"],
+    },
     markedForDeletion: {
       type: Boolean,
       default: false,

@@ -1,6 +1,7 @@
 import 'package:furnika/core/errors/exceptions.dart';
 import 'package:furnika/features/auth/data/models/user_model.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<UserModel> logInWithEmailAndPassword({
@@ -16,21 +17,32 @@ abstract interface class AuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  const AuthRemoteDataSourceImpl(this.client);
+  const AuthRemoteDataSourceImpl({
+    required this.client,
+    required this.sharedPreferences,
+  });
 
   final Dio client;
+  final SharedPreferences sharedPreferences;
 
   @override
   Future<UserModel> logInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    return const UserModel(
-      id: '1',
-      userName: 'username',
-      phoneNumber: '1234567890',
-      email: 'email',
-    );
+    try {
+      final response = await client.post(
+        '/users/login',
+        data: {
+          'email': email,
+          'password': password,
+        },
+      );
+
+      return UserModel.fromJson(response.data);
+    } catch (e) {
+      throw ServerException(e.toString(), 500);
+    }
   }
 
   @override
