@@ -6,6 +6,7 @@ import 'package:furnika/features/auth/data/datasources/auth_local_data_source.da
 import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:furnika/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
+import 'package:furnika/features/auth/domain/usecases/log_in.dart';
 import 'package:furnika/features/auth/domain/usecases/sign_up.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -37,12 +38,14 @@ Future<void> init() async {
   sl.registerFactory(
     () => AuthBloc(
       signUp: sl(),
+      logInWithEmailAndPassword: sl(),
       appUserCubit: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => SignUp(sl()));
+  sl.registerLazySingleton(() => LogInWithEmailAndPassword(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(

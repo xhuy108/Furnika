@@ -8,5 +8,5 @@ String getUserAccessToken() {
 }
 
 bool checkIsLoggedIn() {
-  return AppUserCubit().state.toString() != 'AppUserInitial()';
+  return getUserAccessToken().isNotEmpty;
 }
