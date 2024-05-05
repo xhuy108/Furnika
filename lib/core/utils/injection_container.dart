@@ -6,8 +6,16 @@ import 'package:furnika/features/auth/data/datasources/auth_local_data_source.da
 import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:furnika/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
+import 'package:furnika/features/auth/domain/usecases/log_in.dart';
 import 'package:furnika/features/auth/domain/usecases/sign_up.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:furnika/features/categories/data/datasources/category_remote_datasource.dart';
+import 'package:furnika/features/categories/data/repositories/category_repository_impl.dart';
+import 'package:furnika/features/categories/domain/repositories/category_repository.dart';
+import 'package:furnika/features/categories/domain/usecases/get_all_categories.dart';
+import 'package:furnika/features/categories/domain/usecases/get_other_categories.dart';
+import 'package:furnika/features/categories/domain/usecases/get_popular_categories.dart';
+import 'package:furnika/features/categories/presentation/bloc/category_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,12 +45,14 @@ Future<void> init() async {
   sl.registerFactory(
     () => AuthBloc(
       signUp: sl(),
+      logInWithEmailAndPassword: sl(),
       appUserCubit: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => SignUp(sl()));
+  sl.registerLazySingleton(() => LogInWithEmailAndPassword(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(
@@ -75,27 +85,27 @@ Future<void> init() async {
   // sl.registerLazySingleton<CouponRemoteDataSource>(
   //     () => CouponRemoteDataSourceImpl(client: sl()));
 
-  // //! Features - Categories
-  // // Cubit
-  // sl.registerFactory(
-  //   () => CategoriesCubit(
-  //     getAllCategories: sl(),
-  //   ),
-  // );
-  // sl.registerFactory(
-  //   () => PopularCategoriesCubit(
-  //     getPopularCategories: sl(),
-  //   ),
-  // );
-  // // Use cases
-  // sl.registerLazySingleton(() => GetAllCategories(sl()));
-  // sl.registerLazySingleton(() => GetPopularCategories(sl()));
-  // // Repository
-  // sl.registerLazySingleton<CategoryRepository>(
-  //     () => CategoryRepositoryImpl(sl()));
-  // // Data sources
-  // sl.registerLazySingleton<CategoryRemoteDataSource>(
-  //     () => CategoryRemoteDataSourceImpl(client: sl()));
+  //! Features - Categories
+  // Bloc
+  sl.registerFactory(
+    () => CategoryBloc(
+      getAllCategories: sl(),
+      getPopularCategories: sl(),
+      getOtherCategories: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetAllCategories(sl()));
+  sl.registerLazySingleton(() => GetPopularCategories(sl()));
+  sl.registerLazySingleton(() => GetOtherCategories(sl()));
+
+  // Repository
+  sl.registerLazySingleton<CategoryRepository>(
+      () => CategoryRepositoryImpl(remoteDataSource: sl()));
+  // Data sources
+  sl.registerLazySingleton<CategoryRemoteDataSource>(
+      () => CategoryRemoteDataSourceImpl(client: sl()));
 
   // //! Features - Products
   // // Bloc

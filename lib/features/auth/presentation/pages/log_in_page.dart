@@ -1,7 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnika/config/routes/route_names.dart';
+import 'package:furnika/core/common/widgets/app_loading_indicator.dart';
+import 'package:furnika/core/utils/show_snackbar.dart';
 import 'package:furnika/core/utils/user_service.dart';
+import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,126 +33,158 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      context.read<AuthBloc>().add(
+            AuthLogin(
+                email: _emailController.text,
+                password: _passwordController.text),
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.w,
-                vertical: 32.h,
-              ),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 23.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppPalette.textPrimary,
-                      ),
-                    ),
-                    Gap(12.h),
-                    Text(
-                      'Hi! Welcome back, you’ve been missed',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppPalette.textSecondary,
-                      ),
-                    ),
-                    Gap(40.h),
-                    const TextFieldLabel(label: 'Email'),
-                    Gap(7.h),
-                    AppTextField(
-                      controller: _emailController,
-                      hintText: 'Email',
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    Gap(20.h),
-                    const TextFieldLabel(label: 'Password'),
-                    Gap(7.h),
-                    AppTextField(
-                      controller: _passwordController,
-                      hintText: 'Password',
-                      keyboardType: TextInputType.visiblePassword,
-                      isObscureText: true,
-                    ),
-                    Gap(10.h),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Text(
-                          'Forgot password?',
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppPalette.primary,
-                              decoration: TextDecoration.underline),
-                        ),
-                      ),
-                    ),
-                    Gap(34.h),
-                    AppButton(
-                      height: 46.sp,
-                      title: 'Log In',
-                      onTap: () {},
-                    ),
-                    Gap(60.h),
-                    Text(
-                      'Or sign in with',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppPalette.textSecondary,
-                      ),
-                    ),
-                    Gap(50.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SocialButton(
-                          icon: SvgPicture.asset(MediaResource.googleIcon),
-                          onPressed: () {},
-                        ),
-                        SocialButton(
-                          icon: SvgPicture.asset(MediaResource.facebookIcon),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                    Gap(50.h),
-                    RichText(
-                      text: TextSpan(
-                        text: 'Don\'t have an account? ',
-                        style: GoogleFonts.lexend(
-                          fontSize: 12.sp,
+          child: BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthLoading) {
+                showDialog(
+                  context: context,
+                  builder: (_) => const AppLoadingIndicator(),
+                );
+              }
+              if (state is AuthFailure) {
+                Navigator.of(context).pop();
+                showSnackbar(
+                  context: context,
+                  message: state.message,
+                  color: AppPalette.error,
+                );
+              }
+              if (state is AuthSuccess) {
+                Navigator.of(context).pop();
+                context.goNamed(RouteNames.navigationMenu);
+              }
+            },
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.w,
+                  vertical: 32.h,
+                ),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontSize: 23.sp,
                           fontWeight: FontWeight.w400,
                           color: AppPalette.textPrimary,
                         ),
+                      ),
+                      Gap(12.h),
+                      Text(
+                        'Hi! Welcome back, you’ve been missed',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppPalette.textSecondary,
+                        ),
+                      ),
+                      Gap(40.h),
+                      const TextFieldLabel(label: 'Email'),
+                      Gap(7.h),
+                      AppTextField(
+                        controller: _emailController,
+                        hintText: 'Email',
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      Gap(20.h),
+                      const TextFieldLabel(label: 'Password'),
+                      Gap(7.h),
+                      AppTextField(
+                        controller: _passwordController,
+                        hintText: 'Password',
+                        keyboardType: TextInputType.visiblePassword,
+                        isObscureText: true,
+                      ),
+                      Gap(10.h),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppPalette.primary,
+                                decoration: TextDecoration.underline),
+                          ),
+                        ),
+                      ),
+                      Gap(34.h),
+                      AppButton(
+                        height: 46.sp,
+                        title: 'Log In',
+                        onTap: _login,
+                      ),
+                      Gap(60.h),
+                      Text(
+                        'Or sign in with',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppPalette.textSecondary,
+                        ),
+                      ),
+                      Gap(50.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          TextSpan(
-                            text: 'Sign Up',
-                            style: GoogleFonts.lexend(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppPalette.primary,
-                              decoration: TextDecoration.underline,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                context.pushNamed(RouteNames.signUp);
-                              },
+                          SocialButton(
+                            icon: SvgPicture.asset(MediaResource.googleIcon),
+                            onPressed: () {},
+                          ),
+                          SocialButton(
+                            icon: SvgPicture.asset(MediaResource.facebookIcon),
+                            onPressed: () {},
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      Gap(50.h),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Don\'t have an account? ',
+                          style: GoogleFonts.lexend(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppPalette.textPrimary,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: 'Sign Up',
+                              style: GoogleFonts.lexend(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppPalette.primary,
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  context.pushNamed(RouteNames.signUp);
+                                },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

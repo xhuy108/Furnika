@@ -16,6 +16,9 @@ router
     categoryController.createCategory
   );
 
+router.route("/popularCategories").get(categoryController.getPopularCategories);
+router.route("/otherCategories").get(categoryController.getOtherCategories);
+
 router
   .route("/:id")
   .get(categoryController.getCategory)

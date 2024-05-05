@@ -56,3 +56,29 @@ exports.uploadCloudinary = catchAsync(async (req, res, next) => {
 
   next();
 });
+
+exports.getPopularCategories = catchAsync(async (req, res, next) => {
+  const categories = await Category.find().limit(7);
+  const allCategory = await Category.find({ name: "All" });
+  categories.push(allCategory[0]);
+
+  res.status(200).json({
+    status: "success",
+    results: categories.length,
+    data: categories,
+  });
+});
+
+exports.getOtherCategories = catchAsync(async (req, res, next) => {
+  const categories = await Category.find();
+
+  const filteredCategories = categories.filter((category) => {
+    return category.type !== "other";
+  });
+
+  res.status(200).json({
+    status: "success",
+    results: filteredCategories.length,
+    data: filteredCategories,
+  });
+});
