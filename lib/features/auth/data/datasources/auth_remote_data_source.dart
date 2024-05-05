@@ -1,3 +1,4 @@
+import 'package:furnika/core/constraints/constraints.dart';
 import 'package:furnika/core/errors/exceptions.dart';
 import 'package:furnika/features/auth/data/models/user_model.dart';
 import 'package:dio/dio.dart';
@@ -32,14 +33,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     try {
       final response = await client.post(
-        '/users/login',
+        '$kBaseUrl/users/login',
         data: {
           'email': email,
           'password': password,
         },
       );
 
-      return UserModel.fromJson(response.data);
+      sharedPreferences.setString(kAccessToken, response.data['access_token']);
+
+      return UserModel.fromJson(response.data['data']);
+    } on DioException catch (dioException) {
+      throw ServerException(
+        dioException.response?.data['message'],
+        dioException.response!.statusCode!,
+      );
     } catch (e) {
       throw ServerException(e.toString(), 500);
     }
@@ -53,15 +61,25 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     try {
       final response = await client.post(
-        '/users/signup',
+        '$kBaseUrl/users/signup',
         data: {
           'email': email,
           'password': password,
           'username': username,
         },
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        ),
       );
 
-      return UserModel.fromJson(response.data);
+      return UserModel.fromJson(response.data['data']);
+    } on DioException catch (dioException) {
+      throw ServerException(
+        dioException.response?.data['message'],
+        dioException.response!.statusCode!,
+      );
     } catch (e) {
       throw ServerException(e.toString(), 500);
     }

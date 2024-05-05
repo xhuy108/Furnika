@@ -21,6 +21,10 @@ class AppTheme {
       enabledBorder: _border(),
       focusedBorder: _border(AppPalette.textFieldStroke),
       errorBorder: _border(AppPalette.error),
+      focusedErrorBorder: _border(AppPalette.error),
+      errorStyle: const TextStyle(
+        color: AppPalette.error,
+      ),
     ),
     textTheme: GoogleFonts.lexendTextTheme(),
     datePickerTheme: DatePickerThemeData(
