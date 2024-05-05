@@ -13,7 +13,7 @@ const productSchema = mongoose.Schema(
       type: String,
       required: [true, "Product must have a description"],
     },
-    regularPrice: {
+    price: {
       type: Number,
       required: [true, "Product must have a price"],
     },
@@ -83,7 +83,7 @@ const productSchema = mongoose.Schema(
   }
 );
 
-productSchema.index({ name: 1, regularPrice: 1 });
+productSchema.index({ name: 1, price: 1 });
 
 productSchema.pre(/^find/, function (next) {
   this.populate({ path: "category", select: "name" });
