@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:furnika/config/routes/route_names.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
 import 'package:furnika/features/profile/presentation/widgets/infomation_item.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -27,7 +29,9 @@ class _SettingPageState extends State<SettingPage> {
           InformationItem(
             title: 'Password Manager ',
             icon: MediaResource.passwordManageIcon,
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(RouteNames.passwordManagement);
+            },
           ),
           InformationItem(
             title: 'Delete Account ',

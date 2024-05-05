@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:furnika/config/routes/route_names.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
 import 'package:furnika/features/profile/presentation/widgets/infomation_item.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class AccountProfilePage extends StatefulWidget {
   const AccountProfilePage({super.key});
@@ -50,7 +52,9 @@ class _AccountProfilePageState extends State<AccountProfilePage> {
             InformationItem(
               title: 'Your Information',
               icon: MediaResource.userIcon,
-              onTap: () {},
+              onTap: () {
+                context.pushNamed(RouteNames.updateProfile);
+              },
             ),
             InformationItem(
               title: 'Manage Address',
@@ -65,17 +69,23 @@ class _AccountProfilePageState extends State<AccountProfilePage> {
             InformationItem(
               title: 'My Orders',
               icon: MediaResource.myOrdersIcon,
-              onTap: () {},
+              onTap: () {
+                context.pushNamed(RouteNames.order);
+              },
             ),
             InformationItem(
               title: 'My Coupons',
               icon: MediaResource.myCouponsIcon,
-              onTap: () {},
+              onTap: () {
+                context.pushNamed(RouteNames.coupon);
+              },
             ),
             InformationItem(
               title: 'Settings',
               icon: MediaResource.settingsIcon,
-              onTap: () {},
+              onTap: () {
+                context.pushNamed(RouteNames.setting);
+              },
             ),
             InformationItem(
               title: 'Help Center',

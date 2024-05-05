@@ -11,10 +11,10 @@ const globalErrorHandler = require("./src/controllers/error.controller");
 
 const userRouter = require("./src/routes/user.route");
 // const addressRouter = require("./routes/addressRoute");
-// const productRouter = require("./routes/productRoute");
+const productRouter = require("./src/routes/product.route");
 // const reviewRouter = require("./routes/reviewRoute");
 // const brandRouter = require("./routes/brandRoute");
-// const categoryRouter = require("./routes/categoryRoute");
+const categoryRouter = require("./src/routes/category.route");
 // const couponRouter = require("./routes/couponRoute");
 // const cartRouter = require("./routes/cartRoute");
 // const orderRouter = require("./routes/orderRoute");
@@ -57,10 +57,10 @@ app.use(
 
 app.use("/api/v1/users", userRouter);
 // app.use("/api/v1/addresses", addressRouter);
-// app.use("/api/v1/products", productRouter);
+app.use("/api/v1/products", productRouter);
 // app.use("/api/v1/reviews", reviewRouter);
 // app.use("/api/v1/brands", brandRouter);
-// app.use("/api/v1/categories", categoryRouter);
+app.use("/api/v1/categories", categoryRouter);
 // app.use("/api/v1/coupons", couponRouter);
 // app.use("/api/v1/carts", cartRouter);
 // app.use("/api/v1/orders", orderRouter);

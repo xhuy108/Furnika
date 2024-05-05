@@ -21,9 +21,7 @@ class InformationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(8.r),
-      onTap: () {
-        print('object');
-      },
+      onTap: onTap,
       child: Container(
         width: double.infinity,
         height: 60.h,
