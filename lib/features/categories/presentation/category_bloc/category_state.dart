@@ -9,35 +9,6 @@ sealed class CategoryState extends Equatable {
 
 final class CategoryInitial extends CategoryState {}
 
-final class AllCategoryLoading extends CategoryState {}
-
-final class AllCategoryLoaded extends CategoryState {
-  final List<Category> categories;
-
-  const AllCategoryLoaded(this.categories);
-
-  @override
-  List<Object> get props => [categories];
-}
-
-final class AllCategorySelected extends CategoryState {
-  final Category category;
-
-  const AllCategorySelected(this.category);
-
-  @override
-  List<Object> get props => [category];
-}
-
-final class AllCategoryError extends CategoryState {
-  final String message;
-
-  const AllCategoryError(this.message);
-
-  @override
-  List<Object> get props => [message];
-}
-
 final class PopularCategoryLoading extends CategoryState {}
 
 final class PopularCategoryLoaded extends CategoryState {

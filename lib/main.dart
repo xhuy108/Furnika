@@ -8,7 +8,8 @@ import 'package:furnika/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:furnika/core/common/cubits/navigation/navigation_cubit.dart';
 import 'package:furnika/core/utils/injection_container.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:furnika/features/categories/presentation/bloc/category_bloc.dart';
+import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
+import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +29,9 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (_) => sl<CategoryBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => sl<AllCategoriesBloc>(),
       ),
     ],
     child: const MyApp(),
