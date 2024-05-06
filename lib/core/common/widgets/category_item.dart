@@ -23,7 +23,7 @@ class CategoryItem extends StatelessWidget {
             if (category.name == "All") {
               context.pushNamed(RouteNames.category);
             } else {
-              // Go to category products
+              context.pushNamed(RouteNames.productByCategory);
             }
           },
           padding: EdgeInsets.all(15.r),

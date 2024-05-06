@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 
-class CategorySmallButton extends StatelessWidget {
-  const CategorySmallButton({
+class OptionButton extends StatelessWidget {
+  const OptionButton({
     super.key,
     required this.title,
     this.isActive = false,

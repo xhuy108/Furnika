@@ -11,11 +11,15 @@ import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_filter_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/category_item.dart';
-import 'package:furnika/core/common/widgets/category_small_button.dart';
-import 'package:furnika/features/categories/presentation/bloc/category_bloc.dart';
+import 'package:furnika/core/common/widgets/option_button.dart';
+import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
+import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
+import 'package:furnika/features/home/presentation/widgets/categories_list.dart';
+import 'package:furnika/features/home/presentation/widgets/category_loader.dart';
 import 'package:furnika/features/home/presentation/widgets/coupon_banner.dart';
 import 'package:furnika/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
+import 'package:furnika/features/home/presentation/widgets/option_loader.dart';
 import 'package:furnika/features/home/presentation/widgets/tag_text.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -35,6 +39,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    context.read<CategoryBloc>().add(FetchPopularCategories());
+    context.read<AllCategoriesBloc>().add(FetchAllCategories());
   }
 
   @override
@@ -89,14 +95,10 @@ class _HomePageState extends State<HomePage> {
                           }
                         },
                         builder: (context, state) {
-                          if (state is CategoryInitial) {
-                            context
-                                .read<CategoryBloc>()
-                                .add(FetchPopularCategories());
-                          }
                           if (state is PopularCategoryLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
+                            return CategoriesList(
+                              itemCount: 8,
+                              itemBuilder: (_, index) => const CategoryLoader(),
                             );
                           }
                           if (state is PopularCategoryError) {
@@ -105,22 +107,10 @@ class _HomePageState extends State<HomePage> {
                             );
                           }
 
-                          return GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4,
-                              mainAxisSpacing: 20.h, // vertical spacing
-                              crossAxisSpacing: 20.w,
-                              childAspectRatio: 0.8,
-                            ),
+                          return CategoriesList(
                             itemCount: popularCategories.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return CategoryItem(
-                                category: popularCategories[index],
-                              );
-                            },
+                            itemBuilder: (_, index) => CategoryItem(
+                                category: popularCategories[index]),
                           );
                         },
                       ),
@@ -131,19 +121,41 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       height: 32.h,
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: ListView.builder(
-                        itemCount: 10,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return CategorySmallButton(
-                            title: 'Sofa',
-                            onTap: () {
-                              setState(() {
-                                currentPopularCategoryIndex = index;
-                              });
-                            },
-                            isActive: index == currentPopularCategoryIndex,
-                          );
+                      child: BlocBuilder<AllCategoriesBloc, AllCategoriesState>(
+                        builder: (context, state) {
+                          if (state is AllCategoryLoading) {
+                            return ListView.builder(
+                              itemCount: 8,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return const OptionLoader();
+                              },
+                            );
+                          }
+                          if (state is AllCategoryError) {
+                            return Center(
+                              child: Text(state.message),
+                            );
+                          }
+                          if (state is AllCategoryLoaded) {
+                            return ListView.builder(
+                              itemCount: state.categories.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return OptionButton(
+                                  title: state.categories[index].name,
+                                  onTap: () {
+                                    setState(() {
+                                      currentPopularCategoryIndex = index;
+                                    });
+                                  },
+                                  isActive:
+                                      index == currentPopularCategoryIndex,
+                                );
+                              },
+                            );
+                          }
+                          return const SizedBox();
                         },
                       ),
                     ),

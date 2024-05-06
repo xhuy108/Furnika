@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
-import 'package:furnika/core/common/widgets/category_small_button.dart';
+import 'package:furnika/core/common/widgets/option_button.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
 import 'package:furnika/features/filter/presentation/widgets/catalog_text.dart';
 import 'package:furnika/features/filter/presentation/widgets/filter_bottom_action_bar.dart';
@@ -50,7 +50,7 @@ class _FilterPageState extends State<FilterPage> {
                       itemCount: 10,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return CategorySmallButton(
+                        return OptionButton(
                           title: 'Sofa',
                           onTap: () {
                             setState(() {
@@ -130,7 +130,7 @@ class _FilterPageState extends State<FilterPage> {
                       itemCount: 10,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return CategorySmallButton(
+                        return OptionButton(
                           title: 'Sofa',
                           onTap: () {
                             setState(() {
@@ -151,7 +151,7 @@ class _FilterPageState extends State<FilterPage> {
                       itemCount: 10,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return CategorySmallButton(
+                        return OptionButton(
                           title: 'Sofa',
                           onTap: () {
                             setState(() {
