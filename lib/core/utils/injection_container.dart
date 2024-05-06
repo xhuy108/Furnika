@@ -15,7 +15,8 @@ import 'package:furnika/features/categories/domain/repositories/category_reposit
 import 'package:furnika/features/categories/domain/usecases/get_all_categories.dart';
 import 'package:furnika/features/categories/domain/usecases/get_other_categories.dart';
 import 'package:furnika/features/categories/domain/usecases/get_popular_categories.dart';
-import 'package:furnika/features/categories/presentation/bloc/category_bloc.dart';
+import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
+import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -92,6 +93,11 @@ Future<void> init() async {
       getAllCategories: sl(),
       getPopularCategories: sl(),
       getOtherCategories: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => AllCategoriesBloc(
+      getAllCategories: sl(),
     ),
   );
 

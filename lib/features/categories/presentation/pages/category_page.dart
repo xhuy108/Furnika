@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/core/common/widgets/category_item.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
-import 'package:furnika/features/categories/presentation/bloc/category_bloc.dart';
+import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});

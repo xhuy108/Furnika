@@ -21,21 +21,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         _getPopularCategories = getPopularCategories,
         _getOtherCategories = getOtherCategories,
         super(CategoryInitial()) {
-    on<FetchAllCategories>(_onFetchAllCategories);
     on<FetchPopularCategories>(_onFetchPopularCategories);
     on<FetchOtherCategories>(_onFetchOtherCategories);
-  }
-
-  void _onFetchAllCategories(
-      FetchAllCategories event, Emitter<CategoryState> emit) async {
-    emit(AllCategoryLoading());
-
-    final result = await _getAllCategories();
-
-    result.fold(
-      (failure) => emit(AllCategoryError(failure.message)),
-      (categories) => emit(AllCategoryLoaded(categories)),
-    );
   }
 
   void _onFetchPopularCategories(
