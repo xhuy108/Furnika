@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
-import 'package:furnika/core/common/widgets/category_small_button.dart';
+import 'package:furnika/core/common/widgets/option_button.dart';
 import 'package:furnika/features/wishlist/presentation/widgets/wishlist_product_list.dart';
 import 'package:gap/gap.dart';
 
@@ -34,7 +34,7 @@ class _WishListPageState extends State<WishListPage> {
               itemCount: 10,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return CategorySmallButton(
+                return OptionButton(
                   title: 'Sofa',
                   onTap: () {
                     setState(() {

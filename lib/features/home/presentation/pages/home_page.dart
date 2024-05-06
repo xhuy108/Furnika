@@ -11,7 +11,7 @@ import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_filter_button.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/category_item.dart';
-import 'package:furnika/core/common/widgets/category_small_button.dart';
+import 'package:furnika/core/common/widgets/option_button.dart';
 import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 import 'package:furnika/features/home/presentation/widgets/categories_list.dart';
@@ -19,6 +19,7 @@ import 'package:furnika/features/home/presentation/widgets/category_loader.dart'
 import 'package:furnika/features/home/presentation/widgets/coupon_banner.dart';
 import 'package:furnika/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
+import 'package:furnika/features/home/presentation/widgets/option_loader.dart';
 import 'package:furnika/features/home/presentation/widgets/tag_text.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -123,8 +124,12 @@ class _HomePageState extends State<HomePage> {
                       child: BlocBuilder<AllCategoriesBloc, AllCategoriesState>(
                         builder: (context, state) {
                           if (state is AllCategoryLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
+                            return ListView.builder(
+                              itemCount: 8,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return const OptionLoader();
+                              },
                             );
                           }
                           if (state is AllCategoryError) {
@@ -137,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                               itemCount: state.categories.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return CategorySmallButton(
+                                return OptionButton(
                                   title: state.categories[index].name,
                                   onTap: () {
                                     setState(() {
