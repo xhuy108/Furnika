@@ -19,7 +19,12 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
   @override
   Future<List<CategoryModel>> getAllCategories() async {
     try {
-      final response = await client.get('$kBaseUrl/categories');
+      final response = await client.get(
+        '$kBaseUrl/categories',
+        queryParameters: {
+          'sort': 'name',
+        },
+      );
 
       return response.data['data']
           .map<CategoryModel>((category) => CategoryModel.fromJson(category))

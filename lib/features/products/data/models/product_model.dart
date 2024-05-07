@@ -1,4 +1,4 @@
-import 'package:furnika/features/products/domain/entities/product.dart';
+import 'package:furnika/core/common/entities/product.dart';
 
 class ProductModel extends Product {
   const ProductModel({
@@ -6,7 +6,9 @@ class ProductModel extends Product {
     required super.name,
     required super.description,
     required super.price,
-    required super.imageUrl,
+    required super.images,
+    required super.imageCover,
+    required super.category,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -15,7 +17,9 @@ class ProductModel extends Product {
       name: json['name'],
       description: json['description'],
       price: json['price'],
-      imageUrl: json['imageUrl'],
+      images: json['imageUrl'],
+      imageCover: json['imageCover'],
+      category: json['category'],
     );
   }
 
@@ -25,7 +29,8 @@ class ProductModel extends Product {
       'name': name,
       'description': description,
       'price': price,
-      'imageUrl': imageUrl,
+      'images': images,
+      'imageCover': imageCover,
     };
   }
 
@@ -34,14 +39,18 @@ class ProductModel extends Product {
     String? name,
     String? description,
     double? price,
-    String? imageUrl,
+    String? images,
+    String? imageCover,
+    List<String>? category,
   }) {
     return ProductModel(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
       price: price ?? this.price,
-      imageUrl: imageUrl ?? this.imageUrl,
+      images: images ?? this.images,
+      imageCover: imageCover ?? this.imageCover,
+      category: category ?? this.category,
     );
   }
 }
