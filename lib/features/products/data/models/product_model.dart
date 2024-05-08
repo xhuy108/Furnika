@@ -16,10 +16,10 @@ class ProductModel extends Product {
       id: json['id'],
       name: json['name'],
       description: json['description'],
-      price: json['price'],
-      images: json['imageUrl'],
+      price: (json['price'] as num).toDouble(),
+      images: List<String>.from(json['images']),
       imageCover: json['imageCover'],
-      category: json['category'],
+      category: [],
     );
   }
 
@@ -39,7 +39,7 @@ class ProductModel extends Product {
     String? name,
     String? description,
     double? price,
-    String? images,
+    List<String>? images,
     String? imageCover,
     List<String>? category,
   }) {

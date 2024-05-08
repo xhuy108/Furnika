@@ -1,6 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:furnika/core/common/entities/product.dart';
+import 'package:furnika/core/errors/exceptions.dart';
+import 'package:furnika/core/errors/failures.dart';
+import 'package:furnika/core/utils/typedefs.dart';
 import 'package:furnika/features/products/data/datasources/product_remote_data_source.dart';
-import 'package:furnika/features/products/data/models/product_model.dart';
 import 'package:furnika/features/products/domain/repositories/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
@@ -9,15 +12,18 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<List<Product>> getAllProducts() async {
-    final products = await remoteDataSource.getAllProducts();
-    return products;
+  ResultFuture<List<Product>> getPopularProducts() async {
+    try {
+      final products = await remoteDataSource.getPopularProducts();
+
+      return Right(products);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
   }
 
   @override
-  Future<Product> uploadProduct(Product product) async {
-    final uploadedProduct =
-        await remoteDataSource.uploadProduct(product as ProductModel);
-    return uploadedProduct;
+  ResultFuture<Product> uploadProduct(Product product) async {
+    throw UnimplementedError();
   }
 }

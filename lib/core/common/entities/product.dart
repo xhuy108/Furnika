@@ -6,7 +6,7 @@ class Product extends Equatable {
   final String description;
   final double price;
   final String imageCover;
-  final String images;
+  final List<String> images;
   final List<String> category;
 
   const Product({

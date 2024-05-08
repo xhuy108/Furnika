@@ -4,11 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnika/config/routes/route_names.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/entities/product.dart';
+import 'package:furnika/core/utils/formatter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductCardItem extends StatelessWidget {
-  const ProductCardItem({super.key});
+  const ProductCardItem({super.key, required this.product});
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +29,9 @@ class ProductCardItem extends StatelessWidget {
                 width: 150.w,
                 height: 150.h,
                 decoration: BoxDecoration(
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/product_img.png'),
-                    fit: BoxFit.cover,
+                  image: DecorationImage(
+                    image: NetworkImage(product.imageCover),
+                    fit: BoxFit.fill,
                   ),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
@@ -52,15 +56,21 @@ class ProductCardItem extends StatelessWidget {
           Gap(6.h),
           Row(
             children: [
-              Text(
-                'Sofa',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppPalette.textPrimary,
+              Expanded(
+                child: Text(
+                  product.name,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppPalette.textPrimary,
+                  ),
                 ),
               ),
-              const Spacer(),
+              Gap(
+                14.w,
+              ),
               SvgPicture.asset(
                 MediaResource.startIcon,
                 width: 15.w,
@@ -77,7 +87,7 @@ class ProductCardItem extends StatelessWidget {
           ),
           Gap(5.h),
           Text(
-            'Price',
+            currencyFormatter.format(product.price),
             style: TextStyle(
               fontSize: 12.sp,
               color: AppPalette.textPrimary,
