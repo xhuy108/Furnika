@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:furnika/features/products/data/models/product_model.dart';
 
 abstract interface class ProductRemoteDataSource {
-  Future<List<ProductModel>> getProducts();
+  Future<List<ProductModel>> getAllProducts();
   Future<ProductModel> uploadProduct(ProductModel product);
 }
 
@@ -12,7 +12,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   ProductRemoteDataSourceImpl(this.client);
 
   @override
-  Future<List<ProductModel>> getProducts() async {
+  Future<List<ProductModel>> getAllProducts() async {
     throw UnimplementedError();
     // final response = await client.get(
     //   Uri.parse('https://furnika-1f3e4-default-rtdb.firebaseio.com/products.json'),
