@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/entities/product.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
@@ -90,7 +90,18 @@ class _ProductByCategoryPageState extends State<ProductByCategoryPage> {
                 ),
                 itemCount: 8,
                 itemBuilder: (context, index) {
-                  return const ProductCardItem();
+                  return ProductCardItem(
+                    product: Product(
+                      id: index.toString(),
+                      name: 'sofa',
+                      description: 'description',
+                      price: 1,
+                      imageCover:
+                          'https://th.bing.com/th/id/OIP.yOoOlRkcBZmpRfP3AlPD4QHaEo?rs=1&pid=ImgDetMain',
+                      images: ['images'],
+                      category: ['category'],
+                    ),
+                  );
                 },
               ),
             ),

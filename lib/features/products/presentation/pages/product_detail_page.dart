@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/entities/product.dart';
 import 'package:furnika/core/common/widgets/adjust_quanity_button.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_favorite_button.dart';
@@ -17,7 +18,9 @@ import 'package:furnika/features/products/presentation/widgets/review_item.dart'
 import 'package:gap/gap.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  const ProductDetailPage({super.key});
+  const ProductDetailPage({super.key, required this.product});
+
+  final Product product;
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -82,13 +85,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 360.h,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/product.png'),
-                      fit: BoxFit.fill,
+                Hero(
+                  tag: widget.product.id,
+                  child: Container(
+                    height: 360.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(widget.product.imageCover),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -387,14 +393,26 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   Gap(10.h),
                   SizedBox(
-                    height: 200.h,
+                    height: 220.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       itemBuilder: (context, index) => Container(
                         width: 150.w,
+                        height: 150.h,
                         margin: EdgeInsets.only(right: 12.w),
-                        child: ProductCardItem(),
+                        child: ProductCardItem(
+                          product: Product(
+                            id: index.toString(),
+                            name: 'sofa',
+                            description: 'description',
+                            price: 1,
+                            imageCover:
+                                'https://th.bing.com/th/id/OIP.yOoOlRkcBZmpRfP3AlPD4QHaEo?rs=1&pid=ImgDetMain',
+                            images: ['images'],
+                            category: ['category'],
+                          ),
+                        ),
                       ),
                     ),
                   ),

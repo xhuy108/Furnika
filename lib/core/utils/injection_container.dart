@@ -17,6 +17,11 @@ import 'package:furnika/features/categories/domain/usecases/get_other_categories
 import 'package:furnika/features/categories/domain/usecases/get_popular_categories.dart';
 import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
+import 'package:furnika/features/products/data/datasources/product_remote_data_source.dart';
+import 'package:furnika/features/products/data/repositories/product_repository_impl.dart';
+import 'package:furnika/features/products/domain/repositories/product_repository.dart';
+import 'package:furnika/features/products/domain/usecases/get_popular_products.dart';
+import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -113,33 +118,24 @@ Future<void> init() async {
   sl.registerLazySingleton<CategoryRemoteDataSource>(
       () => CategoryRemoteDataSourceImpl(client: sl()));
 
-  // //! Features - Products
-  // // Bloc
-  // sl.registerFactory(() => ProductsBloc(
-  //       getAllProductsByCategory: sl(),
-  //       getProductById: sl(),
-  //       getNewArrivalProducts: sl(),
-  //       getPopularProducts: sl(),
-  //       searchProductsByName: sl(),
-  //       searchProductsByNamePerCategory: sl(),
-  //       getRelevantProducts: sl(),
-  //       getProductsByBrandPerCategory: sl(),
-  //     ));
-  // // Use cases
-  // sl.registerLazySingleton(() => GetAllProductsByCategory(sl()));
-  // sl.registerLazySingleton(() => GetProductById(sl()));
-  // sl.registerLazySingleton(() => GetNewArrivalProducts(sl()));
-  // sl.registerLazySingleton(() => GetPopularProducts(sl()));
-  // sl.registerLazySingleton(() => SearchProductsByName(sl()));
-  // sl.registerLazySingleton(() => SearchProductsByNamePerCategory(sl()));
-  // sl.registerLazySingleton(() => GetProductsByBrandPerCategory(sl()));
-  // sl.registerLazySingleton(() => GetRelevantProducts(sl()));
-  // // Repository
-  // sl.registerLazySingleton<ProductRepository>(
-  //     () => ProductRepositoryImpl(sl()));
-  // // Data sources
-  // sl.registerLazySingleton<ProductRemoteDataSource>(
-  //     () => ProductRemoteDataSourceImpl(client: sl()));
+  //! Features - Products
+  // Bloc
+  sl.registerFactory(
+    () => ProductBloc(
+      getPopularProducts: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetPopularProducts(sl()));
+
+  // Repository
+  sl.registerLazySingleton<ProductRepository>(
+      () => ProductRepositoryImpl(sl()));
+
+  // Data sources
+  sl.registerLazySingleton<ProductRemoteDataSource>(
+      () => ProductRemoteDataSourceImpl(sl()));
 
   // //! Features - Review
   // // Cubit

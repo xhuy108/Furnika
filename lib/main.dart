@@ -10,6 +10,7 @@ import 'package:furnika/core/utils/injection_container.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
+import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,9 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (_) => sl<AllCategoriesBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => sl<ProductBloc>(),
       ),
     ],
     child: const MyApp(),
