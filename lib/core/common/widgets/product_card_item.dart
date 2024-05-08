@@ -8,6 +8,7 @@ import 'package:furnika/core/common/entities/product.dart';
 import 'package:furnika/core/utils/formatter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ProductCardItem extends StatelessWidget {
   const ProductCardItem({super.key, required this.product});
@@ -18,22 +19,28 @@ class ProductCardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(RouteNames.productDetail);
+        context.pushNamed(RouteNames.productDetail, extra: product);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
-              Container(
-                width: 150.w,
-                height: 150.h,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
+              Hero(
+                tag: product.id,
+                child: Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: FadeInImage(
+                    placeholder: MemoryImage(kTransparentImage),
                     image: NetworkImage(product.imageCover),
+                    width: 150.w,
+                    height: 150.h,
                     fit: BoxFit.fill,
                   ),
-                  borderRadius: BorderRadius.circular(10.r),
                 ),
               ),
               Positioned(

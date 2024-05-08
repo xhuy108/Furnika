@@ -24,11 +24,12 @@ class WishlistProductList extends StatelessWidget {
         itemBuilder: (context, index) {
           return ProductCardItem(
             product: Product(
-              id: '1',
+              id: index.toString(),
               name: 'sofa',
               description: 'description',
               price: 1,
-              imageCover: 'imageCover',
+              imageCover:
+                  'https://th.bing.com/th/id/OIP.yOoOlRkcBZmpRfP3AlPD4QHaEo?rs=1&pid=ImgDetMain',
               images: ['images'],
               category: ['category'],
             ),
