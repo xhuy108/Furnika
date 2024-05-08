@@ -15,8 +15,9 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Product> uploadProduct(ProductModel product) async {
-    final uploadedProduct = await remoteDataSource.uploadProduct(product);
+  Future<Product> uploadProduct(Product product) async {
+    final uploadedProduct =
+        await remoteDataSource.uploadProduct(product as ProductModel);
     return uploadedProduct;
   }
 }
