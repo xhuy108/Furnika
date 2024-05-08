@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:furnika/core/constraints/constraints.dart';
+import 'package:furnika/core/errors/exceptions.dart';
 import 'package:furnika/features/products/data/models/product_model.dart';
 
 abstract interface class ProductRemoteDataSource {
-  Future<List<ProductModel>> getAllProducts();
+  Future<List<ProductModel>> getPopularProducts();
   Future<ProductModel> uploadProduct(ProductModel product);
 }
 
@@ -12,26 +14,33 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   ProductRemoteDataSourceImpl(this.client);
 
   @override
-  Future<List<ProductModel>> getAllProducts() async {
-    throw UnimplementedError();
-    // final response = await client.get(
-    //   Uri.parse('https://furnika-1f3e4-default-rtdb.firebaseio.com/products.json'),
-    // );
+  Future<List<ProductModel>> getPopularProducts() async {
+    try {
+      final response = await client.get(
+        '$kBaseUrl/products',
+        queryParameters: {
+          'limit': 8,
+        },
+      );
 
-    // if (response.statusCode == 200) {
-    //   final List<ProductModel> products = [];
-    //   final Map<String, dynamic> data = json.decode(response.body);
-    //   data.forEach((key, value) {
-    //     products.add(ProductModel.fromJson(value));
-    //   });
-    //   return products;
-    // } else {
-    //   throw ServerException();
-    // }
+      print(response.data['data'][0]['description']);
+
+      return response.data['data']
+          .map<ProductModel>((category) => ProductModel.fromJson(category))
+          .toList();
+    } on DioException catch (dioException) {
+      throw ServerException(
+        dioException.response?.data['message'],
+        dioException.response!.statusCode!,
+      );
+    } catch (e) {
+      throw ServerException(e.toString(), 500);
+    }
   }
 
   @override
-  Future<ProductModel> uploadProduct(ProductModel product) async {
+  Future<ProductModel> uploadProduct(ProductModel product) {
+    // TODO: implement uploadProduct
     throw UnimplementedError();
   }
 }

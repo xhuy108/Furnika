@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/entities/product.dart';
 import 'package:furnika/core/common/widgets/adjust_quanity_button.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/app_favorite_button.dart';
@@ -394,7 +394,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       itemBuilder: (context, index) => Container(
                         width: 150.w,
                         margin: EdgeInsets.only(right: 12.w),
-                        child: ProductCardItem(),
+                        child: ProductCardItem(
+                          product: Product(
+                            id: '1',
+                            name: 'sofa',
+                            description: 'description',
+                            price: 1,
+                            imageCover: 'imageCover',
+                            images: ['images'],
+                            category: ['category'],
+                          ),
+                        ),
                       ),
                     ),
                   ),
