@@ -6,6 +6,7 @@ import 'package:furnika/features/auth/data/datasources/auth_local_data_source.da
 import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:furnika/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
+import 'package:furnika/features/auth/domain/usecases/cache_first_time.dart';
 import 'package:furnika/features/auth/domain/usecases/log_in.dart';
 import 'package:furnika/features/auth/domain/usecases/sign_up.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
@@ -53,12 +54,14 @@ Future<void> init() async {
       signUp: sl(),
       logInWithEmailAndPassword: sl(),
       appUserCubit: sl(),
+      cacheFirstTime: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => SignUp(sl()));
   sl.registerLazySingleton(() => LogInWithEmailAndPassword(sl()));
+  sl.registerLazySingleton(() => CacheFirstTime(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(
@@ -263,7 +266,6 @@ Future<void> init() async {
 
   //! External
   final preferences = await SharedPreferences.getInstance();
-  preferences.setBool(kFirstTime, false);
   sl.registerLazySingleton(() => preferences);
   sl.registerLazySingleton(() => Dio());
   // sl.registerLazySingleton(() => InternetConnectionChecker());

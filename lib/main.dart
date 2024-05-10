@@ -26,7 +26,7 @@ Future<void> main() async {
         create: (_) => sl<AppUserCubit>(),
       ),
       BlocProvider(
-        create: (_) => sl<AuthBloc>(),
+        create: (_) => sl<AuthBloc>()..add(const AuthCacheFirstTime()),
       ),
       BlocProvider(
         create: (_) => sl<CategoryBloc>(),

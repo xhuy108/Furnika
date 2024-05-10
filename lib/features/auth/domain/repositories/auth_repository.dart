@@ -15,6 +15,8 @@ abstract interface class AuthRepository {
     required String username,
   });
 
+  ResultFuture<void> cacheFirstTime();
+
   // ResultFuture<void> forgotPassword(String email);
 
   // ResultFuture<void> signOut();
