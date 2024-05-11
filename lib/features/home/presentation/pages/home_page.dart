@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   int currentPopularCategoryIndex = 0;
   final popularCategories = [];
+  final popularProducts = [];
 
   @override
   void initState() {
@@ -162,7 +163,12 @@ class _HomePageState extends State<HomePage> {
                     Gap(20.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: BlocBuilder<ProductBloc, ProductState>(
+                      child: BlocConsumer<ProductBloc, ProductState>(
+                        listener: (context, state) {
+                          if (state is ProductsLoaded) {
+                            popularProducts.addAll(state.products);
+                          }
+                        },
                         builder: (context, state) {
                           if (state is ProductsLoading) {
                             return const Center(
@@ -174,26 +180,24 @@ class _HomePageState extends State<HomePage> {
                               child: Text(state.message),
                             );
                           }
-                          if (state is ProductsLoaded) {
-                            return GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 20.h, // vertical spacing
-                                crossAxisSpacing: 20.w,
-                                childAspectRatio: 0.75,
-                              ),
-                              itemCount: state.products.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return ProductCardItem(
-                                  product: state.products[index],
-                                );
-                              },
-                            );
-                          }
-                          return const SizedBox();
+
+                          return GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 20.h, // vertical spacing
+                              crossAxisSpacing: 20.w,
+                              childAspectRatio: 0.75,
+                            ),
+                            itemCount: popularProducts.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return ProductCardItem(
+                                product: popularProducts[index],
+                              );
+                            },
+                          );
                         },
                       ),
                     ),

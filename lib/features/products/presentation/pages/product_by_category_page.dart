@@ -97,17 +97,17 @@ class _ProductByCategoryPageState extends State<ProductByCategoryPage> {
             Expanded(
               child: BlocBuilder<ProductBloc, ProductState>(
                 builder: (context, state) {
-                  if (state is ProductsLoading) {
+                  if (state is ProductCategoryLoading) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                  if (state is ProductsError) {
+                  if (state is ProductCategoryError) {
                     return Center(
                       child: Text(state.message),
                     );
                   }
-                  if (state is ProductsLoaded) {
+                  if (state is ProductCategoryLoaded) {
                     if (state.products.isEmpty) {
                       return const Center(
                         child: Text('No products found'),

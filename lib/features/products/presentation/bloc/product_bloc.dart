@@ -17,15 +17,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   })  : _getPopularProducts = getPopularProducts,
         _getProductsByCategory = getProductsByCategory,
         super(ProductsInitial()) {
-    on<ProductEvent>((event, emit) {
-      emit(ProductsLoading());
-    });
     on<GetPopularProductsEvent>(_onFetchPopularProducts);
     on<GetProductsByCategoryEvent>(_onFetchProductsByCategory);
   }
 
   void _onFetchPopularProducts(
       GetPopularProductsEvent event, Emitter<ProductState> emit) async {
+    emit(ProductsLoading());
     final result = await _getPopularProducts.call();
     result.fold(
       (failure) => emit(ProductsError(failure.message)),
@@ -35,10 +33,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
   void _onFetchProductsByCategory(
       GetProductsByCategoryEvent event, Emitter<ProductState> emit) async {
+    emit(ProductCategoryLoading());
     final result = await _getProductsByCategory.call(event.categoryId);
     result.fold(
-      (failure) => emit(ProductsError(failure.message)),
-      (products) => emit(ProductsLoaded(products)),
+      (failure) => emit(ProductCategoryError(failure.message)),
+      (products) => emit(ProductCategoryLoaded(products)),
     );
   }
 }
