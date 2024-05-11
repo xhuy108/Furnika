@@ -22,6 +22,7 @@ import 'package:furnika/features/products/data/datasources/product_remote_data_s
 import 'package:furnika/features/products/data/repositories/product_repository_impl.dart';
 import 'package:furnika/features/products/domain/repositories/product_repository.dart';
 import 'package:furnika/features/products/domain/usecases/get_popular_products.dart';
+import 'package:furnika/features/products/domain/usecases/get_product_by_category.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -126,11 +127,13 @@ Future<void> init() async {
   sl.registerFactory(
     () => ProductBloc(
       getPopularProducts: sl(),
+      getProductsByCategory: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => GetPopularProducts(sl()));
+  sl.registerLazySingleton(() => GetProductsByCategory(sl()));
 
   // Repository
   sl.registerLazySingleton<ProductRepository>(
@@ -261,8 +264,8 @@ Future<void> init() async {
   //     () => OrderRemoteDataSourceImpl(client: sl()));
 
   // //! Core
-  sl.registerFactory(() => AppUserCubit());
-  sl.registerFactory(() => NavigationCubit());
+  sl.registerLazySingleton(() => AppUserCubit());
+  sl.registerLazySingleton(() => NavigationCubit());
 
   //! External
   final preferences = await SharedPreferences.getInstance();

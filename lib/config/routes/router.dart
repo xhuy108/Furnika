@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furnika/core/common/entities/category.dart';
 import 'package:furnika/core/common/entities/product.dart';
 import 'package:furnika/core/common/widgets/navigation_menu.dart';
 import 'package:furnika/core/utils/check_is_first_time.dart';
@@ -145,9 +146,8 @@ class AppRouter {
         path: '/productByCategory',
         pageBuilder: (context, state) => CustomTransitionPage(
           child: ProductByCategoryPage(
-              // category: state.pathParameters['category']!,
-              // categoryId: state.pathParameters['categoryId']!,
-              ),
+            category: state.extra as Category,
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);

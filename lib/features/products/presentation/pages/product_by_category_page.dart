@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/entities/category.dart';
 import 'package:furnika/core/common/entities/product.dart';
 import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
+import 'package:furnika/features/products/domain/usecases/get_product_by_category.dart';
+import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 import 'package:gap/gap.dart';
 
 class ProductByCategoryPage extends StatefulWidget {
-  const ProductByCategoryPage({super.key});
+  const ProductByCategoryPage({super.key, required this.category});
+
+  final Category category;
 
   @override
   State<ProductByCategoryPage> createState() => _ProductByCategoryPageState();
@@ -19,6 +25,14 @@ class ProductByCategoryPage extends StatefulWidget {
 
 class _ProductByCategoryPageState extends State<ProductByCategoryPage> {
   final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<ProductBloc>()
+        .add(GetProductsByCategoryEvent(widget.category.id));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +45,7 @@ class _ProductByCategoryPageState extends State<ProductByCategoryPage> {
         ),
         leadingWidth: 56.w,
         title: Text(
-          'Sofa',
+          widget.category.name,
           style: TextStyle(
             fontSize: 18.sp,
             color: AppPalette.textPrimary,
@@ -81,27 +95,38 @@ class _ProductByCategoryPageState extends State<ProductByCategoryPage> {
             ),
             Gap(20.h),
             Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 20.h, // vertical spacing
-                  crossAxisSpacing: 20.w,
-                  childAspectRatio: 0.75,
-                ),
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return ProductCardItem(
-                    product: Product(
-                      id: index.toString(),
-                      name: 'sofa',
-                      description: 'description',
-                      price: 1,
-                      imageCover:
-                          'https://th.bing.com/th/id/OIP.yOoOlRkcBZmpRfP3AlPD4QHaEo?rs=1&pid=ImgDetMain',
-                      images: ['images'],
-                      category: ['category'],
-                    ),
-                  );
+              child: BlocBuilder<ProductBloc, ProductState>(
+                builder: (context, state) {
+                  if (state is ProductsLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (state is ProductsError) {
+                    return Center(
+                      child: Text(state.message),
+                    );
+                  }
+                  if (state is ProductsLoaded) {
+                    if (state.products.isEmpty) {
+                      return const Center(
+                        child: Text('No products found'),
+                      );
+                    }
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 20.h, // vertical spacing
+                        crossAxisSpacing: 20.w,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemCount: state.products.length,
+                      itemBuilder: (context, index) {
+                        return ProductCardItem(product: state.products[index]);
+                      },
+                    );
+                  }
+                  return const SizedBox();
                 },
               ),
             ),

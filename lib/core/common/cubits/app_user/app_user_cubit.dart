@@ -9,6 +9,8 @@ class AppUserCubit extends Cubit<AppUserState> {
   AppUserCubit() : super(AppUserInitial());
 
   void updateUser(User? user) {
+    print(user);
+    print('user');
     if (user == null) {
       emit(AppUserInitial());
     } else {

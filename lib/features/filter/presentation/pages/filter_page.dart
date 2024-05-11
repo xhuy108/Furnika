@@ -10,6 +10,19 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
+enum SortType { all, popular, newest }
+
+String formatSortType(SortType sortType) {
+  switch (sortType) {
+    case SortType.all:
+      return 'All';
+    case SortType.popular:
+      return 'Popular';
+    case SortType.newest:
+      return 'Newest';
+  }
+}
+
 class FilterPage extends StatefulWidget {
   const FilterPage({super.key});
 
@@ -127,11 +140,11 @@ class _FilterPageState extends State<FilterPage> {
                   SizedBox(
                     height: 32.h,
                     child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: SortType.values.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return OptionButton(
-                          title: 'Sofa',
+                          title: formatSortType(SortType.values[index]),
                           onTap: () {
                             setState(() {
                               _sortIndex = index;
