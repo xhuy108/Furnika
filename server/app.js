@@ -16,7 +16,7 @@ const productRouter = require("./src/routes/product.route");
 // const brandRouter = require("./routes/brandRoute");
 const categoryRouter = require("./src/routes/category.route");
 // const couponRouter = require("./routes/couponRoute");
-// const cartRouter = require("./routes/cartRoute");
+const cartRouter = require("./routes/cartRoute");
 // const orderRouter = require("./routes/orderRoute");
 
 const app = express();
