@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/core/common/widgets/adjust_quanity_button.dart';
-import 'package:furnika/core/common/widgets/app_divider.dart';
+import 'package:furnika/core/utils/formatter.dart';
+import 'package:furnika/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:gap/gap.dart';
 
 class CartItem extends StatefulWidget {
-  const CartItem({super.key});
+  const CartItem({super.key, required this.cartItemEntity});
+
+  final CartItemEntity cartItemEntity;
 
   @override
   State<CartItem> createState() => _CartItemState();
@@ -37,9 +42,10 @@ class _CartItemState extends State<CartItem> {
                 width: 100.w,
                 height: 100.h,
                 decoration: BoxDecoration(
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/product.png'),
-                    fit: BoxFit.cover,
+                  image: DecorationImage(
+                    image:
+                        NetworkImage(widget.cartItemEntity.product.imageCover),
+                    fit: BoxFit.fill,
                   ),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
@@ -50,7 +56,7 @@ class _CartItemState extends State<CartItem> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Emery Bed',
+                      widget.cartItemEntity.product.name,
                       style: TextStyle(
                         color: AppPalette.textPrimary,
                         fontSize: 12.sp,
@@ -70,7 +76,9 @@ class _CartItemState extends State<CartItem> {
                     Row(
                       children: [
                         Text(
-                          '\$200,0',
+                          currencyFormatter.format(
+                            widget.cartItemEntity.product.price,
+                          ),
                           style: TextStyle(
                             color: AppPalette.textPrimary,
                             fontSize: 13.sp,
@@ -84,12 +92,14 @@ class _CartItemState extends State<CartItem> {
                           iconColor: AppPalette.textPrimary,
                           icon: Icons.remove,
                           onTap: () {
-                            debugPrint('remove');
+                            context.read<CartCubit>().decreaseQuantity(
+                                  product: widget.cartItemEntity.product,
+                                );
                           },
                         ),
                         Gap(8.w),
                         Text(
-                          '1',
+                          widget.cartItemEntity.quantity.toString(),
                           style: TextStyle(
                             color: AppPalette.textPrimary,
                             fontSize: 12.sp,
@@ -102,7 +112,9 @@ class _CartItemState extends State<CartItem> {
                           iconColor: Colors.white,
                           icon: Icons.add,
                           onTap: () {
-                            debugPrint('add');
+                            context.read<CartCubit>().increaseQuantity(
+                                  product: widget.cartItemEntity.product,
+                                );
                           },
                         ),
                       ],

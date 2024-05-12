@@ -26,4 +26,15 @@ class ProductRepositoryImpl implements ProductRepository {
   ResultFuture<Product> uploadProduct(Product product) async {
     throw UnimplementedError();
   }
+
+  @override
+  ResultFuture<List<Product>> getProductsByCategory(String categoryId) async {
+    try {
+      final products = await remoteDataSource.getProductsByCategory(categoryId);
+
+      return Right(products);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
 }

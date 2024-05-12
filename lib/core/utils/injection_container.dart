@@ -6,9 +6,20 @@ import 'package:furnika/features/auth/data/datasources/auth_local_data_source.da
 import 'package:furnika/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:furnika/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:furnika/features/auth/domain/repositories/auth_repository.dart';
+import 'package:furnika/features/auth/domain/usecases/cache_first_time.dart';
 import 'package:furnika/features/auth/domain/usecases/log_in.dart';
 import 'package:furnika/features/auth/domain/usecases/sign_up.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:furnika/features/cart/data/datasources/cart_remote_datasource.dart';
+import 'package:furnika/features/cart/data/repositories/cart_repository_impl.dart';
+import 'package:furnika/features/cart/domain/repositories/cart_repository.dart';
+import 'package:furnika/features/cart/domain/usecases/add_to_cart.dart';
+import 'package:furnika/features/cart/domain/usecases/decrease_cart_quantity.dart';
+import 'package:furnika/features/cart/domain/usecases/empty_cart.dart';
+import 'package:furnika/features/cart/domain/usecases/get_cart.dart';
+import 'package:furnika/features/cart/domain/usecases/increase_cart_quantity.dart';
+import 'package:furnika/features/cart/domain/usecases/remove_cart_item.dart';
+import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/categories/data/datasources/category_remote_datasource.dart';
 import 'package:furnika/features/categories/data/repositories/category_repository_impl.dart';
 import 'package:furnika/features/categories/domain/repositories/category_repository.dart';
@@ -21,6 +32,7 @@ import 'package:furnika/features/products/data/datasources/product_remote_data_s
 import 'package:furnika/features/products/data/repositories/product_repository_impl.dart';
 import 'package:furnika/features/products/domain/repositories/product_repository.dart';
 import 'package:furnika/features/products/domain/usecases/get_popular_products.dart';
+import 'package:furnika/features/products/domain/usecases/get_product_by_category.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,12 +65,14 @@ Future<void> init() async {
       signUp: sl(),
       logInWithEmailAndPassword: sl(),
       appUserCubit: sl(),
+      cacheFirstTime: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => SignUp(sl()));
   sl.registerLazySingleton(() => LogInWithEmailAndPassword(sl()));
+  sl.registerLazySingleton(() => CacheFirstTime(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(
@@ -123,11 +137,13 @@ Future<void> init() async {
   sl.registerFactory(
     () => ProductBloc(
       getPopularProducts: sl(),
+      getProductsByCategory: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => GetPopularProducts(sl()));
+  sl.registerLazySingleton(() => GetProductsByCategory(sl()));
 
   // Repository
   sl.registerLazySingleton<ProductRepository>(
@@ -195,30 +211,30 @@ Future<void> init() async {
   // sl.registerLazySingleton<ProfileRemoteDataSource>(
   //     () => ProfileRemoteDataSourceImpl(client: sl()));
 
-  // //! Cart
-  // // Cubit
-  // sl.registerFactory(
-  //   () => CartCubit(
-  //     getCart: sl(),
-  //     addToCart: sl(),
-  //     increaseCartQuantity: sl(),
-  //     decreaseCartQuantity: sl(),
-  //     removeCartItem: sl(),
-  //     emptyCart: sl(),
-  //   ),
-  // );
-  // // Use cases
-  // sl.registerLazySingleton(() => GetCart(sl()));
-  // sl.registerLazySingleton(() => AddToCart(sl()));
-  // sl.registerLazySingleton(() => IncreaseCartQuantity(sl()));
-  // sl.registerLazySingleton(() => DecreaseCartQuantity(sl()));
-  // sl.registerLazySingleton(() => RemoveCartItem(sl()));
-  // sl.registerLazySingleton(() => EmptyCart(sl()));
-  // // Repository
-  // sl.registerLazySingleton<CartRepository>(() => CartRepositoryImpl(sl()));
-  // // Data sources
-  // sl.registerLazySingleton<CartRemoteDataSource>(
-  //     () => CartRemoteDataSourceImpl(client: sl()));
+  //! Cart
+  // Cubit
+  sl.registerFactory(
+    () => CartCubit(
+      getCart: sl(),
+      addToCart: sl(),
+      increaseCartQuantity: sl(),
+      decreaseCartQuantity: sl(),
+      removeCartItem: sl(),
+      emptyCart: sl(),
+    ),
+  );
+  // Use cases
+  sl.registerLazySingleton(() => GetCart(sl()));
+  sl.registerLazySingleton(() => AddToCart(sl()));
+  sl.registerLazySingleton(() => IncreaseCartQuantity(sl()));
+  sl.registerLazySingleton(() => DecreaseCartQuantity(sl()));
+  sl.registerLazySingleton(() => RemoveCartItem(sl()));
+  sl.registerLazySingleton(() => EmptyCart(sl()));
+  // Repository
+  sl.registerLazySingleton<CartRepository>(() => CartRepositoryImpl(sl()));
+  // Data sources
+  sl.registerLazySingleton<CartRemoteDataSource>(
+      () => CartRemoteDataSourceImpl(client: sl()));
 
   // //! Order
   // // Cubit
@@ -258,12 +274,16 @@ Future<void> init() async {
   //     () => OrderRemoteDataSourceImpl(client: sl()));
 
   // //! Core
-  sl.registerFactory(() => AppUserCubit());
-  sl.registerFactory(() => NavigationCubit());
+  sl.registerLazySingleton(
+    () => AppUserCubit(
+      dio: sl(),
+      sharedPreferences: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => NavigationCubit());
 
   //! External
   final preferences = await SharedPreferences.getInstance();
-  preferences.setBool(kFirstTime, false);
   sl.registerLazySingleton(() => preferences);
   sl.registerLazySingleton(() => Dio());
   // sl.registerLazySingleton(() => InternetConnectionChecker());

@@ -5,6 +5,7 @@ import 'package:furnika/features/products/data/models/product_model.dart';
 
 abstract interface class ProductRemoteDataSource {
   Future<List<ProductModel>> getPopularProducts();
+  Future<List<ProductModel>> getProductsByCategory(String categoryId);
   Future<ProductModel> uploadProduct(ProductModel product);
 }
 
@@ -23,8 +24,6 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         },
       );
 
-      print(response.data['data'][0]['description']);
-
       return response.data['data']
           .map<ProductModel>((category) => ProductModel.fromJson(category))
           .toList();
@@ -42,5 +41,24 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   Future<ProductModel> uploadProduct(ProductModel product) {
     // TODO: implement uploadProduct
     throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ProductModel>> getProductsByCategory(String categoryId) async {
+    try {
+      final response =
+          await client.get('$kBaseUrl/categories/$categoryId/products');
+
+      return response.data['data']
+          .map<ProductModel>((category) => ProductModel.fromJson(category))
+          .toList();
+    } on DioException catch (dioException) {
+      throw ServerException(
+        dioException.response?.data['message'],
+        dioException.response!.statusCode!,
+      );
+    } catch (e) {
+      throw ServerException(e.toString(), 500);
+    }
   }
 }

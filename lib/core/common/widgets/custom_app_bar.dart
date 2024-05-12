@@ -7,6 +7,7 @@ AppBar customAppBar({
   required String title,
   PreferredSizeWidget? bottom,
   required BuildContext context,
+  List<Widget>? actions,
 }) {
   return AppBar(
     leading: Padding(
@@ -31,5 +32,6 @@ AppBar customAppBar({
     surfaceTintColor: AppPalette.background,
     backgroundColor: AppPalette.background,
     bottom: bottom,
+    actions: actions,
   );
 }

@@ -8,6 +8,7 @@ import 'package:furnika/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:furnika/core/common/cubits/navigation/navigation_cubit.dart';
 import 'package:furnika/core/utils/injection_container.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
@@ -26,7 +27,7 @@ Future<void> main() async {
         create: (_) => sl<AppUserCubit>(),
       ),
       BlocProvider(
-        create: (_) => sl<AuthBloc>(),
+        create: (_) => sl<AuthBloc>()..add(const AuthCacheFirstTime()),
       ),
       BlocProvider(
         create: (_) => sl<CategoryBloc>(),
@@ -36,6 +37,9 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (_) => sl<ProductBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => sl<CartCubit>(),
       ),
     ],
     child: const MyApp(),

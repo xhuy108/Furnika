@@ -33,6 +33,9 @@ class AppTextField extends StatelessWidget {
       keyboardType: keyboardType,
       validator: validator,
       obscureText: isObscureText,
+      style: TextStyle(
+        fontSize: 11.sp,
+      ),
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
