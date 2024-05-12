@@ -16,7 +16,7 @@ class CartModel extends Cart {
         items: json['items'].map<CartItemEntity>((e) {
           return CartItemModel.fromJson(e);
         }).toList(),
-        cartTotalPrice: json['cartTotalPrice'] as double,
+        cartTotalPrice: (json['cartTotalPrice'] as num).toDouble(),
         cartTotalQuantity: json['cartTotalQuantity'] as int,
         totalPriceAfterDiscount: json['totalPriceAfterDiscount'] as int,
       );

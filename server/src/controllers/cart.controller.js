@@ -43,10 +43,10 @@ exports.getAllCartItems = catchAsync(async (req, res, next) => {
 exports.addToCart = catchAsync(async (req, res, next) => {
   try {
     const productPrice = await Product.findById(req.body.product)
-      .select("regularPrice")
+      .select("price")
       .exec();
 
-    req.body.price = productPrice.regularPrice;
+    req.body.price = productPrice.price;
 
     const cart = await Cart.findOne({ user: req.user.id });
     if (!cart) {
@@ -101,10 +101,10 @@ exports.addToCart = catchAsync(async (req, res, next) => {
 exports.updateCart = catchAsync(async (req, res, next) => {
   try {
     const productPrice = await Product.findById(req.body.product)
-      .select("regularPrice")
+      .select("price")
       .exec();
 
-    req.body.price = productPrice.regularPrice;
+    req.body.price = productPrice.price;
 
     const cart = await Cart.findOne({ user: req.user.id });
     if (!cart) {

@@ -274,7 +274,12 @@ Future<void> init() async {
   //     () => OrderRemoteDataSourceImpl(client: sl()));
 
   // //! Core
-  sl.registerLazySingleton(() => AppUserCubit());
+  sl.registerLazySingleton(
+    () => AppUserCubit(
+      dio: sl(),
+      sharedPreferences: sl(),
+    ),
+  );
   sl.registerLazySingleton(() => NavigationCubit());
 
   //! External

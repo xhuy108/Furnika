@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +14,7 @@ import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
 import 'package:furnika/core/common/widgets/app_divider.dart';
 import 'package:furnika/core/utils/formatter.dart';
+import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/products/presentation/widgets/rating_progress_indicator.dart';
 import 'package:furnika/features/products/presentation/widgets/review_item.dart';
 import 'package:gap/gap.dart';
@@ -79,7 +80,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               height: 46.h,
               width: 180.w,
               title: 'Add to Cart',
-              onTap: () {},
+              onTap: () {
+                context.read<CartCubit>().addProductToCart(
+                      product: widget.product,
+                      quantity: _quantity,
+                      color: 'color',
+                    );
+              },
             ),
           ],
         ),

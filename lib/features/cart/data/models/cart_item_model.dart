@@ -10,13 +10,17 @@ class CartItemModel extends CartItemEntity {
     required super.color,
   });
 
-  factory CartItemModel.fromJson(Map<String, dynamic> json) => CartItemModel(
-        id: json['_id'] as String,
-        product: ProductModel.fromJson(json['product'] as Map<String, dynamic>),
-        quantity: json['quantity'] as int,
-        price: json['price'] as double,
-        color: json['color'] as String,
-      );
+  factory CartItemModel.fromJson(Map<String, dynamic> json) {
+    final product =
+        ProductModel.fromJson(json['product'] as Map<String, dynamic>);
+    return CartItemModel(
+      id: json['_id'] as String,
+      product: product,
+      quantity: json['quantity'] as int,
+      price: product.price,
+      color: json['color'] as String,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'id': id,

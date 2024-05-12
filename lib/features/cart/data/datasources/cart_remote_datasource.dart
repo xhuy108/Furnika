@@ -55,7 +55,8 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
           },
         ),
       );
-      final DataMap data = jsonDecode(response.data);
+      final data = response.data;
+
       if (data['data']['data'].isEmpty) {
         return CartModel(
           id: DateTime.now().toString(),
@@ -99,7 +100,7 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
           'color': color,
         }),
       );
-      final DataMap data = jsonDecode(response.data);
+      final DataMap data = (response.data);
 
       if (response.statusCode == 200) {
         return;
@@ -116,7 +117,6 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
 
   @override
   Future<void> decreaseCartQuantity({required Product product}) async {
-    final url = Uri.parse('$kBaseUrl/carts/increase');
     try {
       final response = await client.patch(
         '$kBaseUrl/carts/increase',
@@ -131,7 +131,7 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
           'product': product.id,
         }),
       );
-      final DataMap data = jsonDecode(response.data);
+      final DataMap data = (response.data);
 
       if (response.statusCode == 200) {
         return;
@@ -148,7 +148,6 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
 
   @override
   Future<void> increaseCartQuantity({required Product product}) async {
-    final url = Uri.parse('$kBaseUrl/carts/decrease');
     try {
       final response = await client.patch(
         '$kBaseUrl/carts/decrease',
@@ -163,7 +162,7 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
           'product': product.id,
         }),
       );
-      final DataMap data = jsonDecode(response.data);
+      final DataMap data = (response.data);
 
       if (response.statusCode == 200) {
         return;
@@ -180,7 +179,6 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
 
   @override
   Future<void> removeCartItem({required String productId}) async {
-    final url = Uri.parse('$kBaseUrl/carts/delete');
     try {
       final response = await client.patch(
         '$kBaseUrl/carts/delete',
@@ -195,7 +193,7 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
           'product': productId,
         }),
       );
-      final DataMap data = jsonDecode(response.data);
+      final DataMap data = (response.data);
 
       if (response.statusCode == 200) {
         return;
@@ -223,7 +221,7 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
           },
         ),
       );
-      final DataMap data = jsonDecode(response.data);
+      final DataMap data = (response.data);
 
       if (response.statusCode == 200) {
         return;

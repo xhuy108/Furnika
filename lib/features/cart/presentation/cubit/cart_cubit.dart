@@ -53,6 +53,8 @@ class CartCubit extends Cubit<CartState> {
       ),
     );
 
+    print('add to cart');
+
     final newState = state as CartLoaded;
 
     final index = newState.cart.items.indexWhere((element) =>
