@@ -10,6 +10,16 @@ import 'package:furnika/features/auth/domain/usecases/cache_first_time.dart';
 import 'package:furnika/features/auth/domain/usecases/log_in.dart';
 import 'package:furnika/features/auth/domain/usecases/sign_up.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:furnika/features/cart/data/datasources/cart_remote_datasource.dart';
+import 'package:furnika/features/cart/data/repositories/cart_repository_impl.dart';
+import 'package:furnika/features/cart/domain/repositories/cart_repository.dart';
+import 'package:furnika/features/cart/domain/usecases/add_to_cart.dart';
+import 'package:furnika/features/cart/domain/usecases/decrease_cart_quantity.dart';
+import 'package:furnika/features/cart/domain/usecases/empty_cart.dart';
+import 'package:furnika/features/cart/domain/usecases/get_cart.dart';
+import 'package:furnika/features/cart/domain/usecases/increase_cart_quantity.dart';
+import 'package:furnika/features/cart/domain/usecases/remove_cart_item.dart';
+import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/categories/data/datasources/category_remote_datasource.dart';
 import 'package:furnika/features/categories/data/repositories/category_repository_impl.dart';
 import 'package:furnika/features/categories/domain/repositories/category_repository.dart';
@@ -201,30 +211,30 @@ Future<void> init() async {
   // sl.registerLazySingleton<ProfileRemoteDataSource>(
   //     () => ProfileRemoteDataSourceImpl(client: sl()));
 
-  // //! Cart
-  // // Cubit
-  // sl.registerFactory(
-  //   () => CartCubit(
-  //     getCart: sl(),
-  //     addToCart: sl(),
-  //     increaseCartQuantity: sl(),
-  //     decreaseCartQuantity: sl(),
-  //     removeCartItem: sl(),
-  //     emptyCart: sl(),
-  //   ),
-  // );
-  // // Use cases
-  // sl.registerLazySingleton(() => GetCart(sl()));
-  // sl.registerLazySingleton(() => AddToCart(sl()));
-  // sl.registerLazySingleton(() => IncreaseCartQuantity(sl()));
-  // sl.registerLazySingleton(() => DecreaseCartQuantity(sl()));
-  // sl.registerLazySingleton(() => RemoveCartItem(sl()));
-  // sl.registerLazySingleton(() => EmptyCart(sl()));
-  // // Repository
-  // sl.registerLazySingleton<CartRepository>(() => CartRepositoryImpl(sl()));
-  // // Data sources
-  // sl.registerLazySingleton<CartRemoteDataSource>(
-  //     () => CartRemoteDataSourceImpl(client: sl()));
+  //! Cart
+  // Cubit
+  sl.registerFactory(
+    () => CartCubit(
+      getCart: sl(),
+      addToCart: sl(),
+      increaseCartQuantity: sl(),
+      decreaseCartQuantity: sl(),
+      removeCartItem: sl(),
+      emptyCart: sl(),
+    ),
+  );
+  // Use cases
+  sl.registerLazySingleton(() => GetCart(sl()));
+  sl.registerLazySingleton(() => AddToCart(sl()));
+  sl.registerLazySingleton(() => IncreaseCartQuantity(sl()));
+  sl.registerLazySingleton(() => DecreaseCartQuantity(sl()));
+  sl.registerLazySingleton(() => RemoveCartItem(sl()));
+  sl.registerLazySingleton(() => EmptyCart(sl()));
+  // Repository
+  sl.registerLazySingleton<CartRepository>(() => CartRepositoryImpl(sl()));
+  // Data sources
+  sl.registerLazySingleton<CartRemoteDataSource>(
+      () => CartRemoteDataSourceImpl(client: sl()));
 
   // //! Order
   // // Cubit
