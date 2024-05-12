@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:furnika/config/themes/app_palette.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
-import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
-import 'package:furnika/features/cart/presentation/widgets/cart_item.dart';
+
 import 'package:furnika/features/cart/presentation/widgets/cart_list.dart';
-import 'package:furnika/core/common/widgets/app_divider.dart';
-import 'package:gap/gap.dart';
+import 'package:furnika/config/routes/route_names.dart';
+import 'package:go_router/go_router.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -30,6 +30,17 @@ class _CartPageState extends State<CartPage> {
       appBar: customAppBar(
         title: 'My Cart',
         context: context,
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 8.w),
+            child: IconButton(
+              onPressed: () {
+                context.pushNamed(RouteNames.orderDetail);
+              },
+              icon: SvgPicture.asset(MediaResource.checkoutIcon),
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {

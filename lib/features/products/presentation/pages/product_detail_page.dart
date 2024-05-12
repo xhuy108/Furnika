@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:furnika/core/utils/show_snackbar.dart';
+
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -86,6 +88,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       quantity: _quantity,
                       color: 'color',
                     );
+                showSnackbar(
+                  context: context,
+                  message: 'Product added to cart',
+                  color: AppPalette.primary,
+                );
               },
             ),
           ],
