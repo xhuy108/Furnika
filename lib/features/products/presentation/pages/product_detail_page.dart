@@ -13,6 +13,7 @@ import 'package:furnika/core/common/widgets/app_favorite_button.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
 import 'package:furnika/core/common/widgets/app_divider.dart';
+import 'package:furnika/core/utils/formatter.dart';
 import 'package:furnika/features/products/presentation/widgets/rating_progress_indicator.dart';
 import 'package:furnika/features/products/presentation/widgets/review_item.dart';
 import 'package:gap/gap.dart';
@@ -27,6 +28,9 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
+  int _currentImageIndex = 0;
+  int _quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +66,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                 ),
                 Text(
-                  '\$ 250.00',
+                  currencyFormatter.format(widget.product.price),
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
@@ -163,11 +167,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 AppPalette.textThird.withOpacity(0.15),
                             iconColor: AppPalette.textPrimary,
                             icon: Icons.remove,
-                            onTap: () {},
+                            onTap: () {
+                              if (_quantity > 1) {
+                                setState(() {
+                                  _quantity--;
+                                });
+                              }
+                            },
                           ),
                           Gap(10.w),
                           Text(
-                            '1',
+                            _quantity.toString(),
                             style: TextStyle(
                               fontSize: 12.sp,
                               color: AppPalette.textPrimary,
@@ -178,7 +188,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             backgroundColor: AppPalette.primary,
                             iconColor: AppPalette.background,
                             icon: Icons.add,
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                _quantity++;
+                              });
+                            },
                           ),
                         ],
                       ),
@@ -186,7 +200,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   Gap(10.h),
                   Text(
-                    'Solange Sofa',
+                    widget.product.name,
                     style: TextStyle(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
