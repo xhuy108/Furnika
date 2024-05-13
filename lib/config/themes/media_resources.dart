@@ -63,6 +63,8 @@ class MediaResource {
 
   static const checkoutIcon = '$_baseIcons/checkout_icon.svg';
 
+  static const likedIcon = '$_baseIcons/liked_icon.svg';
+
   //IMAGE
   static const _baseImages = 'assets/images';
 

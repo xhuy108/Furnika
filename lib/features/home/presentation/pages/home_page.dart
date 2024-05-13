@@ -20,6 +20,7 @@ import 'package:furnika/core/common/widgets/product_card_item.dart';
 import 'package:furnika/features/home/presentation/widgets/option_loader.dart';
 import 'package:furnika/features/home/presentation/widgets/tag_text.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
+import 'package:furnika/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
     context.read<CategoryBloc>().add(FetchPopularCategories());
     context.read<AllCategoriesBloc>().add(FetchAllCategories());
     context.read<ProductBloc>().add(GetPopularProductsEvent());
+    context.read<WishlistCubit>().fetchWishlist();
   }
 
   @override

@@ -35,7 +35,7 @@ router
   .route("/:id/wishlist")
   .patch(
     authController.protect,
-    authController.restrictTo("user"),
+    authController.restrictTo("customer"),
     productController.addToWishlist
   );
 

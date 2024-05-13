@@ -43,22 +43,8 @@ const userSchema = mongoose.Schema(
     day_of_birth: String,
     wishlist: [
       {
-        productId: {
-          type: mongoose.Schema.ObjectId,
-          ref: "Product",
-        },
-        productName: {
-          type: String,
-          required: true,
-        },
-        productImage: {
-          type: String,
-          required: true,
-        },
-        productPrice: {
-          type: Number,
-          required: true,
-        },
+        type: mongoose.Schema.ObjectId,
+        ref: "Product",
       },
     ],
     avatar: {

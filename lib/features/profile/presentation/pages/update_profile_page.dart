@@ -12,10 +12,13 @@ import 'package:furnika/core/common/widgets/app_text_field.dart';
 import 'package:furnika/core/common/widgets/text_field_label.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
 import 'package:furnika/core/utils/formatter.dart';
+import 'package:furnika/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:gap/gap.dart';
 
 class UpdateProfilePage extends StatefulWidget {
-  const UpdateProfilePage({super.key});
+  const UpdateProfilePage({super.key, required this.user});
+
+  final User user;
 
   @override
   State<UpdateProfilePage> createState() => _UpdateProfilePageState();
@@ -42,12 +45,17 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCubit>().loadProfile();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final userState = context.watch<AppUserCubit>().state as AppUserLoggedIn;
-    _nameController.text = userState.user.userName;
-    _emailController.text = userState.user.email;
-    if (userState.user.phoneNumber != null) {
-      _phoneController.text = userState.user.phoneNumber!;
+    _nameController.text = widget.user.userName;
+    _emailController.text = widget.user.email;
+    if (widget.user.phoneNumber != null) {
+      _phoneController.text = widget.user.phoneNumber!;
     }
 
     return Scaffold(
