@@ -69,6 +69,15 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       controller: _searchController,
+                      onFieldSubmitted: (value) {
+                        context.pushNamed(
+                          RouteNames.search,
+                          pathParameters: {
+                            'text': value,
+                          },
+                        );
+                        _searchController.clear();
+                      },
                     ),
                   ),
                   Gap(10.w),

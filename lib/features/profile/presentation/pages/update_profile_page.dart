@@ -102,7 +102,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 ),
                 Gap(20.h),
                 Text(
-                  'Thanh Hien Tran',
+                  widget.user.userName,
                   style: TextStyle(
                     fontSize: 15.sp,
                     fontWeight: FontWeight.w400,

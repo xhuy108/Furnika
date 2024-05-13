@@ -48,3 +48,21 @@ final class ProductCategoryError extends ProductState {
   @override
   List<Object> get props => [message];
 }
+
+final class SearchProductsSuccess extends ProductState {
+  final List<Product> products;
+
+  const SearchProductsSuccess({required this.products});
+
+  @override
+  List<Object> get props => [products];
+}
+
+final class SearchProductsPerCategorySuccess extends ProductState {
+  final List<Product> products;
+
+  const SearchProductsPerCategorySuccess({required this.products});
+
+  @override
+  List<Object> get props => [products];
+}

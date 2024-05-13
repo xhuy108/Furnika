@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
     this.validator,
     this.onTap,
     this.readOnly = false,
+    this.onFieldSubmitted,
   });
 
   final TextEditingController? controller;
@@ -24,6 +25,7 @@ class AppTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function()? onTap;
   final bool readOnly;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class AppTextField extends StatelessWidget {
         ),
       ),
       onTap: onTap,
+      onFieldSubmitted: onFieldSubmitted,
     );
   }
 }

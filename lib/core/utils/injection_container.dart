@@ -33,6 +33,8 @@ import 'package:furnika/features/products/data/repositories/product_repository_i
 import 'package:furnika/features/products/domain/repositories/product_repository.dart';
 import 'package:furnika/features/products/domain/usecases/get_popular_products.dart';
 import 'package:furnika/features/products/domain/usecases/get_product_by_category.dart';
+import 'package:furnika/features/products/domain/usecases/search_product_by_name_per_category.dart';
+import 'package:furnika/features/products/domain/usecases/search_products_by_name.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 import 'package:furnika/features/profile/data/datasources/profile_remote_data_source.dart';
 import 'package:furnika/features/profile/data/repositories/profile_repository_impl.dart';
@@ -151,12 +153,16 @@ Future<void> init() async {
     () => ProductBloc(
       getPopularProducts: sl(),
       getProductsByCategory: sl(),
+      searchProductsByName: sl(),
+      searchProductsByNamePerCategory: sl(),
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => GetPopularProducts(sl()));
   sl.registerLazySingleton(() => GetProductsByCategory(sl()));
+  sl.registerLazySingleton(() => SearchProductsByName(sl()));
+  sl.registerLazySingleton(() => SearchProductsByNamePerCategory(sl()));
 
   // Repository
   sl.registerLazySingleton<ProductRepository>(

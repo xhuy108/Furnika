@@ -25,4 +25,5 @@ class RouteNames {
   static String review = 'review';
   static String coupon = 'coupon';
   static String chat = 'chat';
+  static String search = 'search';
 }
