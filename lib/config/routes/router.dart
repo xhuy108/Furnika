@@ -19,6 +19,7 @@ import 'package:furnika/features/order/presentation/pages/order_detail_page.dart
 import 'package:furnika/features/order/presentation/pages/order_page.dart';
 import 'package:furnika/features/products/presentation/pages/product_by_category_page.dart';
 import 'package:furnika/features/products/presentation/pages/product_detail_page.dart';
+import 'package:furnika/features/products/presentation/pages/search_product_page.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_location.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_page.dart';
 import 'package:furnika/features/profile/presentation/pages/password_management_page.dart';
@@ -122,6 +123,7 @@ class AppRouter {
           },
         ),
       ),
+
       GoRoute(
         name: RouteNames.filter,
         path: '/filter',
@@ -194,19 +196,19 @@ class AppRouter {
       //     },
       //   ),
       // ),
-      // GoRoute(
-      //   name: RouteNames.search,
-      //   path: '/search/:text',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: SearchScreen(
-      //       text: state.pathParameters['text']!,
-      //     ),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.search,
+        path: '/search/:text',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: SearchProductPage(
+            text: state.pathParameters['text']!,
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       GoRoute(
         name: RouteNames.chat,
         path: '/chat',

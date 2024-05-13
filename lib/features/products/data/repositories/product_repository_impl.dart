@@ -37,4 +37,26 @@ class ProductRepositoryImpl implements ProductRepository {
       return Left(ServerFailure.fromException(e));
     }
   }
+
+  @override
+  ResultFuture<List<Product>> searchProductByName(String text) async {
+    try {
+      final result = await remoteDataSource.searchProductByName(text);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
+
+  @override
+  ResultFuture<List<Product>> searchProductsByNamePerCategory(
+      String categoryId, String text) async {
+    try {
+      final result = await remoteDataSource.searchProductsByNamePerCategory(
+          categoryId, text);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
 }
