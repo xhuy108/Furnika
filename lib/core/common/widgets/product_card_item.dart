@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnika/config/routes/route_names.dart';
@@ -6,6 +7,7 @@ import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/entities/product.dart';
 import 'package:furnika/core/utils/formatter.dart';
+import 'package:furnika/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -47,7 +49,9 @@ class ProductCardItem extends StatelessWidget {
                 top: 6.h,
                 right: 6.w,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<WishlistCubit>().addOrRemoveProduct(product);
+                  },
                   style: IconButton.styleFrom(
                     backgroundColor: Colors.white,
                   ),

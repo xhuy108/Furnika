@@ -12,6 +12,8 @@ import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
+import 'package:furnika/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:furnika/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +42,12 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (_) => sl<CartCubit>(),
+      ),
+      BlocProvider(
+        create: (_) => sl<WishlistCubit>()..fetchWishlist(),
+      ),
+      BlocProvider(
+        create: (_) => sl<ProfileCubit>(),
       ),
     ],
     child: const MyApp(),

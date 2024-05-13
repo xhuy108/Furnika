@@ -34,6 +34,19 @@ import 'package:furnika/features/products/domain/repositories/product_repository
 import 'package:furnika/features/products/domain/usecases/get_popular_products.dart';
 import 'package:furnika/features/products/domain/usecases/get_product_by_category.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
+import 'package:furnika/features/profile/data/datasources/profile_remote_data_source.dart';
+import 'package:furnika/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:furnika/features/profile/domain/repositories/profile_repository.dart';
+import 'package:furnika/features/profile/domain/usecases/get_current_user.dart';
+import 'package:furnika/features/profile/domain/usecases/update_current_user.dart';
+import 'package:furnika/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:furnika/features/wishlist/data/datasources/wishlist_remote_datasource.dart';
+import 'package:furnika/features/wishlist/data/repositories/wishlist_repository_impl.dart';
+import 'package:furnika/features/wishlist/domain/repositories/wishlist_repository.dart';
+import 'package:furnika/features/wishlist/domain/usecases/add_or_remove_product.dart';
+import 'package:furnika/features/wishlist/domain/usecases/get_wishlist.dart';
+import 'package:furnika/features/wishlist/domain/usecases/remover_product_from_wishlist.dart';
+import 'package:furnika/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -173,43 +186,43 @@ Future<void> init() async {
   // sl.registerLazySingleton<ReviewRemoteDataSource>(
   //     () => ReviewRemoteDataSourceImpl(client: sl()));
 
-  // //! Wishlist
-  // // Cubit
-  // sl.registerFactory(
-  //   () => WishlistCubit(
-  //     getWishlist: sl(),
-  //     addOrRemoveProductFromWishlist: sl(),
-  //     removeProductFromWishlist: sl(),
-  //   ),
-  // );
-  // // Use cases
-  // sl.registerLazySingleton(() => GetWishlist(sl()));
-  // sl.registerLazySingleton(() => AddOrRemoveProductFromWishlist(sl()));
-  // sl.registerLazySingleton(() => RemoveProductFromWishlist(sl()));
-  // // Repository
-  // sl.registerLazySingleton<WishlistRepository>(
-  //     () => WishlistRepositoryImpl(sl()));
-  // // Data sources
-  // sl.registerLazySingleton<WishListRemoteDataSource>(
-  //     () => WishlistRemoteDataSourceImpl(client: sl()));
+  //! Wishlist
+  // Cubit
+  sl.registerFactory(
+    () => WishlistCubit(
+      getWishlist: sl(),
+      addOrRemoveProductFromWishlist: sl(),
+      removeProductFromWishlist: sl(),
+    ),
+  );
+  // Use cases
+  sl.registerLazySingleton(() => GetWishlist(sl()));
+  sl.registerLazySingleton(() => AddOrRemoveProductFromWishlist(sl()));
+  sl.registerLazySingleton(() => RemoveProductFromWishlist(sl()));
+  // Repository
+  sl.registerLazySingleton<WishlistRepository>(
+      () => WishlistRepositoryImpl(sl()));
+  // Data sources
+  sl.registerLazySingleton<WishListRemoteDataSource>(
+      () => WishlistRemoteDataSourceImpl(client: sl()));
 
-  // //! Profile
-  // // Cubit
-  // sl.registerFactory(
-  //   () => ProfileCubit(
-  //     getCurrentUser: sl(),
-  //     updateCurrentUser: sl(),
-  //   ),
-  // );
-  // // Use cases
-  // sl.registerLazySingleton(() => GetCurrentUser(sl()));
-  // sl.registerLazySingleton(() => UpdateCurrentUser(sl()));
-  // // Repository
-  // sl.registerLazySingleton<ProfileRepository>(
-  //     () => ProfileRepositoryImpl(sl()));
-  // // Data sources
-  // sl.registerLazySingleton<ProfileRemoteDataSource>(
-  //     () => ProfileRemoteDataSourceImpl(client: sl()));
+  //! Profile
+  // Cubit
+  sl.registerFactory(
+    () => ProfileCubit(
+      getCurrentUser: sl(),
+      updateCurrentUser: sl(),
+    ),
+  );
+  // Use cases
+  sl.registerLazySingleton(() => GetCurrentUser(sl()));
+  sl.registerLazySingleton(() => UpdateCurrentUser(sl()));
+  // Repository
+  sl.registerLazySingleton<ProfileRepository>(
+      () => ProfileRepositoryImpl(sl()));
+  // Data sources
+  sl.registerLazySingleton<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSourceImpl(client: sl()));
 
   //! Cart
   // Cubit

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnika/core/common/entities/category.dart';
 import 'package:furnika/core/common/entities/product.dart';
+import 'package:furnika/core/common/entities/user.dart';
 import 'package:furnika/core/common/widgets/navigation_menu.dart';
 import 'package:furnika/core/utils/check_is_first_time.dart';
 import 'package:furnika/core/utils/injection_container.dart';
@@ -90,7 +91,9 @@ class AppRouter {
         name: RouteNames.updateProfile,
         path: '/updateProfile',
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const UpdateProfilePage(),
+          child: UpdateProfilePage(
+            user: state.extra as User,
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);
