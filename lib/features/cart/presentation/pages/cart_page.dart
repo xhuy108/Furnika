@@ -35,7 +35,7 @@ class _CartPageState extends State<CartPage> {
             padding: EdgeInsets.only(right: 8.w),
             child: IconButton(
               onPressed: () {
-                context.pushNamed(RouteNames.orderDetail);
+                context.pushNamed(RouteNames.checkout);
               },
               icon: SvgPicture.asset(MediaResource.checkoutIcon),
             ),

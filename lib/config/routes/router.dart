@@ -15,6 +15,7 @@ import 'package:furnika/features/coupon/presentation/pages/coupon_page.dart';
 import 'package:furnika/features/filter/presentation/pages/filter_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
+import 'package:furnika/features/order/presentation/pages/checkout_page.dart';
 import 'package:furnika/features/order/presentation/pages/order_detail_page.dart';
 import 'package:furnika/features/order/presentation/pages/order_page.dart';
 import 'package:furnika/features/products/presentation/pages/product_by_category_page.dart';
@@ -123,7 +124,6 @@ class AppRouter {
           },
         ),
       ),
-
       GoRoute(
         name: RouteNames.filter,
         path: '/filter',
@@ -183,19 +183,17 @@ class AppRouter {
           },
         ),
       ),
-      // GoRoute(
-      //   name: RouteNames.checkout,
-      //   path: '/checkout/:cart',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: CheckoutScreen(
-      //       cart: state.pathParameters['cart']!,
-      //     ),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.checkout,
+        path: '/checkout',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: CheckoutPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       GoRoute(
         name: RouteNames.search,
         path: '/search/:text',

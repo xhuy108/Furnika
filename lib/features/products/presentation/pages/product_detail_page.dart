@@ -16,10 +16,12 @@ import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
 import 'package:furnika/core/common/widgets/app_divider.dart';
 import 'package:furnika/core/utils/formatter.dart';
+import 'package:furnika/core/utils/show_toast.dart';
 import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/products/presentation/widgets/rating_progress_indicator.dart';
 import 'package:furnika/features/products/presentation/widgets/review_item.dart';
 import 'package:gap/gap.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key, required this.product});
@@ -31,7 +33,7 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
-  int _currentImageIndex = 0;
+  int _currentImageIndex = -1;
   int _quantity = 1;
 
   @override
@@ -88,11 +90,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       quantity: _quantity,
                       color: 'color',
                     );
-                showSnackbar(
-                  context: context,
-                  message: 'Product added to cart',
-                  color: AppPalette.primary,
-                );
+
+                showToast(message: 'Product added to cart');
               },
             ),
           ],
@@ -110,8 +109,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(widget.product.imageCover),
-                        fit: BoxFit.cover,
+                        image: _currentImageIndex == -1
+                            ? NetworkImage(widget.product.imageCover)
+                            : NetworkImage(
+                                widget.product.images[_currentImageIndex]),
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -145,11 +147,32 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       separatorBuilder: (_, index) => Gap(5.w),
-                      itemBuilder: (_, index) => Image.asset(
-                        'assets/images/product.png',
-                        width: 50.w,
+                      itemBuilder: (_, index) => InkWell(
+                        onTap: () => setState(() {
+                          _currentImageIndex = index;
+                        }),
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.r),
+                            side: BorderSide(
+                              width: 3,
+                              color: _currentImageIndex == index
+                                  ? AppPalette.primary
+                                  : Colors.transparent,
+                            ),
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          child: FadeInImage(
+                            placeholder: MemoryImage(kTransparentImage),
+                            image: NetworkImage(widget.product.images[index]),
+                            width: 50.w,
+                            height: 50.h,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
-                      itemCount: 5,
+                      itemCount: widget.product.images.length,
                     ),
                   ),
                 ),
