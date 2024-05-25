@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/core/common/widgets/option_button.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
+import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 import 'package:furnika/features/filter/presentation/widgets/catalog_text.dart';
 import 'package:furnika/features/filter/presentation/widgets/filter_bottom_action_bar.dart';
 import 'package:furnika/features/filter/presentation/widgets/review_tile.dart';
+import 'package:furnika/features/home/presentation/widgets/category_loader.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -37,6 +40,12 @@ class _FilterPageState extends State<FilterPage> {
   SfRangeValues _currentRangeValues = const SfRangeValues(0, 400);
 
   @override
+  void initState() {
+    super.initState();
+    context.read<CategoryBloc>().add(FetchOtherCategories());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
@@ -59,19 +68,34 @@ class _FilterPageState extends State<FilterPage> {
                   Gap(15.h),
                   SizedBox(
                     height: 32.h,
-                    child: ListView.builder(
-                      itemCount: 10,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return OptionButton(
-                          title: 'Sofa',
-                          onTap: () {
-                            setState(() {
-                              _currentCategoryIndex = index;
-                            });
-                          },
-                          isActive: index == _currentCategoryIndex,
-                        );
+                    child: BlocBuilder<CategoryBloc, CategoryState>(
+                      builder: (context, state) {
+                        if (state is OtherCategoryLoading) {
+                          return const CategoryLoader();
+                        }
+                        if (state is OtherCategoryError) {
+                          return Center(
+                            child: Text(state.message),
+                          );
+                        }
+                        if (state is OtherCategoryLoaded) {
+                          return ListView.builder(
+                            itemCount: state.categories.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return OptionButton(
+                                title: state.categories[index].name,
+                                onTap: () {
+                                  setState(() {
+                                    _currentCategoryIndex = index;
+                                  });
+                                },
+                                isActive: index == _currentCategoryIndex,
+                              );
+                            },
+                          );
+                        }
+                        return const SizedBox();
                       },
                     ),
                   ),
