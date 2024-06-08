@@ -20,6 +20,7 @@ import 'package:furnika/core/utils/show_toast.dart';
 import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/products/presentation/widgets/rating_progress_indicator.dart';
 import 'package:furnika/features/products/presentation/widgets/review_item.dart';
+import 'package:furnika/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -126,8 +127,37 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     children: [
                       const CustomBackButton(),
                       const Spacer(),
-                      AppFavoriteButton(
-                        onPressed: () {},
+                      IconButton(
+                        onPressed: () {
+                          context
+                              .read<WishlistCubit>()
+                              .addOrRemoveProduct(widget.product);
+                        },
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        icon: BlocBuilder<WishlistCubit, WishlistState>(
+                          builder: (context, state) {
+                            if (state is WishlistSuccess) {
+                              return state.products.contains(widget.product)
+                                  ? SvgPicture.asset(
+                                      MediaResource.likedIcon,
+                                      width: 20.w,
+                                      height: 20.h,
+                                    )
+                                  : SvgPicture.asset(
+                                      MediaResource.likeIcon,
+                                      width: 20.w,
+                                      height: 20.h,
+                                    );
+                            }
+                            return SvgPicture.asset(
+                              MediaResource.likeIcon,
+                              width: 20.w,
+                              height: 20.h,
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

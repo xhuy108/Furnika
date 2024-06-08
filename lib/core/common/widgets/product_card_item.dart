@@ -55,10 +55,27 @@ class ProductCardItem extends StatelessWidget {
                   style: IconButton.styleFrom(
                     backgroundColor: Colors.white,
                   ),
-                  icon: SvgPicture.asset(
-                    MediaResource.likeIcon,
-                    width: 20.w,
-                    height: 20.h,
+                  icon: BlocBuilder<WishlistCubit, WishlistState>(
+                    builder: (context, state) {
+                      if (state is WishlistSuccess) {
+                        return state.products.contains(product)
+                            ? SvgPicture.asset(
+                                MediaResource.likedIcon,
+                                width: 20.w,
+                                height: 20.h,
+                              )
+                            : SvgPicture.asset(
+                                MediaResource.likeIcon,
+                                width: 20.w,
+                                height: 20.h,
+                              );
+                      }
+                      return SvgPicture.asset(
+                        MediaResource.likeIcon,
+                        width: 20.w,
+                        height: 20.h,
+                      );
+                    },
                   ),
                 ),
               ),
