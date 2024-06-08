@@ -11,6 +11,8 @@ import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
+import 'package:furnika/features/categories/presentation/function_categories_bloc/function_categories_bloc.dart';
+import 'package:furnika/features/categories/presentation/location_categories_bloc/location_category_bloc.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 import 'package:furnika/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:furnika/features/wishlist/presentation/cubit/wishlist_cubit.dart';
@@ -36,6 +38,12 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (_) => sl<AllCategoriesBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => sl<LocationCategoryBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => sl<FunctionCategoriesBloc>(),
       ),
       BlocProvider(
         create: (_) => sl<ProductBloc>(),

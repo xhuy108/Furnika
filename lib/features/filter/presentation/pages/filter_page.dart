@@ -5,6 +5,8 @@ import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/core/common/widgets/option_button.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
+import 'package:furnika/features/categories/presentation/function_categories_bloc/function_categories_bloc.dart';
+import 'package:furnika/features/categories/presentation/location_categories_bloc/location_category_bloc.dart';
 import 'package:furnika/features/filter/presentation/widgets/catalog_text.dart';
 import 'package:furnika/features/filter/presentation/widgets/filter_bottom_action_bar.dart';
 import 'package:furnika/features/filter/presentation/widgets/review_tile.dart';
@@ -43,6 +45,8 @@ class _FilterPageState extends State<FilterPage> {
   void initState() {
     super.initState();
     context.read<CategoryBloc>().add(FetchOtherCategories());
+    context.read<LocationCategoryBloc>().add(GetLocationCategoriesEvent());
+    context.read<FunctionCategoriesBloc>().add(GetFunctionCategoriesEvent());
   }
 
   @override
@@ -68,17 +72,18 @@ class _FilterPageState extends State<FilterPage> {
                   Gap(15.h),
                   SizedBox(
                     height: 32.h,
-                    child: BlocBuilder<CategoryBloc, CategoryState>(
+                    child: BlocBuilder<FunctionCategoriesBloc,
+                        FunctionCategoriesState>(
                       builder: (context, state) {
-                        if (state is OtherCategoryLoading) {
+                        if (state is FunctionCategoriesLoading) {
                           return const CategoryLoader();
                         }
-                        if (state is OtherCategoryError) {
+                        if (state is FunctionCategoriesError) {
                           return Center(
                             child: Text(state.message),
                           );
                         }
-                        if (state is OtherCategoryLoaded) {
+                        if (state is FunctionCategoriesLoaded) {
                           return ListView.builder(
                             itemCount: state.categories.length,
                             scrollDirection: Axis.horizontal,
@@ -184,19 +189,35 @@ class _FilterPageState extends State<FilterPage> {
                   Gap(15.h),
                   SizedBox(
                     height: 32.h,
-                    child: ListView.builder(
-                      itemCount: 10,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return OptionButton(
-                          title: 'Sofa',
-                          onTap: () {
-                            setState(() {
-                              _currentSubCategoryIndex = index;
-                            });
-                          },
-                          isActive: index == _currentSubCategoryIndex,
-                        );
+                    child: BlocBuilder<LocationCategoryBloc,
+                        LocationCategoryState>(
+                      builder: (context, state) {
+                        if (state is LocationCategoryLoading) {
+                          return const CategoryLoader();
+                        }
+                        if (state is LocationCategoryError) {
+                          return Center(
+                            child: Text(state.message),
+                          );
+                        }
+                        if (state is LocationCategoryLoaded) {
+                          return ListView.builder(
+                            itemCount: state.locationCategories.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return OptionButton(
+                                title: state.locationCategories[index].name,
+                                onTap: () {
+                                  setState(() {
+                                    _currentSubCategoryIndex = index;
+                                  });
+                                },
+                                isActive: index == _currentSubCategoryIndex,
+                              );
+                            },
+                          );
+                        }
+                        return const SizedBox();
                       },
                     ),
                   ),

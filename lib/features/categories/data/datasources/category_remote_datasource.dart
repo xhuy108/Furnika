@@ -9,6 +9,8 @@ abstract interface class CategoryRemoteDataSource {
   Future<List<CategoryModel>> getAllCategories();
   Future<List<CategoryModel>> getPopularCategories();
   Future<List<CategoryModel>> getOtherCategories();
+  Future<List<CategoryModel>> getFunctionalCategories();
+  Future<List<CategoryModel>> getLocationCategories();
 }
 
 class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
@@ -62,6 +64,52 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
     try {
       final response =
           await client.get('$kBaseUrl/categories/popularCategories');
+
+      return response.data['data']
+          .map<CategoryModel>((category) => CategoryModel.fromJson(category))
+          .toList();
+    } on DioException catch (dioException) {
+      throw ServerException(
+        dioException.response?.data['message'],
+        dioException.response!.statusCode!,
+      );
+    } catch (e) {
+      throw ServerException(e.toString(), 500);
+    }
+  }
+
+  @override
+  Future<List<CategoryModel>> getFunctionalCategories() async {
+    try {
+      final response = await client.get(
+        '$kBaseUrl/categories',
+        queryParameters: {
+          'type': 'function',
+        },
+      );
+
+      return response.data['data']
+          .map<CategoryModel>((category) => CategoryModel.fromJson(category))
+          .toList();
+    } on DioException catch (dioException) {
+      throw ServerException(
+        dioException.response?.data['message'],
+        dioException.response!.statusCode!,
+      );
+    } catch (e) {
+      throw ServerException(e.toString(), 500);
+    }
+  }
+
+  @override
+  Future<List<CategoryModel>> getLocationCategories() async {
+    try {
+      final response = await client.get(
+        '$kBaseUrl/categories',
+        queryParameters: {
+          'type': 'location',
+        },
+      );
 
       return response.data['data']
           .map<CategoryModel>((category) => CategoryModel.fromJson(category))

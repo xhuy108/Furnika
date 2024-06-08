@@ -6,6 +6,7 @@ import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
 import 'package:furnika/features/order/presentation/widgets/address_information.dart';
+import 'package:furnika/features/order/presentation/widgets/checkout_product.dart';
 import 'package:gap/gap.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -164,6 +165,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Home Delivery',
@@ -171,6 +173,85 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w700,
                       color: AppPalette.textPrimary,
+                    ),
+                  ),
+                  Gap(20.h),
+                  ListView.builder(
+                    itemBuilder: (context, index) {
+                      return const CheckoutProduct();
+                    },
+                    itemCount: 3,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                  ),
+                  Gap(20.h),
+                  Row(
+                    children: [
+                      Text(
+                        'Subtotal: ',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppPalette.textSecondary,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        '\$599.0',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppPalette.textPrimary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Shipping fee: ',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppPalette.textSecondary,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          '\$5.0',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppPalette.textPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Subtotal',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppPalette.textPrimary,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          '\$599.0',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppPalette.textPrimary,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
