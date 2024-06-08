@@ -65,6 +65,10 @@ app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/carts", cartRouter);
 // app.use("/api/v1/orders", orderRouter);
 
+app.use("/", (req, res) => {
+  res.send("Welcome to the Ecommerce API");
+});
+
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });

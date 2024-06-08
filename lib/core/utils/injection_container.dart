@@ -24,10 +24,14 @@ import 'package:furnika/features/categories/data/datasources/category_remote_dat
 import 'package:furnika/features/categories/data/repositories/category_repository_impl.dart';
 import 'package:furnika/features/categories/domain/repositories/category_repository.dart';
 import 'package:furnika/features/categories/domain/usecases/get_all_categories.dart';
+import 'package:furnika/features/categories/domain/usecases/get_function_category.dart';
+import 'package:furnika/features/categories/domain/usecases/get_location_categories.dart';
 import 'package:furnika/features/categories/domain/usecases/get_other_categories.dart';
 import 'package:furnika/features/categories/domain/usecases/get_popular_categories.dart';
 import 'package:furnika/features/categories/presentation/all_categories_bloc/all_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
+import 'package:furnika/features/categories/presentation/function_categories_bloc/function_categories_bloc.dart';
+import 'package:furnika/features/categories/presentation/location_categories_bloc/location_category_bloc.dart';
 import 'package:furnika/features/products/data/datasources/product_remote_data_source.dart';
 import 'package:furnika/features/products/data/repositories/product_repository_impl.dart';
 import 'package:furnika/features/products/domain/repositories/product_repository.dart';
@@ -129,9 +133,22 @@ Future<void> init() async {
       getOtherCategories: sl(),
     ),
   );
+
   sl.registerFactory(
     () => AllCategoriesBloc(
       getAllCategories: sl(),
+    ),
+  );
+
+  sl.registerFactory(
+    () => LocationCategoryBloc(
+      getLocationCategories: sl(),
+    ),
+  );
+
+  sl.registerFactory(
+    () => FunctionCategoriesBloc(
+      getFunctionalCategories: sl(),
     ),
   );
 
@@ -139,6 +156,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllCategories(sl()));
   sl.registerLazySingleton(() => GetPopularCategories(sl()));
   sl.registerLazySingleton(() => GetOtherCategories(sl()));
+  sl.registerLazySingleton(() => GetLocationCategories(sl()));
+  sl.registerLazySingleton(() => GetFunctionCategories(sl()));
 
   // Repository
   sl.registerLazySingleton<CategoryRepository>(
