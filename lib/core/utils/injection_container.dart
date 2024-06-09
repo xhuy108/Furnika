@@ -40,11 +40,19 @@ import 'package:furnika/features/products/domain/usecases/get_product_by_categor
 import 'package:furnika/features/products/domain/usecases/search_product_by_name_per_category.dart';
 import 'package:furnika/features/products/domain/usecases/search_products_by_name.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
+import 'package:furnika/features/profile/data/datasources/address_remote_datasource.dart';
 import 'package:furnika/features/profile/data/datasources/profile_remote_data_source.dart';
+import 'package:furnika/features/profile/data/repositories/address_repository_impl.dart';
 import 'package:furnika/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:furnika/features/profile/domain/repositories/address_repository.dart';
 import 'package:furnika/features/profile/domain/repositories/profile_repository.dart';
+import 'package:furnika/features/profile/domain/usecases/add_address.dart';
+import 'package:furnika/features/profile/domain/usecases/get_all_addresses.dart';
 import 'package:furnika/features/profile/domain/usecases/get_current_user.dart';
+import 'package:furnika/features/profile/domain/usecases/update_address.dart';
 import 'package:furnika/features/profile/domain/usecases/update_current_user.dart';
+import 'package:furnika/features/profile/presentation/cubit/address_cubit.dart';
+import 'package:furnika/features/profile/presentation/cubit/get_default_address.dart';
 import 'package:furnika/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:furnika/features/wishlist/data/datasources/wishlist_remote_datasource.dart';
 import 'package:furnika/features/wishlist/data/repositories/wishlist_repository_impl.dart';
@@ -274,16 +282,16 @@ Future<void> init() async {
   sl.registerLazySingleton<CartRemoteDataSource>(
       () => CartRemoteDataSourceImpl(client: sl()));
 
-  // //! Order
-  // // Cubit
-  // sl.registerFactory(
-  //   () => AddressCubit(
-  //     getDefaultAddress: sl(),
-  //     getAllAddresses: sl(),
-  //     addServerAddress: sl(),
-  //     updateAddress: sl(),
-  //   ),
-  // );
+  //! Order
+  // Cubit
+  sl.registerFactory(
+    () => AddressCubit(
+      getDefaultAddress: sl(),
+      getAllAddresses: sl(),
+      addServerAddress: sl(),
+      updateAddress: sl(),
+    ),
+  );
   // sl.registerFactory(
   //   () => OrderCubit(
   //     placeOrder: sl(),
@@ -292,22 +300,22 @@ Future<void> init() async {
   //     placeDiscountOrder: sl(),
   //   ),
   // );
-  // // Use cases
-  // sl.registerLazySingleton(() => GetDefaultAddress(sl()));
-  // sl.registerLazySingleton(() => GetAllAddresses(sl()));
-  // sl.registerLazySingleton(() => AddAddress(sl()));
-  // sl.registerLazySingleton(() => UpdateAddress(sl()));
+  // Use cases
+  sl.registerLazySingleton(() => GetDefaultAddress(sl()));
+  sl.registerLazySingleton(() => GetAllAddresses(sl()));
+  sl.registerLazySingleton(() => AddAddress(sl()));
+  sl.registerLazySingleton(() => UpdateAddress(sl()));
   // sl.registerLazySingleton(() => PlaceOrder(sl()));
   // sl.registerLazySingleton(() => PlaceDiscountOrder(sl()));
   // sl.registerLazySingleton(() => GetAllOrders(sl()));
   // sl.registerLazySingleton(() => UpdateOrderStatus(sl()));
-  // // Repository
-  // sl.registerLazySingleton<AddressRepository>(
-  //     () => AddressRepositoryImpl(sl()));
+  // Repository
+  sl.registerLazySingleton<AddressRepository>(
+      () => AddressRepositoryImpl(sl()));
   // sl.registerLazySingleton<OrderRepository>(() => OrderRepositoryImpl(sl()));
-  // // Data sources
-  // sl.registerLazySingleton<AddressRemoteDataSource>(
-  //     () => AddressRemoteDataSourceImpl(client: sl()));
+  // Data sources
+  sl.registerLazySingleton<AddressRemoteDataSource>(
+      () => AddressRemoteDataSourceImpl(client: sl()));
   // sl.registerLazySingleton<OrderRemoteDataSource>(
   //     () => OrderRemoteDataSourceImpl(client: sl()));
 

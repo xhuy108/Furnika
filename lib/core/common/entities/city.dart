@@ -1,6 +1,6 @@
 class City {
   final String name;
-  final int code;
+  final String code;
   final List<String> districts;
 
   const City({

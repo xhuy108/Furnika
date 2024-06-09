@@ -83,7 +83,11 @@ class _AccountProfilePageState extends State<AccountProfilePage> {
                   InformationItem(
                     title: 'Manage Address',
                     icon: MediaResource.manageAddressIcon,
-                    onTap: () {},
+                    onTap: () {
+                      context.pushNamed(
+                        RouteNames.address,
+                      );
+                    },
                   ),
                   InformationItem(
                     title: 'Payment Methods',
