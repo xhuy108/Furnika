@@ -37,6 +37,7 @@ class AddressRepositoryImpl extends AddressRepository {
   @override
   ResultFuture<void> addAddress(AddressModel address) async {
     try {
+      print('address');
       await remoteDataSource.addAddress(address);
       return const Right(null);
     } on ServerException catch (e) {
