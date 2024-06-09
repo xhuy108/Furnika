@@ -7,38 +7,56 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    orderItems: [
+    items: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "OrderItem",
-        required: true,
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          default: 1,
+        },
+        color: String,
+        price: Number,
       },
     ],
     totalQuantity: {
       type: Number,
       required: true,
     },
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
     shippingAddress: {
-      type: String,
-      required: true,
+      customer: {
+        type: String,
+        required: true,
+      },
+      phoneNumber: {
+        type: String,
+        required: true,
+      },
+      detailedAddress: {
+        type: String,
+        required: true,
+      },
+      district: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+      country: {
+        type: String,
+        required: true,
+      },
     },
-    phoneNumber: {
-      type: String,
-      required: true,
-    },
-    district: {
-      type: String,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
-    country: {
-      type: String,
-      required: true,
-    },
-    paymentId: String,
     paymentMethod: {
       type: String,
       default: "Cash On Delivery",
@@ -47,57 +65,16 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    status: {
+    orderStatus: {
       type: String,
-      default: "active",
-      enum: [
-        "active",
-        "pending",
-        "processed",
-        "shipped",
-        "out-for-delivery",
-        "delivered",
-        "cancelled",
-        "on-hold",
-        "expired",
-      ],
+      default: "To Pay",
+      enum: ["To Pay", "To Ship", "To Receive", "To Rate", "Completed"],
     },
-    statusHistory: {
-      type: [
-        {
-          status: {
-            type: String,
-            enum: [
-              "active",
-              "pending",
-              "processed",
-              "shipped",
-              "out-for-delivery",
-              "delivered",
-              "cancelled",
-              "on-hold",
-              "expired",
-            ],
-          },
-          createdAt: {
-            type: Date,
-            default: Date.now,
-          },
-        },
-      ],
-      default: [
-        {
-          status: "pending",
-          createdAt: Date.now(),
-        },
-      ],
-      required: true,
+    isPaid: {
+      type: Boolean,
+      default: false,
     },
-    totalPrice: Number,
-    dateOrdered: {
-      type: Date,
-      default: Date.now,
-    },
+    paidAt: Date,
   },
   {
     toJSON: { virtuals: true },
