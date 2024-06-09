@@ -7,4 +7,6 @@ abstract interface class CategoryRepository {
   ResultFuture<List<Category>> getAllCategories();
   ResultFuture<List<Category>> getPopularCategories();
   ResultFuture<List<Category>> getOtherCategories();
+  ResultFuture<List<Category>> getFunctionalCategories();
+  ResultFuture<List<Category>> getLocationCategories();
 }

@@ -49,4 +49,26 @@ class CategoryRepositoryImpl implements CategoryRepository {
       return Left(ServerFailure.fromException(e));
     }
   }
+
+  @override
+  ResultFuture<List<Category>> getFunctionalCategories() async {
+    try {
+      final categories = await remoteDataSource.getFunctionalCategories();
+
+      return Right(categories);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
+
+  @override
+  ResultFuture<List<Category>> getLocationCategories() async {
+    try {
+      final categories = await remoteDataSource.getLocationCategories();
+
+      return Right(categories);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
 }

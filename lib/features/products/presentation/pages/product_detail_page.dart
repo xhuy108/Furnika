@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:furnika/core/utils/show_snackbar.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,9 +15,14 @@ import 'package:furnika/core/common/widgets/app_favorite_button.dart';
 import 'package:furnika/core/common/widgets/custom_back_button.dart';
 import 'package:furnika/core/common/widgets/product_card_item.dart';
 import 'package:furnika/core/common/widgets/app_divider.dart';
+import 'package:furnika/core/utils/formatter.dart';
+import 'package:furnika/core/utils/show_toast.dart';
+import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:furnika/features/products/presentation/widgets/rating_progress_indicator.dart';
 import 'package:furnika/features/products/presentation/widgets/review_item.dart';
+import 'package:furnika/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:gap/gap.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key, required this.product});
@@ -27,6 +34,9 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
+  int _currentImageIndex = -1;
+  int _quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +72,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                 ),
                 Text(
-                  '\$ 250.00',
+                  currencyFormatter.format(widget.product.price),
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
@@ -75,7 +85,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               height: 46.h,
               width: 180.w,
               title: 'Add to Cart',
-              onTap: () {},
+              onTap: () {
+                context.read<CartCubit>().addProductToCart(
+                      product: widget.product,
+                      quantity: _quantity,
+                      color: 'color',
+                    );
+
+                showToast(message: 'Product added to cart');
+              },
             ),
           ],
         ),
@@ -92,8 +110,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(widget.product.imageCover),
-                        fit: BoxFit.cover,
+                        image: _currentImageIndex == -1
+                            ? NetworkImage(widget.product.imageCover)
+                            : NetworkImage(
+                                widget.product.images[_currentImageIndex]),
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -106,8 +127,37 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     children: [
                       const CustomBackButton(),
                       const Spacer(),
-                      AppFavoriteButton(
-                        onPressed: () {},
+                      IconButton(
+                        onPressed: () {
+                          context
+                              .read<WishlistCubit>()
+                              .addOrRemoveProduct(widget.product);
+                        },
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        icon: BlocBuilder<WishlistCubit, WishlistState>(
+                          builder: (context, state) {
+                            if (state is WishlistSuccess) {
+                              return state.products.contains(widget.product)
+                                  ? SvgPicture.asset(
+                                      MediaResource.likedIcon,
+                                      width: 20.w,
+                                      height: 20.h,
+                                    )
+                                  : SvgPicture.asset(
+                                      MediaResource.likeIcon,
+                                      width: 20.w,
+                                      height: 20.h,
+                                    );
+                            }
+                            return SvgPicture.asset(
+                              MediaResource.likeIcon,
+                              width: 20.w,
+                              height: 20.h,
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -127,11 +177,32 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       separatorBuilder: (_, index) => Gap(5.w),
-                      itemBuilder: (_, index) => Image.asset(
-                        'assets/images/product.png',
-                        width: 50.w,
+                      itemBuilder: (_, index) => InkWell(
+                        onTap: () => setState(() {
+                          _currentImageIndex = index;
+                        }),
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.r),
+                            side: BorderSide(
+                              width: 3,
+                              color: _currentImageIndex == index
+                                  ? AppPalette.primary
+                                  : Colors.transparent,
+                            ),
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          child: FadeInImage(
+                            placeholder: MemoryImage(kTransparentImage),
+                            image: NetworkImage(widget.product.images[index]),
+                            width: 50.w,
+                            height: 50.h,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
-                      itemCount: 5,
+                      itemCount: widget.product.images.length,
                     ),
                   ),
                 ),
@@ -163,11 +234,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 AppPalette.textThird.withOpacity(0.15),
                             iconColor: AppPalette.textPrimary,
                             icon: Icons.remove,
-                            onTap: () {},
+                            onTap: () {
+                              if (_quantity > 1) {
+                                setState(() {
+                                  _quantity--;
+                                });
+                              }
+                            },
                           ),
                           Gap(10.w),
                           Text(
-                            '1',
+                            _quantity.toString(),
                             style: TextStyle(
                               fontSize: 12.sp,
                               color: AppPalette.textPrimary,
@@ -178,7 +255,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             backgroundColor: AppPalette.primary,
                             iconColor: AppPalette.background,
                             icon: Icons.add,
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                _quantity++;
+                              });
+                            },
                           ),
                         ],
                       ),
@@ -186,7 +267,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   Gap(10.h),
                   Text(
-                    'Solange Sofa',
+                    widget.product.name,
                     style: TextStyle(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w500,

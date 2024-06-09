@@ -28,3 +28,41 @@ final class ProductsError extends ProductState {
   @override
   List<Object> get props => [message];
 }
+
+final class ProductCategoryLoading extends ProductState {}
+
+final class ProductCategoryLoaded extends ProductState {
+  final List<Product> products;
+
+  const ProductCategoryLoaded(this.products);
+
+  @override
+  List<Object> get props => [products];
+}
+
+final class ProductCategoryError extends ProductState {
+  final String message;
+
+  const ProductCategoryError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+final class SearchProductsSuccess extends ProductState {
+  final List<Product> products;
+
+  const SearchProductsSuccess({required this.products});
+
+  @override
+  List<Object> get props => [products];
+}
+
+final class SearchProductsPerCategorySuccess extends ProductState {
+  final List<Product> products;
+
+  const SearchProductsPerCategorySuccess({required this.products});
+
+  @override
+  List<Object> get props => [products];
+}

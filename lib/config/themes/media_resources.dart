@@ -61,6 +61,10 @@ class MediaResource {
   //Review
   static const cameraIcon = '$_baseIcons/camera_icon.svg';
 
+  static const checkoutIcon = '$_baseIcons/checkout_icon.svg';
+
+  static const likedIcon = '$_baseIcons/liked_icon.svg';
+
   //IMAGE
   static const _baseImages = 'assets/images';
 

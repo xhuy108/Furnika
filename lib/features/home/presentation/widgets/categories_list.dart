@@ -18,7 +18,7 @@ class CategoriesList extends StatelessWidget {
         crossAxisCount: 4,
         mainAxisSpacing: 20.h, // vertical spacing
         crossAxisSpacing: 20.w,
-        childAspectRatio: 0.8,
+        childAspectRatio: 0.7,
       ),
       itemCount: itemCount,
       shrinkWrap: true,

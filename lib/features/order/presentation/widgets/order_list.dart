@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/features/order/presentation/widgets/order_product_card.dart';
 
 class OrderList extends StatelessWidget {

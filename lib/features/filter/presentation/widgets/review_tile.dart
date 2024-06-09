@@ -6,18 +6,25 @@ import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
 import 'package:gap/gap.dart';
 
-class ReviewTile extends StatelessWidget {
+class ReviewTile extends StatefulWidget {
   const ReviewTile({super.key, required this.title, required this.rating});
 
   final double rating;
   final String title;
 
   @override
+  State<ReviewTile> createState() => _ReviewTileState();
+}
+
+class _ReviewTileState extends State<ReviewTile> {
+  bool _isSelected = false;
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         RatingBar.builder(
-          initialRating: rating,
+          initialRating: widget.rating,
           minRating: 1,
           direction: Axis.horizontal,
           allowHalfRating: true,
@@ -33,7 +40,7 @@ class ReviewTile extends StatelessWidget {
         ),
         Gap(10.w),
         Text(
-          title,
+          widget.title,
           style: TextStyle(
             fontSize: 12.sp,
             color: AppPalette.textPrimary,
@@ -41,11 +48,13 @@ class ReviewTile extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Radio(
-          value: 1,
-          groupValue: 1,
-          activeColor: AppPalette.primary,
-          onChanged: (value) {},
+        Checkbox(
+          value: _isSelected,
+          onChanged: (value) {
+            setState(() {
+              _isSelected = value!;
+            });
+          },
         ),
       ],
     );

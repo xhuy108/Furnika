@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:furnika/core/common/entities/category.dart';
 import 'package:furnika/core/common/entities/product.dart';
+import 'package:furnika/core/common/entities/user.dart';
 import 'package:furnika/core/common/widgets/navigation_menu.dart';
 import 'package:furnika/core/utils/check_is_first_time.dart';
 import 'package:furnika/core/utils/injection_container.dart';
@@ -13,10 +15,12 @@ import 'package:furnika/features/coupon/presentation/pages/coupon_page.dart';
 import 'package:furnika/features/filter/presentation/pages/filter_page.dart';
 import 'package:furnika/features/home/presentation/pages/home_page.dart';
 import 'package:furnika/features/onboarding/presentation/pages/onboarding.dart';
+import 'package:furnika/features/order/presentation/pages/checkout_page.dart';
 import 'package:furnika/features/order/presentation/pages/order_detail_page.dart';
 import 'package:furnika/features/order/presentation/pages/order_page.dart';
 import 'package:furnika/features/products/presentation/pages/product_by_category_page.dart';
 import 'package:furnika/features/products/presentation/pages/product_detail_page.dart';
+import 'package:furnika/features/products/presentation/pages/search_product_page.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_location.dart';
 import 'package:furnika/features/profile/presentation/pages/complete_profile_page.dart';
 import 'package:furnika/features/profile/presentation/pages/password_management_page.dart';
@@ -89,7 +93,9 @@ class AppRouter {
         name: RouteNames.updateProfile,
         path: '/updateProfile',
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const UpdateProfilePage(),
+          child: UpdateProfilePage(
+            user: state.extra as User,
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);
@@ -145,9 +151,8 @@ class AppRouter {
         path: '/productByCategory',
         pageBuilder: (context, state) => CustomTransitionPage(
           child: ProductByCategoryPage(
-              // category: state.pathParameters['category']!,
-              // categoryId: state.pathParameters['categoryId']!,
-              ),
+            category: state.extra as Category,
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);
@@ -178,32 +183,30 @@ class AppRouter {
           },
         ),
       ),
-      // GoRoute(
-      //   name: RouteNames.checkout,
-      //   path: '/checkout/:cart',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: CheckoutScreen(
-      //       cart: state.pathParameters['cart']!,
-      //     ),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
-      // GoRoute(
-      //   name: RouteNames.search,
-      //   path: '/search/:text',
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     child: SearchScreen(
-      //       text: state.pathParameters['text']!,
-      //     ),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return buildTransition(
-      //           context, animation, secondaryAnimation, child);
-      //     },
-      //   ),
-      // ),
+      GoRoute(
+        name: RouteNames.checkout,
+        path: '/checkout',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: CheckoutPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.search,
+        path: '/search/:text',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: SearchProductPage(
+            text: state.pathParameters['text']!,
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
       GoRoute(
         name: RouteNames.chat,
         path: '/chat',

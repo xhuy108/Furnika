@@ -51,4 +51,15 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure.fromException(e));
     }
   }
+
+  @override
+  ResultFuture<void> cacheFirstTime() async {
+    try {
+      await localDataSource.cacheFirstTime();
+
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
 }

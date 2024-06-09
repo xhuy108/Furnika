@@ -35,3 +35,11 @@ final class AuthLogin extends AuthEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+final class AuthLogout extends AuthEvent {
+  const AuthLogout();
+}
+
+final class AuthCacheFirstTime extends AuthEvent {
+  const AuthCacheFirstTime();
+}
