@@ -79,7 +79,7 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
 
       throw ServerException(
         data['message'],
-        response.statusCode,
+        response.statusCode!,
       );
     } catch (e) {
       throw ServerException(e.toString(), 500);
@@ -88,16 +88,11 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
 
   @override
   Future<void> addAddress(AddressModel address) async {
-    final url = Uri.parse('$kBaseUrl/addresses');
+    const url = '$kBaseUrl/addresses';
     try {
       final response = await client.post(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':
-              'Bearer ${sl<SharedPreferences>().getString(kAccessToken)}',
-        },
-        body: json.encode({
+        data: json.encode({
           'customer': address.customer,
           'phoneNumber': address.phoneNumber,
           'detailedAddress': address.detailedAddress,
@@ -105,8 +100,15 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
           'city': address.city,
           'country': address.country,
         }),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${sl<SharedPreferences>().getString(kAccessToken)}',
+          },
+        ),
       );
-      final DataMap data = jsonDecode(response.body);
+      final DataMap data = jsonDecode(response.data);
 
       if (data['data']['data'].isEmpty) {
         throw const ServerException('No default address', 404);
@@ -118,7 +120,7 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
 
       throw ServerException(
         data['message'],
-        response.statusCode,
+        response.statusCode!,
       );
     } catch (e) {
       throw ServerException(e.toString(), 500);
@@ -127,16 +129,18 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
 
   @override
   Future<void> updateAddress(AddressModel address) async {
-    final url = Uri.parse('$kBaseUrl/addresses/${address.id}');
+    final url = '$kBaseUrl/addresses/${address.id}';
     try {
       final response = await client.patch(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':
-              'Bearer ${sl<SharedPreferences>().getString(kAccessToken)}',
-        },
-        body: json.encode(
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${sl<SharedPreferences>().getString(kAccessToken)}',
+          },
+        ),
+        data: json.encode(
           {
             'customer': address.customer,
             'phoneNumber': address.phoneNumber,
@@ -147,7 +151,7 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
           },
         ),
       );
-      final DataMap data = jsonDecode(response.body);
+      final DataMap data = jsonDecode(response.data);
 
       if (response.statusCode == 200) {
         return;
@@ -155,7 +159,7 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
 
       throw ServerException(
         data['message'],
-        response.statusCode,
+        response.statusCode!,
       );
     } catch (e) {
       throw ServerException(e.toString(), 500);
