@@ -19,7 +19,7 @@ class RouteNames {
   static String updateProfile = 'updateProfile';
   static String checkout = 'checkout';
   static String filter = 'filter';
-  //static String address = 'address';
+  static String address = 'address';
   static String order = 'order';
   static String orderDetail = 'orderDetail';
   static String review = 'review';

@@ -28,6 +28,7 @@ import 'package:furnika/features/profile/presentation/pages/password_management_
 import 'package:furnika/features/profile/presentation/pages/setting_page.dart';
 import 'package:furnika/features/profile/presentation/pages/account_profile_page.dart';
 import 'package:furnika/features/profile/presentation/pages/update_profile_page.dart';
+import 'package:furnika/features/profile/presentation/pages/user_address_page.dart';
 import 'package:furnika/features/review/presentation/pages/create_review_page.dart';
 import 'package:furnika/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:go_router/go_router.dart';
@@ -292,6 +293,17 @@ class AppRouter {
         path: '/accountProfile',
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const AccountProfilePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return buildTransition(
+                context, animation, secondaryAnimation, child);
+          },
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.address,
+        path: '/address',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const UserAddressPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return buildTransition(
                 context, animation, secondaryAnimation, child);

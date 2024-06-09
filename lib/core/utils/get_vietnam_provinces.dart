@@ -16,10 +16,8 @@ String convertAddressName(String name) {
 }
 
 Future<List<City>> getCities() async {
-  final Dio dio = Dio();
   List<City> cities = [];
 
-  // print(response.body);
   final String response =
       await rootBundle.loadString('assets/json/json_data_vn_units.json');
   final List<dynamic> data = jsonDecode(response);
@@ -28,7 +26,7 @@ Future<List<City>> getCities() async {
     cities.add(
       City(
         name: item['NameEn'],
-        code: item['Code'],
+        code: item['Code'].to,
         districts: item['District']
             .map<String>(
               (district) => district['NameEn'],

@@ -10,7 +10,7 @@ const AppError = require("./src/utils/appError");
 const globalErrorHandler = require("./src/controllers/error.controller");
 
 const userRouter = require("./src/routes/user.route");
-// const addressRouter = require("./routes/addressRoute");
+const addressRouter = require("./src/routes/address.route");
 const productRouter = require("./src/routes/product.route");
 const reviewRouter = require("./src/routes/review.route");
 // const brandRouter = require("./routes/brandRoute");
@@ -56,7 +56,7 @@ app.use(
 );
 
 app.use("/api/v1/users", userRouter);
-// app.use("/api/v1/addresses", addressRouter);
+app.use("/api/v1/addresses", addressRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
 // app.use("/api/v1/brands", brandRouter);
