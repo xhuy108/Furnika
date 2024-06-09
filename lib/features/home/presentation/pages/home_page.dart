@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                               crossAxisCount: 2,
                               mainAxisSpacing: 20.h, // vertical spacing
                               crossAxisSpacing: 20.w,
-                              childAspectRatio: 0.75,
+                              childAspectRatio: 0.7,
                             ),
                             itemCount: popularProducts.length,
                             shrinkWrap: true,

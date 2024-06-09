@@ -32,6 +32,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String password,
   }) async {
     try {
+      print('$kBaseUrl/users/login');
+
       final response = await client.post(
         '$kBaseUrl/users/login',
         data: {
