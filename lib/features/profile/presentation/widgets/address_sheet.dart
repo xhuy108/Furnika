@@ -59,30 +59,18 @@ class _AddressSheetState extends State<AddressSheet> {
   void submit() async {
     final isValidate = _formKey.currentState!.validate();
     if (isValidate) {
-      if (widget.address != null) {
-        // context.read<AddressCubit>().updateAddressItem(
-        //       AddressModel(
-        //         id: widget.address!.id,
-        //         customer: _nameController.text,
-        //         phoneNumber: _phoneNumberController.text,
-        //         country: _countryController.text,
-        //         city: _selectedCity!.name,
-        //         district: _selectedDistrict!,
-        //         detailedAddress: _streetController.text,
-        //       ),
-        //     );
-      } else {
-        // context.read<AddressCubit>().addAddress(
-        //       AddressModel(
-        //         id: uuid.v4(),
-        //         customer: _nameController.text,
-        //         phoneNumber: _phoneNumberController.text,
-        //         country: _countryController.text,
-        //         city: _selectedCity!.name,
-        //         district: _selectedDistrict!,
-        //         detailedAddress: _streetController.text,
-        //       ),
-        //     );
+      if (widget.address == null) {
+        context.read<AddressCubit>().addAddress(
+              AddressModel(
+                id: uuid.v4(),
+                customer: _nameController.text,
+                phoneNumber: _phoneNumberController.text,
+                country: _countryController.text,
+                city: _selectedCity!.name,
+                district: _selectedDistrict!,
+                detailedAddress: _streetController.text,
+              ),
+            );
       }
       if (!mounted) {
         return;

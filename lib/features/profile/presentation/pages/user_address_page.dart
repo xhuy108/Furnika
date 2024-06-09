@@ -22,6 +22,12 @@ class _UserAddressPageState extends State<UserAddressPage> {
   int selectedAddress = 0;
   bool isLoading = true;
 
+  @override
+  void initState() {
+    super.initState();
+    context.read<AddressCubit>().fetchAllAddresses();
+  }
+
   void showAddressModal(Address? address) async {
     setState(() {
       isLoading = true;
@@ -108,9 +114,9 @@ class _UserAddressPageState extends State<UserAddressPage> {
                         groupValue: selectedAddress,
                         onChanged: (value) {
                           setState(() {
-                            // context
-                            //     .read<AddressCubit>()
-                            //     .reOrderAddresses(index);
+                            context
+                                .read<AddressCubit>()
+                                .reOrderAddresses(index);
                           });
                         },
                         onTap: () {

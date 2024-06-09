@@ -36,7 +36,7 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
           },
         ),
       );
-      final DataMap data = jsonDecode(response.data);
+      final DataMap data = response.data;
 
       if (response.statusCode == 200) {
         return data['data']['data']
@@ -88,6 +88,7 @@ class AddressRemoteDataSourceImpl extends AddressRemoteDataSource {
 
   @override
   Future<void> addAddress(AddressModel address) async {
+    print('address: $address');
     const url = '$kBaseUrl/addresses';
     try {
       final response = await client.post(

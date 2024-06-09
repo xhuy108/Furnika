@@ -23,15 +23,15 @@ Future<List<City>> getCities() async {
   final List<dynamic> data = jsonDecode(response);
 
   for (final item in data) {
+    List<String> districts = [];
+    for (final district in item['District']) {
+      districts.add(district['NameEn'] as String);
+    }
     cities.add(
       City(
-        name: item['NameEn'],
-        code: item['Code'].to,
-        districts: item['District']
-            .map<String>(
-              (district) => district['NameEn'],
-            )
-            .toList(),
+        name: item['NameEn'] as String,
+        code: item['Code'] as String,
+        districts: districts,
       ),
     );
   }

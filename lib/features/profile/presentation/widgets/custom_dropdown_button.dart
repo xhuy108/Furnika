@@ -23,50 +23,22 @@ class CustomDropdownButton extends StatelessWidget {
     return DropdownButtonFormField(
       value: value,
       validator: validator,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppPalette.primary,
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: Color(0xFFE3E3E3),
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppPalette.error),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppPalette.error),
-        ),
-        errorStyle: TextStyle(
-          fontSize: 10.sp,
-        ),
-        contentPadding: const EdgeInsets.only(
-          top: 18,
-          bottom: 12,
-          left: 18,
-          right: 12,
-        ),
-        hintText: hintText,
-        hintStyle: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: const Color(0xFFB0B0B0).withOpacity(0.9),
+      hint: Text(
+        hintText ?? 'Select an item',
+        style: TextStyle(
+          color: AppPalette.textSecondary,
+          fontSize: 11.sp,
         ),
       ),
       style: TextStyle(
-        fontSize: 12.sp,
-        fontWeight: FontWeight.w500,
         color: Colors.black,
+        fontSize: 11.sp,
       ),
-      borderRadius: BorderRadius.circular(18),
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+        ),
+      ),
       items: items,
       onChanged: onChanged,
     );
