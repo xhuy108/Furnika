@@ -49,8 +49,9 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "To Pay",
+      default: "active",
       enum: [
+        "active",
         "pending",
         "processed",
         "shipped",
@@ -67,6 +68,7 @@ const orderSchema = new mongoose.Schema(
           status: {
             type: String,
             enum: [
+              "active",
               "pending",
               "processed",
               "shipped",

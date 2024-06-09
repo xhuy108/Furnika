@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/utils/get_vietnam_provinces.dart';
 import 'package:gap/gap.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -52,7 +53,9 @@ class HomeAppBar extends StatelessWidget {
             ],
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              getCities();
+            },
             icon: SvgPicture.asset(
               MediaResource.bellIcon,
               width: 20.w,

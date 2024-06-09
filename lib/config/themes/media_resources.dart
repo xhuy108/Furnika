@@ -65,6 +65,8 @@ class MediaResource {
 
   static const likedIcon = '$_baseIcons/liked_icon.svg';
 
+  static const addressLocationIcon = '$_baseIcons/location_icon.svg';
+
   //IMAGE
   static const _baseImages = 'assets/images';
 
