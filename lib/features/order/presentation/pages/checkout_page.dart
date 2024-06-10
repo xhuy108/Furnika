@@ -108,10 +108,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
       final Dio dio = Dio();
 
       final response = await dio.post(
-        'https://api.stripe.com/v1/payment_intents',
+        '$kBaseUrl/orders/payment',
         data: json.encode(body),
         options: Options(headers: {
-          'Authorization': 'Bearer $kStripeSecretKey',
           'Content-Type': 'application/x-www-form-urlencoded',
         }),
       );
