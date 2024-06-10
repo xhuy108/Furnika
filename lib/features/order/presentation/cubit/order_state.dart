@@ -6,7 +6,7 @@ class OrderState {
   final List<OrderEntity> orders;
   final OrderStatus orderStatus;
   final List<OrderItemModel> orderItems;
-  final int totalOrderPrice;
+  final double totalOrderPrice;
   final OrderStatus orderItemStatus;
   final String errorMessage;
 
@@ -25,7 +25,7 @@ class OrderState {
     List<OrderItemModel>? orderItems,
     OrderStatus? orderItemStatus,
     String? errorMessage,
-    int? totalOrderPrice,
+    double? totalOrderPrice,
   }) {
     return OrderState(
       orders: orders ?? this.orders,

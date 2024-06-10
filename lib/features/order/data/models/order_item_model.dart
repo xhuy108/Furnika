@@ -20,7 +20,7 @@ class OrderItemModel extends OrderItem {
       : super(
           id: map['id'] as String,
           product: ProductModel.fromJson(map['product']),
-          price: map['price'] as int,
+          price: map['price'] as double,
           quantity: map['quantity'] as int,
           color: map['color'] as String,
         );

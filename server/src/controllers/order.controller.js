@@ -61,3 +61,28 @@ exports.createOrder = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.payment = catchAsync(async (req, res, next) => {
+  const { body } = req;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: body?.amount,
+      currency: body?.currency,
+    });
+
+    if (paymentIntent?.status !== "completed") {
+      console.log("Payment failed");
+      return res.status(400).json({
+        message: "Payment failed",
+        client_secret: paymentIntent.client_secret,
+      });
+    }
+    return res.status(200).json({
+      message: "Payment successful",
+      client_secret: paymentIntent?.client_secret,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});

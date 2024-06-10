@@ -46,7 +46,7 @@ class OrderRepositoryImpl extends OrderRepository {
 
   @override
   ResultFuture<void> placeDiscountOrder(
-      OrderModel order, int totalPrice) async {
+      OrderModel order, double totalPrice) async {
     try {
       await remoteDataSource.placeDiscountOrder(order, totalPrice);
       return const Right(null);

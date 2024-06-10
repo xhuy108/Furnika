@@ -14,6 +14,8 @@ router
     orderController.createOrder
   );
 
+router.route("/payment").post(orderController.payment);
+
 router
   .route("/:id")
   .get(orderController.getOrder)

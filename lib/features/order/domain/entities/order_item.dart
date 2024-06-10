@@ -5,7 +5,7 @@ class OrderItem extends Equatable {
   final String id;
   final Product product;
   final int quantity;
-  final int price;
+  final double price;
   final String color;
 
   const OrderItem({

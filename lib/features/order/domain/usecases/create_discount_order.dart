@@ -18,7 +18,7 @@ class PlaceDiscountOrder
 
 class PlaceDiscountOrderParams extends Equatable {
   final OrderModel order;
-  final int totalPrice;
+  final double totalPrice;
 
   const PlaceDiscountOrderParams({
     required this.order,
