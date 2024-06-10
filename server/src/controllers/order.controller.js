@@ -2,6 +2,11 @@ const Order = require("./../models/order.model");
 const factory = require("../utils/handlerFactory");
 const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
+const Stripe = require("stripe");
+const key =
+  "sk_test_51OIwCIGJQyVtA8BL2TjbFA1j1xJFEJsi3KIEbArRbgsOtMsZV26HYXCrHBnExg5qPxgc6YEVzNHplL7fzdiEsg3m0035DCltQt";
+
+const stripe = new Stripe(key);
 
 exports.setOrderUserIds = (req, res, next) => {
   // Allow nested routes

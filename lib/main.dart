@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:furnika/config/routes/router.dart';
 import 'package:furnika/config/themes/theme.dart';
 import 'package:furnika/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:furnika/core/common/cubits/navigation/navigation_cubit.dart';
+import 'package:furnika/core/constraints/constraints.dart';
 import 'package:furnika/core/utils/injection_container.dart';
 import 'package:furnika/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
@@ -23,6 +25,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await init();
+
+  Stripe.publishableKey = kStripePublishKey;
+  await Stripe.instance.applySettings();
 
   runApp(MultiBlocProvider(
     providers: [
