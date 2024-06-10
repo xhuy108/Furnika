@@ -1,4 +1,5 @@
 import 'package:furnika/core/common/entities/product.dart';
+import 'package:furnika/features/categories/data/models/category_model.dart';
 
 class ProductModel extends Product {
   const ProductModel({
@@ -19,7 +20,8 @@ class ProductModel extends Product {
       price: (json['price'] as num).toDouble(),
       images: List<String>.from(json['images']),
       imageCover: json['imageCover'],
-      category: [],
+      category: List<CategoryModel>.from(
+          json['category'].map((x) => CategoryModel.fromJson(x))),
     );
   }
 
@@ -41,7 +43,7 @@ class ProductModel extends Product {
     double? price,
     List<String>? images,
     String? imageCover,
-    List<String>? category,
+    List<CategoryModel>? category,
   }) {
     return ProductModel(
       id: id ?? this.id,

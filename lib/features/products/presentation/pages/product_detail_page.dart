@@ -18,11 +18,13 @@ import 'package:furnika/core/common/widgets/app_divider.dart';
 import 'package:furnika/core/utils/formatter.dart';
 import 'package:furnika/core/utils/show_toast.dart';
 import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 import 'package:furnika/features/products/presentation/widgets/rating_progress_indicator.dart';
 import 'package:furnika/features/products/presentation/widgets/review_item.dart';
 import 'package:furnika/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key, required this.product});
@@ -36,6 +38,14 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _currentImageIndex = -1;
   int _quantity = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<ProductBloc>()
+        .add(GetProductsByCategoryEvent(widget.product.category[0].id));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -475,26 +485,34 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   Gap(10.h),
                   SizedBox(
                     height: 220.h,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) => Container(
-                        width: 150.w,
-                        height: 150.h,
-                        margin: EdgeInsets.only(right: 12.w),
-                        child: ProductCardItem(
-                          product: Product(
-                            id: index.toString(),
-                            name: 'sofa',
-                            description: 'description',
-                            price: 1,
-                            imageCover:
-                                'https://th.bing.com/th/id/OIP.yOoOlRkcBZmpRfP3AlPD4QHaEo?rs=1&pid=ImgDetMain',
-                            images: ['images'],
-                            category: ['category'],
-                          ),
-                        ),
-                      ),
+                    child: BlocBuilder<ProductBloc, ProductState>(
+                      builder: (context, state) {
+                        if (state is ProductCategoryLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (state is ProductCategoryError) {
+                          return Center(
+                            child: Text(state.message),
+                          );
+                        }
+                        if (state is ProductCategoryLoaded) {
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.products.length,
+                            itemBuilder: (context, index) => Container(
+                              width: 150.w,
+                              height: 150.h,
+                              margin: EdgeInsets.only(right: 12.w),
+                              child: ProductCardItem(
+                                product: state.products[index],
+                              ),
+                            ),
+                          );
+                        }
+                        return const SizedBox();
+                      },
                     ),
                   ),
                   Gap(10.h),

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:furnika/core/common/entities/category.dart';
 
 class Product extends Equatable {
   final String id;
@@ -7,7 +8,7 @@ class Product extends Equatable {
   final double price;
   final String imageCover;
   final List<String> images;
-  final List<String> category;
+  final List<Category> category;
 
   const Product({
     required this.id,
