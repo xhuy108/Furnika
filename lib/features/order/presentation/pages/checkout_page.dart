@@ -27,6 +27,37 @@ import 'package:go_router/go_router.dart';
 
 enum PaymentMethodEnum { cashOnDelivery, stripe }
 
+Future createPaymentIntent(
+    {required String currency, required String amount}) async {
+  final dio = Dio();
+
+  final body = {
+    'amount': amount,
+    'currency': currency.toLowerCase(),
+    'automatic_payment_methods[enabled]': 'true',
+    'description': "Test Donation",
+  };
+
+  final response = await dio.post(
+    'https://api.stripe.com/v1/payment_intents',
+    options: Options(headers: {
+      "Authorization": "Bearer $kStripeSecretKey",
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }),
+    data: body,
+  );
+
+  print(body);
+
+  if (response.statusCode == 200) {
+    var json = jsonDecode(response.data);
+    print(json);
+    return json;
+  } else {
+    print("error in calling payment intent");
+  }
+}
+
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
 
@@ -49,37 +80,67 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   void makePayment(double amount) async {
     try {
-      paymentIntent = await createPaymentIntent(amount);
+      // 1. create payment intent on the client side by calling stripe api
+      final data = await createPaymentIntent(
+        // convert string to double
+        amount: (amount * 100).toString(),
+        currency: 'usd',
+      );
 
+      // 2. initialize the payment sheet
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: paymentIntent!['client_secret'],
-          googlePay: const PaymentSheetGooglePay(
-            merchantCountryCode: 'US',
-            currencyCode: 'usd',
-            testEnv: true,
-          ),
+          // Set to true for custom flow
+          customFlow: false,
+          // Main params
+          merchantDisplayName: 'Test Merchant',
+          paymentIntentClientSecret: data['client_secret'],
+          // Customer keys
+          customerEphemeralKeySecret: data['ephemeralKey'],
+          customerId: data['id'],
+
           style: ThemeMode.dark,
-          merchantDisplayName: 'Example Inc.',
-          appearance: const PaymentSheetAppearance(
-            colors: PaymentSheetAppearanceColors(
-              primary: AppPalette.primary,
-            ),
-            primaryButton: PaymentSheetPrimaryButtonAppearance(
-              colors: PaymentSheetPrimaryButtonTheme(
-                light: PaymentSheetPrimaryButtonThemeColors(
-                  background: AppPalette.primary,
-                  text: AppPalette.textPrimary,
-                ),
-              ),
-            ),
-          ),
         ),
       );
-      displayPaymentSheet();
     } catch (e) {
-      throw Exception(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+      rethrow;
     }
+
+    // try {
+    //   paymentIntent = await createPaymentIntent(amount);
+
+    //   await Stripe.instance.initPaymentSheet(
+    //     paymentSheetParameters: SetupPaymentSheetParameters(
+    //       paymentIntentClientSecret: paymentIntent!['client_secret'],
+    //       googlePay: const PaymentSheetGooglePay(
+    //         merchantCountryCode: 'US',
+    //         currencyCode: 'usd',
+    //         testEnv: true,
+    //       ),
+    //       style: ThemeMode.dark,
+    //       merchantDisplayName: 'Example Inc.',
+    //       appearance: const PaymentSheetAppearance(
+    //         colors: PaymentSheetAppearanceColors(
+    //           primary: AppPalette.primary,
+    //         ),
+    //         primaryButton: PaymentSheetPrimaryButtonAppearance(
+    //           colors: PaymentSheetPrimaryButtonTheme(
+    //             light: PaymentSheetPrimaryButtonThemeColors(
+    //               background: AppPalette.primary,
+    //               text: AppPalette.textPrimary,
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   );
+    //   displayPaymentSheet();
+    // } catch (e) {
+    //   throw Exception(e.toString());
+    // }
   }
 
   void displayPaymentSheet() async {
@@ -97,28 +158,31 @@ class _CheckoutPageState extends State<CheckoutPage> {
     }
   }
 
-  createPaymentIntent(double amount) async {
-    try {
-      int money = (amount * 100).toInt();
-      Map<String, dynamic> body = {
-        'amount': money.toString(),
-        'currency': 'usd',
-      };
+  // createPaymentIntent(double amount) async {
+  //   try {
+  //     int money = (amount * 100).toInt();
+  //     Map<String, dynamic> body = {
+  //       'amount': money.toString(),
+  //       'currency': 'usd',
+  //     };
 
-      final Dio dio = Dio();
+  //     final Dio dio = Dio();
 
-      final response = await dio.post(
-        '$kBaseUrl/orders/payment',
-        data: json.encode(body),
-        options: Options(headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        }),
-      );
-      return json.decode(response.data);
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
+  //     final response = await dio.post(
+  //       '$kBaseUrl/orders/payment',
+  //       data: json.encode(body),
+  //       options: Options(headers: {
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //       }),
+  //     );
+  //     print('pay');
+  //     print(response.data);
+  //     return (response.data);
+  //   } catch (e) {
+  //     print(e);
+  //     throw Exception(e.toString());
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
