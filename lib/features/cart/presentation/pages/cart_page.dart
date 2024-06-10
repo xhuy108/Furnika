@@ -8,6 +8,8 @@ import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
 
 import 'package:furnika/features/cart/presentation/widgets/cart_list.dart';
 import 'package:furnika/config/routes/route_names.dart';
+import 'package:furnika/features/order/data/models/order_item_model.dart';
+import 'package:furnika/features/order/presentation/cubit/order_cubit.dart';
 import 'package:go_router/go_router.dart';
 
 class CartPage extends StatefulWidget {
@@ -33,11 +35,32 @@ class _CartPageState extends State<CartPage> {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 8.w),
-            child: IconButton(
-              onPressed: () {
-                context.pushNamed(RouteNames.checkout);
+            child: BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) {
+                if (state is CartLoaded) {
+                  return IconButton(
+                    onPressed: state.cart.cartTotalQuantity == 0
+                        ? null
+                        : () {
+                            final orderItems = state.cart.items
+                                .map(
+                                  (item) => OrderItemModel(
+                                    id: item.id,
+                                    product: item.product,
+                                    quantity: item.quantity,
+                                    price: item.price,
+                                    color: item.color,
+                                  ),
+                                )
+                                .toList();
+                            context.read<OrderCubit>().addOrderItem(orderItems);
+                            context.pushNamed(RouteNames.checkout);
+                          },
+                    icon: SvgPicture.asset(MediaResource.checkoutIcon),
+                  );
+                }
+                return const SizedBox();
               },
-              icon: SvgPicture.asset(MediaResource.checkoutIcon),
             ),
           ),
         ],

@@ -12,7 +12,7 @@ abstract class OrderRemoteDataSource {
   const OrderRemoteDataSource();
 
   Future<void> placeOrder(OrderModel order);
-  Future<void> placeDiscountOrder(OrderModel order, int totalPrice);
+  Future<void> placeDiscountOrder(OrderModel order, double totalPrice);
   Future<List<OrderModel>> getAllOrders(String query);
   Future<void> updateOrderStatus(String orderId, String status);
 }
@@ -112,7 +112,7 @@ class OrderRemoteDataSourceImpl extends OrderRemoteDataSource {
   }
 
   @override
-  Future<void> placeDiscountOrder(OrderModel order, int totalPrice) async {
+  Future<void> placeDiscountOrder(OrderModel order, double totalPrice) async {
     const url = '$kBaseUrl/orders';
     try {
       final response = await client.post(

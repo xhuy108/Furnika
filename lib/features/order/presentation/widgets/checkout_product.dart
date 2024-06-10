@@ -2,9 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnika/config/themes/app_palette.dart';
 import 'package:furnika/config/themes/media_resources.dart';
+import 'package:furnika/core/common/entities/product.dart';
 
 class CheckoutProduct extends StatelessWidget {
-  const CheckoutProduct({super.key});
+  const CheckoutProduct({
+    super.key,
+    required this.product,
+    required this.quantity,
+    required this.imageCover,
+  });
+
+  final Product product;
+  final int quantity;
+  final String imageCover;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +48,8 @@ class CheckoutProduct extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: AssetImage(MediaResource.onBoardingBackground),
-                    fit: BoxFit.cover,
+                    image: NetworkImage(imageCover),
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -53,7 +63,7 @@ class CheckoutProduct extends StatelessWidget {
                     SizedBox(
                       width: 200,
                       child: Text(
-                        'product.name',
+                        product.name,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -89,7 +99,7 @@ class CheckoutProduct extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '1.12',
+                          product.price.toString(),
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
@@ -113,7 +123,7 @@ class CheckoutProduct extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '12',
+                          quantity.toString(),
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,

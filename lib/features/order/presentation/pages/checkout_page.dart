@@ -12,8 +12,14 @@ import 'package:furnika/config/themes/media_resources.dart';
 import 'package:furnika/core/common/widgets/app_button.dart';
 import 'package:furnika/core/common/widgets/custom_app_bar.dart';
 import 'package:furnika/core/constraints/constraints.dart';
+import 'package:furnika/core/utils/formatter.dart';
+import 'package:furnika/core/utils/show_toast.dart';
+import 'package:furnika/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:furnika/features/order/data/models/order_model.dart';
+import 'package:furnika/features/order/presentation/cubit/order_cubit.dart';
 import 'package:furnika/features/order/presentation/widgets/address_information.dart';
 import 'package:furnika/features/order/presentation/widgets/checkout_product.dart';
+import 'package:furnika/features/order/presentation/widgets/payment_button.dart';
 import 'package:furnika/features/profile/data/models/address_model.dart';
 import 'package:furnika/features/profile/presentation/cubit/address_cubit.dart';
 import 'package:gap/gap.dart';
@@ -31,7 +37,7 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   PaymentMethodEnum paymentMethod = PaymentMethodEnum.cashOnDelivery;
   Map<String, dynamic>? paymentIntent;
-  int shipCost = 30000;
+  int shipCost = 4;
   AddressModel? address;
   int? discountValue;
 
@@ -41,7 +47,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     context.read<AddressCubit>().fetchAllAddresses();
   }
 
-  void makePayment(int amount) async {
+  void makePayment(double amount) async {
     try {
       paymentIntent = await createPaymentIntent(amount);
 
@@ -49,8 +55,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: paymentIntent!['client_secret'],
           googlePay: const PaymentSheetGooglePay(
-            merchantCountryCode: 'VN',
-            currencyCode: 'vnd',
+            merchantCountryCode: 'US',
+            currencyCode: 'usd',
             testEnv: true,
           ),
           style: ThemeMode.dark,
@@ -77,39 +83,33 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   void displayPaymentSheet() async {
-    // try {
-    //   await Stripe.instance.presentPaymentSheet();
-    //   if (mounted) {
-    //     if (widget.cart == 'cart') {
-    //       BlocProvider.of<CartCubit>(context).emptyCartItem();
-    //     }
-    //     BlocProvider.of<OrderCubit>(context).emptyOrder();
-    //     shipCost = 0;
-    //     discountValue = 0;
-    //     showDialog(
-    //       context: context,
-    //       builder: (ctx) {
-    //         return const StatusDialog();
-    //       },
-    //     );
-    //   }
-    // } catch (e) {
-    //   throw Exception(e.toString());
-    // }
+    try {
+      await Stripe.instance.presentPaymentSheet();
+      if (mounted) {
+        BlocProvider.of<CartCubit>(context).emptyCartItem();
+        BlocProvider.of<OrderCubit>(context).emptyOrder();
+        shipCost = 0;
+        discountValue = 0;
+        showToast(message: 'Payment successful!');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
-  createPaymentIntent(int amount) async {
+  createPaymentIntent(double amount) async {
     try {
+      int money = (amount * 100).toInt();
       Map<String, dynamic> body = {
-        'amount': amount.toString(),
-        'currency': 'vnd',
+        'amount': money.toString(),
+        'currency': 'usd',
       };
 
       final Dio dio = Dio();
 
       final response = await dio.post(
         'https://api.stripe.com/v1/payment_intents',
-        data: body,
+        data: json.encode(body),
         options: Options(headers: {
           'Authorization': 'Bearer $kStripeSecretKey',
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -123,6 +123,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = (context.watch<CartCubit>().state as CartLoaded).cart;
+    final order = context.watch<OrderCubit>().state;
+    var totalOrderPrice = order.totalOrderPrice + shipCost;
+
     return Scaffold(
       appBar: customAppBar(
         title: 'Checkout',
@@ -160,7 +164,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ),
                 ),
                 Text(
-                  '\$599.0',
+                  currencyFormatter
+                      .format(order.totalOrderPrice + shipCost)
+                      .toString(),
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
@@ -173,7 +179,134 @@ class _CheckoutPageState extends State<CheckoutPage> {
               height: 46.h,
               width: 180.w,
               title: 'Pay Now',
-              onTap: () {},
+              onTap: () {
+                if (address == null) {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => Dialog(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24,
+                          horizontal: 18,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // SvgPicture.asset(
+                            //   MediaResource.error,
+                            //   width: 80,
+                            // ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Text(
+                              'Error!',
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                                color: AppPalette.primary,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              'Please choose an address!',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF666666),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            ElevatedButton.icon(
+                              icon: const Icon(
+                                Icons.add_location_rounded,
+                                color: AppPalette.textSecondary,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppPalette.primary,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                  horizontal: 24,
+                                ),
+                              ),
+                              onPressed: () {
+                                context.pop();
+                                context.pushNamed(RouteNames.address);
+                              },
+                              label: Text(
+                                'Choose address',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: AppPalette.textSecondary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                  return;
+                }
+                if (paymentMethod == PaymentMethodEnum.cashOnDelivery) {
+                  BlocProvider.of<CartCubit>(context).emptyCartItem();
+
+                  BlocProvider.of<OrderCubit>(context).emptyOrder();
+                  final newOrder = OrderModel(
+                    items: order.orderItems,
+                    shippingAddress: address!,
+                    paymentMethod: 'Cash On Delivery',
+                    shippingPrice: shipCost,
+                  );
+                  discountValue == null
+                      ? context.read<OrderCubit>().createOrder(newOrder)
+                      : context.read<OrderCubit>().createDiscountOrder(
+                            newOrder,
+                            order.totalOrderPrice - discountValue!,
+                          );
+                  setState(() {
+                    shipCost = 0;
+                    discountValue = 0;
+                  });
+                  showToast(message: 'Order placed successfully!');
+                  context.pushNamed(RouteNames.navigationMenu);
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (ctx) {
+
+                  //   },
+                  // );
+                }
+                if (paymentMethod == PaymentMethodEnum.stripe) {
+                  makePayment(order.totalOrderPrice + shipCost);
+                  final newOrder = OrderModel(
+                    items: order.orderItems,
+                    shippingAddress: address!,
+                    paymentMethod: 'Stripe',
+                    shippingPrice: shipCost,
+                  );
+                  context.read<OrderCubit>().createOrder(newOrder);
+                  discountValue == null
+                      ? context.read<OrderCubit>().createOrder(newOrder)
+                      : context.read<OrderCubit>().createDiscountOrder(
+                            newOrder,
+                            order.totalOrderPrice - discountValue!,
+                          );
+                }
+              },
             ),
           ],
         ),
@@ -316,11 +449,52 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   Gap(20.h),
                   ListView.builder(
                     itemBuilder: (context, index) {
-                      return const CheckoutProduct();
+                      return CheckoutProduct(
+                        product: order.orderItems[index].product,
+                        quantity: order.orderItems[index].quantity,
+                        imageCover: order.orderItems[index].product.imageCover,
+                      );
                     },
-                    itemCount: 3,
+                    itemCount: order.orderItems.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
+                  ),
+                  Gap(20.h),
+                  Text(
+                    'Payment Method',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppPalette.textPrimary,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: PaymentButton(
+                      icon: MediaResource.cash,
+                      content: 'Cash on Delivery',
+                      value: PaymentMethodEnum.cashOnDelivery,
+                      groupValue: paymentMethod,
+                      onChanged: (value) {
+                        setState(() {
+                          paymentMethod = value!;
+                        });
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: PaymentButton(
+                      icon: MediaResource.stripe,
+                      content: 'Stripe',
+                      value: PaymentMethodEnum.stripe,
+                      groupValue: paymentMethod,
+                      onChanged: (value) {
+                        setState(() {
+                          paymentMethod = value!;
+                        });
+                      },
+                    ),
                   ),
                   Gap(20.h),
                   Row(
@@ -335,7 +509,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                       const Spacer(),
                       Text(
-                        '\$599.0',
+                        currencyFormatter
+                            .format(order.totalOrderPrice)
+                            .toString(),
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
@@ -358,7 +534,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         ),
                         const Spacer(),
                         Text(
-                          '\$5.0',
+                          currencyFormatter.format(shipCost).toString(),
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
@@ -382,7 +558,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         ),
                         const Spacer(),
                         Text(
-                          '\$599.0',
+                          currencyFormatter
+                              .format(order.totalOrderPrice + shipCost)
+                              .toString(),
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,

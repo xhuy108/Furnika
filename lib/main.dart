@@ -13,6 +13,7 @@ import 'package:furnika/features/categories/presentation/all_categories_bloc/all
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 import 'package:furnika/features/categories/presentation/function_categories_bloc/function_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/location_categories_bloc/location_category_bloc.dart';
+import 'package:furnika/features/order/presentation/cubit/order_cubit.dart';
 import 'package:furnika/features/products/presentation/bloc/product_bloc.dart';
 import 'package:furnika/features/profile/presentation/cubit/address_cubit.dart';
 import 'package:furnika/features/profile/presentation/cubit/profile_cubit.dart';
@@ -60,6 +61,9 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (_) => sl<AddressCubit>(),
+      ),
+      BlocProvider(
+        create: (_) => sl<OrderCubit>(),
       ),
     ],
     child: const MyApp(),

@@ -32,6 +32,14 @@ import 'package:furnika/features/categories/presentation/all_categories_bloc/all
 import 'package:furnika/features/categories/presentation/category_bloc/category_bloc.dart';
 import 'package:furnika/features/categories/presentation/function_categories_bloc/function_categories_bloc.dart';
 import 'package:furnika/features/categories/presentation/location_categories_bloc/location_category_bloc.dart';
+import 'package:furnika/features/order/data/datasources/order_remote_datasource.dart';
+import 'package:furnika/features/order/data/repositories/order_repository_impl.dart';
+import 'package:furnika/features/order/domain/repositories/order_repository.dart';
+import 'package:furnika/features/order/domain/usecases/create_discount_order.dart';
+import 'package:furnika/features/order/domain/usecases/create_order.dart';
+import 'package:furnika/features/order/domain/usecases/get_all_order.dart';
+import 'package:furnika/features/order/domain/usecases/update_order_status.dart';
+import 'package:furnika/features/order/presentation/cubit/order_cubit.dart';
 import 'package:furnika/features/products/data/datasources/product_remote_data_source.dart';
 import 'package:furnika/features/products/data/repositories/product_repository_impl.dart';
 import 'package:furnika/features/products/domain/repositories/product_repository.dart';
@@ -292,32 +300,32 @@ Future<void> init() async {
       updateAddress: sl(),
     ),
   );
-  // sl.registerFactory(
-  //   () => OrderCubit(
-  //     placeOrder: sl(),
-  //     getAllOrders: sl(),
-  //     updateOrderStatus: sl(),
-  //     placeDiscountOrder: sl(),
-  //   ),
-  // );
+  sl.registerFactory(
+    () => OrderCubit(
+      placeOrder: sl(),
+      getAllOrders: sl(),
+      updateOrderStatus: sl(),
+      placeDiscountOrder: sl(),
+    ),
+  );
   // Use cases
   sl.registerLazySingleton(() => GetDefaultAddress(sl()));
   sl.registerLazySingleton(() => GetAllAddresses(sl()));
   sl.registerLazySingleton(() => AddAddress(sl()));
   sl.registerLazySingleton(() => UpdateAddress(sl()));
-  // sl.registerLazySingleton(() => PlaceOrder(sl()));
-  // sl.registerLazySingleton(() => PlaceDiscountOrder(sl()));
-  // sl.registerLazySingleton(() => GetAllOrders(sl()));
-  // sl.registerLazySingleton(() => UpdateOrderStatus(sl()));
+  sl.registerLazySingleton(() => PlaceOrder(sl()));
+  sl.registerLazySingleton(() => PlaceDiscountOrder(sl()));
+  sl.registerLazySingleton(() => GetAllOrders(sl()));
+  sl.registerLazySingleton(() => UpdateOrderStatus(sl()));
   // Repository
   sl.registerLazySingleton<AddressRepository>(
       () => AddressRepositoryImpl(sl()));
-  // sl.registerLazySingleton<OrderRepository>(() => OrderRepositoryImpl(sl()));
+  sl.registerLazySingleton<OrderRepository>(() => OrderRepositoryImpl(sl()));
   // Data sources
   sl.registerLazySingleton<AddressRemoteDataSource>(
       () => AddressRemoteDataSourceImpl(client: sl()));
-  // sl.registerLazySingleton<OrderRemoteDataSource>(
-  //     () => OrderRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<OrderRemoteDataSource>(
+      () => OrderRemoteDataSourceImpl(client: sl()));
 
   // //! Core
   sl.registerLazySingleton(

@@ -67,6 +67,9 @@ class MediaResource {
 
   static const addressLocationIcon = '$_baseIcons/location_icon.svg';
 
+  static const stripe = '$_baseIcons/stripe-logo.png';
+  static const cash = '$_baseIcons/cash.svg';
+
   //IMAGE
   static const _baseImages = 'assets/images';
 

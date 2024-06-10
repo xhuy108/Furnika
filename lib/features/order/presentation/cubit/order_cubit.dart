@@ -24,7 +24,7 @@ class OrderCubit extends Cubit<OrderState> {
   }) : super(const OrderState());
 
   void addOrderItem(List<OrderItemModel> items) {
-    int totalOrderPrice = 0;
+    double totalOrderPrice = 0;
     for (var orderItem in items) {
       totalOrderPrice += orderItem.price * orderItem.quantity;
     }
@@ -40,7 +40,7 @@ class OrderCubit extends Cubit<OrderState> {
     await placeOrder(order);
   }
 
-  void createDiscountOrder(OrderModel order, int totalPrice) async {
+  void createDiscountOrder(OrderModel order, double totalPrice) async {
     await placeDiscountOrder(
       PlaceDiscountOrderParams(
         order: order,
